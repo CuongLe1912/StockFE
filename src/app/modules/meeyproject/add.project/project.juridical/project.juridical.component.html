@@ -1,0 +1,52 @@
+<div wrapper *ngIf="item" class="edit-project-legal" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="juridical" property="Description" [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }"></editor>
+                </div>
+                <div class="col-sm-6">
+                    <editor #uploadFiles [(object)]="juridical" property="Files" (valueChange)="selectedFiles()" [decorator]="{ readonly: viewer, popupArchive: dialogPopupFileArchive }"></editor>
+                </div>
+                <div class="col-sm-6">
+                    <editor #uploadImageFiles [(object)]="juridical" property="ImageFiles" (valueChange)="selectedFiles('image')" [decorator]="{ readonly: viewer, popupArchive: dialogPopupImageArchive }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-hover dataTable no-footer" style="margin-bottom: 15px !important">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px;">STT</th>
+                                <th>Tài liệu</th>
+                                <th>Loại tài liệu pháp lý</th>
+                                <th>Mô tả</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let file of juridical.Details; let i=index;">
+                                <td class="number">
+                                    <span>{{ i+1 }}</span>
+                                </td>
+                                <td class="td-input">
+                                    <p *ngIf="!file.TypeFile || file.TypeFile == 'file'">{{ file.Name }}</p>
+                                    <p *ngIf="file.TypeFile && file.TypeFile == 'image'"><img [src]="file.Url" height="100"/></p>
+                                </td>
+                                <td class="td-input">
+                                    <editor [(object)]="juridical.Details[i]" property="Type" [decorator]="{ label: '', readonly: viewer, index: i }"></editor>
+                                </td>
+                                <td class="td-input">
+                                    <editor [(object)]="juridical.Details[i]" className="non-readonly" property="Description" [decorator]="{ label: '', readonly: viewer, index: i }"></editor>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        <button class="btn btn-sm btn-info" (click)="downloadFile(juridical.Details[i])" tooltip="Download"><i class="la la-download"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

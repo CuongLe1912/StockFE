@@ -1,0 +1,31 @@
+<div class="col-md-12">
+    <div class="row" style="margin: 20px auto;">
+        <div class="col-md-6 text-center">Số bản ghi thành công: {{countSuccess}}</div>
+        <div class="col-md-6 text-center">Số bản ghi không thành công: {{countFail}}</div>
+    </div>
+</div> 
+<div class="col-md-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Loại chuyển hướng</th>
+                <th>URL cũ</th>
+                <th>URL mới</th>
+                <th>Mô tả</th>
+                <th>Lý do</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let obj of listImport">
+                <td>{{obj.STT}}</td>
+                <td>{{obj['Loại chuyển hướng *']}}</td>
+                <td>{{subStringUrl(obj['URL cũ *'])}}</td>
+                <td>{{subStringUrl(obj['URL mới *'])}}</td>
+                <td *ngIf="!obj.status" class="text-warning">Không hợp lệ</td>
+                <td *ngIf="obj.status" style="color: #5867dd;">Hợp lệ</td>
+                <td>{{obj.note}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

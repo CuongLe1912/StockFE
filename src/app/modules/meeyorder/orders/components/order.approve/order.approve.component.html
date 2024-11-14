@@ -1,0 +1,18 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <div style="margin-bottom: 20px;">
+            <span>Bạn xác nhận {{ action == 'approve' ? 'duyệt' : 'từ chối' }} đơn hàng?</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <label class="col-sm-2 col-form-label">{{ labelNote }} <span class="text-danger" *ngIf="action == 'reject'">*</span></label>
+            <div class="col-sm-8">
+              <editor [(object)]="item" property="Note" [decorator]="{ label: '', placeholder: labelNote }" (valueChange)="valueChange()"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMessage }}</em>
+    </div>
+</div>

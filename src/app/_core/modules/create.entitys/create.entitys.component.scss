@@ -1,0 +1,15 @@
+::ng-deep .CodeMirror {
+    height: auto;
+}
+.code-copies {
+    position: absolute;
+    top: 1px;
+    right: 11px;
+    z-index: 99999;
+}
+
+.btn-tabs-right {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}

@@ -1,0 +1,69 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-article">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions"
+        [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head" style="padding-top: 0 !important;">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x"
+                        [ngClass]="{'disabled': processing}">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('info')"
+                                [ngClass]="{'active':!tab || tab == 'info', 'tab-link-error': validTabs.includes('info')}">
+                                Thông tin chủ đầu tư <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('info')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('image')"
+                                [ngClass]="{'active':tab == 'image', 'tab-link-error': validTabs.includes('image')}">
+                                Kho ảnh & giao diện <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('image')"></i>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item" *ngIf="viewer">
+                            <a class="nav-link" (click)="selectedTab('dealer')"
+                                [ngClass]="{'active':tab == 'dealer', 'tab-link-error': validTabs.includes('dealer')}">
+                                Thông tin đại lý <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('dealer')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="viewer">
+                            <a class="nav-link" (click)="selectedTab('transaction')"
+                                [ngClass]="{'active':tab == 'transaction', 'tab-link-error': validTabs.includes('transaction')}">
+                                Thông tin giao dịch <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('transaction')"></i>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding-bottom: 0;">
+                <div class="tab-content group-image">
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'info'}">
+                        <mcrm-investor-info #investorInfo [params]="{item: item, viewer: viewer, isUpdate: isUpdate }"
+                            (validTabChange)="validTabChange($event)" *ngIf="item"></mcrm-investor-info>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'image'}">
+                        <mcrm-investor-image #investorImage [params]="{item: item, viewer: viewer }"
+                            (validTabChange)="validTabChange($event)"></mcrm-investor-image>
+                    </div>
+                    <!-- <div class="tab-pane" *ngIf="viewer" [ngClass]="{'active':tab == 'dealer'}">
+                        <mcrm-investor-dealer #investorDealer [params]="{item: item, viewer: viewer }"
+                            (validTabChange)="validTabChange($event)"></mcrm-investor-dealer>
+                    </div>
+                    <div class="tab-pane" *ngIf="viewer" [ngClass]="{'active':tab == 'transaction'}">
+                        <mcrm-investor-transaction #investorTransaction [params]="{item: item, viewer: viewer }"
+                            (validTabChange)="validTabChange($event)"></mcrm-investor-transaction>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loadingInfo">
+        <loading></loading>
+    </div>
+</div>

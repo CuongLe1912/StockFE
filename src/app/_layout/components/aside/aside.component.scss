@@ -1,0 +1,22 @@
+.kt-aside-menu-wrapper {
+    overflow: auto;
+    padding-bottom: 30px;
+    height: calc(100% - 70px);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    border-top: none;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: rgba($color: #646c9a, $alpha: 0.6);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba($color: #646c9a, $alpha: 0.8);
+}

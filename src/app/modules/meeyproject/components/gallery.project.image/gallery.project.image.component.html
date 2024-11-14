@@ -1,0 +1,45 @@
+<div wrapper class="gallery-image">  
+  <div class="row" style="margin: 15px -10px;">
+    <div class="col-sm-2" *ngFor="let item of images">
+        <div class="images-item">
+            <div class="image" [style.background-image]="'url(&quot;' + item.url + '&quot;)'">
+                <a [href]="item.url" data-fancybox="gallery">
+                    <img class="rounded" [src]="item.url" style="opacity: 0;"/>
+                </a>
+            </div>                
+            <div class="item-content">
+                <div class="content-title" *ngIf="item?.title || item?.edit">
+                    <span class="text-info" (dblclick)="changeName(item)" *ngIf="!item?.edit && !viewer" [title]="item.title">
+                        {{ getName(item.title) }}
+                    </span>
+                    <span class="text-info" *ngIf="viewer" [title]="item.title">{{ getName(item.title) }}</span>
+                    <input [id]="item._id" class="form-control" type="text" [(ngModel)]="item.title" maxlength="100" (blur)="changeName(item)" (keyup)="eventListener($event, item)" (keypress)="validInput($event)" *ngIf="item?.edit && !viewer"/>
+                </div>                    
+                <div class="content-text" *ngIf="item?.size">
+                    <label class="content-info">Dung lượng:</label>
+                    <label class="content-info">{{ (item.size / 1024) | numberx }} KB</label>
+                </div>
+                <div class="content-text" *ngIf="item?.createdBy?.data?.fullname">
+                    <label class="content-info">Người tạo:</label>
+                    <label class="content-info">{{ item.createdBy.data.fullname }}</label>
+                </div>
+                <div class="content-text" *ngIf="item?.createdAt">
+                    <label class="content-info">Ngày tạo:</label>
+                    <label class="content-info">{{ item.createdAt | datetimex }}</label>
+                </div>
+            </div>
+            <div class="item-button" *ngIf="!viewer">
+                <div class="group-control">
+                  <span class="control btn-danger" (click)="removeImg(item)" tooltip="Xóa ảnh"><i class="fa fa-times"></i></span>
+                  <span class="control btn-success" (click)="changeName(item)" tooltip="Sửa tên ảnh"><i class="fa fa-pen"></i></span>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" *ngIf="images.length < 1">
+      <em class="text-muted input-info">Không tìm thấy hình ảnh!</em>
+    </div>
+  </div>
+
+  <loading *ngIf="loading"></loading>
+</div>

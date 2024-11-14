@@ -1,0 +1,17 @@
+<div wrapper *ngIf="item" class="edit-project-legal" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="salePolicy" className="non-readonly" property="Description" [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor #uploadImages [(object)]="salePolicy" property="Images" [decorator]="{ readonly: viewer, totalSize: 20, popupArchive: dialogPopupImageArchive }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor #uploadFiles [(object)]="salePolicy" property="Files" [decorator]="{ readonly: viewer, popupArchive: dialogPopupFileArchive }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

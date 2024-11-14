@@ -1,0 +1,6 @@
+<div class="row edit-partner-code" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="MLPartnerId" [labelInline]="true" [decorator]="{ readonly: true }"></editor>
+        <editor [(object)]="item" property="PartnerKey" [labelInline]="true" (valueChange)="valueChange()"></editor>
+    </div>
+</div>

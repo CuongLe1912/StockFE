@@ -1,0 +1,19 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile view-similarity-article">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box-item">
+                    <h5>Thông tin tin đăng</h5>
+                    <ml-list-article-all [articleIds]="id"></ml-list-article-all>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="box-item">
+                    <h5>Kết quả kiểm tra trùng lặp</h5>
+                    <ml-list-article-similarity [articleIds]="articleIds" [originalId]="id"></ml-list-article-similarity>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

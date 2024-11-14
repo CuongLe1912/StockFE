@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-sm-4"><b>Kết quả tải lên</b></div>
+            <div class="col-sm-4 amount" style="color:green">{{ valid }} bản ghi hợp lệ</div>
+            <div class="col-sm-4 amount" style="color:red">{{ error }} bản ghi không hợp lệ</div>
+        </div>
+        <div class="nav-item"><p> <a class="nav-link" (click) = "export()">
+            <i class="la la-download"></i> Tải xuống các dữ liệu không hợp lệ
+        </a></p></div>
+    </div>
+    <div class="col-sm-12">
+        <emloyee-sale-list-import [items]="items"></emloyee-sale-list-import>
+    </div>
+</div>

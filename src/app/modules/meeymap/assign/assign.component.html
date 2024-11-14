@@ -1,0 +1,17 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Name" [viewer]="true"></editor>
+        <editor [(object)]="item" property="Phone" [viewer]="true"></editor>
+        <editor [(object)]="item" property="Email" [viewer]="true"></editor>
+        <editor *ngIf="item.User" [(object)]="item" property="User" [viewer]="true"></editor>
+        <div class="row" style="margin-top: 5px;">
+            <label class="col-3" style="padding-top: 8px;">Nhân viên</label>
+            <div class="col-9">
+                <editor [(object)]="item" property="UserId" [decorator]="{label: '', lookup: { url: '/user/LookupForMeeyMap?emptyItem=0&lookUpHistoryId=' + item.Id }}"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

@@ -1,0 +1,186 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body edit-orders" *ngIf="!loading">
+      <div class="kt-form kt-form--label-right">
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                      <div class="kt-portlet__head-label">
+                          <h3 class="kt-portlet__head-title">
+                              Thông tin dịch vụ muốn mua
+                          </h3>
+                      </div>
+                    </div>
+                    <div class="kt-portlet__body">                        
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">Dịch vụ <span class="text-danger">*</span></label>
+                              <div class="col-sm-6">
+                                <editor *ngIf="serviceOption" [(object)]="item" property="ServiceId" [decorator]="{ label: '', lookup: { items: serviceOption } }" (valueChange)="changeUnit(item.ServiceId)"></editor>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">Phương thức TT <span class="text-danger">*</span></label>
+                              <div class="col-sm-6">
+                                <editor [(object)]="item" property="PaymentMethod" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">Số tiền thanh toán <span class="text-danger">*</span></label>
+                              <div class="col-sm-6">
+                                <editor [(object)]="item" property="Price" [decorator]="{ label: '', readonly: true }"></editor>
+                              </div>
+                              <div class="col-sm-3">
+                                <label class="col-sm-3 col-form-label"><em>vnđ</em></label>                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">Ghi chú <span class="text-danger">*</span></label>
+                              <div class="col-sm-6">
+                                <editor [(object)]="item" property="Note" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="kt-portlet kt-portlet--tabs" style="height: 95%;">
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Thông tin khách hàng
+                        </h3>
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body">                        
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Tìm kiếm KH <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                              <div class="input-group align-items-end">
+                                <editor [(object)]="item" property="SearchCustom" (keyPressEnter)="searchCustomer()" (valueChange)="clearCustomer()" [decorator]="{ label:'' }"></editor>
+                                <editor-button label="Tìm kiếm" [process]="processSearch" (click)="searchCustomer()" [disabled]="item.SearchCustom ? false : true"></editor-button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="item.UserMeeyId">
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Họ tên KH</label>
+                            <label class="col-sm-6 col-form-label">{{ item.CustomerName }}</label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                            <label class="col-sm-6 col-form-label">{{ item.CustomerPhone }}</label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <label class="col-sm-6 col-form-label">{{ item.CustomerEmail }}</label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label" *ngIf="userBalance?.MPConnected">Liên kết Meey Pay</label>
+                            <label class="col-sm-6 col-form-label" *ngIf="userBalance?.MPConnected">{{ userBalance.MPPhone }}</label>
+                            <label class="col-sm-6 col-form-label" *ngIf="!userBalance?.MPConnected && errorMesssageUser">
+                              <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssageUser }}</em>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="showUserTransactionReward && item.PaymentMethod == transactionRewardType">
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Số dư TK ưu đãi</label>
+                            <div class="col-sm-5">
+                              <p class="d-flex align-items-center justify-content-between">
+                                <span style="width: 120px; display: inline-block;">{{ itemTransactionReward }}</span>
+                              </p>
+                            </div>
+                          </div>                          
+                        </div>
+                        <div class="col-sm-12" *ngIf="errorMesssageTransaction">
+                          <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssageTransaction }}</em>
+                        </div>
+                        <div class="col-sm-12" *ngIf="successMesssageTransaction && !errorMesssageTransaction">
+                          <em class="text-success"><i class="la la-check" aria-hidden="true"></i> {{ successMesssageTransaction }}</em>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="userBalance && item.PaymentMethod == meeyPayAccountType">
+                        <div class="col-sm-12" *ngIf="userBalance.MPConnected">
+                          <div class="row">
+                            <label class="col-sm-3 col-form-label">Số dư</label>
+                            <div class="col-sm-5">
+                              <p class="d-flex align-items-center justify-content-between">
+                                <span style="width: 120px; display: inline-block;">
+                                  <i class="la la-caret-right"></i> TK Chính: 
+                                </span>
+                                <span>{{ userBalance.Balance | currencyx }}</span>
+                              </p>
+                              <p class="d-flex align-items-center justify-content-between">
+                                <span style="width: 120px; display: inline-block;">
+                                  <i class="la la-caret-right"></i> TK KM1:
+                                </span>
+                                <span>{{ userBalance.DiscountBalance1 | currencyx }}</span>
+                              </p>
+                              <p class="d-flex align-items-center justify-content-between">
+                                <span style="width: 120px; display: inline-block;">
+                                  <i class="la la-caret-right"></i> TK KM2:
+                                </span>
+                                <span>{{ userBalance.DiscountBalance2 | currencyx }}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="userBalance?.MPConnected && errorMesssageUser">
+                          <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssageUser }}</em>
+                        </div>
+                        <div class="col-sm-12" *ngIf="successMesssageUser && !errorMesssageUser">
+                          <em class="text-success"><i class="la la-check" aria-hidden="true"></i> {{ successMesssageUser }}</em>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="loadingUserBalance">
+                        <div class="col-sm-12">
+                          <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="kt-form" *ngIf="!item">
+          {{ message }}
+      </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+      <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

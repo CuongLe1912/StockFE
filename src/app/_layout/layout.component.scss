@@ -1,0 +1,97 @@
+.kt-wrapper {
+    height: 100vh;
+
+    .kt-content {
+        margin: 0;
+        padding: 0;
+        .kt-container {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            .kt-portlet {
+                margin: 0;
+                padding: 0;
+                &.kt-portlet-grid {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .kt-footer {
+        z-index: 1;
+        border-top: 1px solid #ebedf2;
+    }
+}
+
+.form-group {
+    .select2-container {
+        width: 100% !important;
+    }
+}
+
+.page-bar {
+    .page-breadcrumb {
+        margin: 0;
+        padding: 8px;
+        list-style: none;
+        display: inline-block;
+        li {
+            display: inline-block;
+            a {
+                font-size: 14px;
+                font-weight: 500;
+                color: rgba($color: #1e1e2d, $alpha: 0.8);
+                &:hover {
+                    color: rgba($color: #1e1e2d, $alpha: 1.0);
+                }
+            }
+            span {
+                font-size: 14px;
+                font-weight: 500;
+                color: rgba($color: #1e1e2d, $alpha: 0.8);
+            }
+            i {
+                margin: 0 10px;
+                font-size: 14px;
+                color: #1e1e2d;
+                text-shadow: none;
+            }
+            .dropdown-menu {
+                li {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    border-top: none;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+@import "~jsoneditor/dist/jsoneditor.css";
+.jsoneditor-poweredBy {
+    display: none;
+}
+
+.ace-jsoneditor {
+    min-height: 500px;
+}
+
+.row.row-loading {
+    min-height: 200px;
+}

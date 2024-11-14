@@ -1,0 +1,26 @@
+.statistical {
+    display: block;
+    overflow: hidden;
+    min-height: 350px;
+    position: relative;
+    padding: 10px 0 0 0;
+    background-color: aliceblue;
+}
+.select-filter-dashboard{
+    display: flex;
+    .select-day{
+        width: 140px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: 0px;
+    }
+    .select-category{
+        width: 160px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 0px;
+    } 
+}
+

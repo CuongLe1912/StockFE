@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Thông tin hiện tại</label>
+    </div>
+    <div class="row" *ngIf="currentNode">
+      <div class="col-sm-6">
+        <div class="row">
+          <label class="col-sm-3">Họ tên</label>
+          <label class="col-sm-6">{{ currentNode.Name }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">SĐT</label>
+          <label class="col-sm-6">{{ currentNode.Phone }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">Email</label>
+          <label class="col-sm-6">{{ currentNode.Email }}</label>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <label class="col-sm-3">Mã Ref</label>
+          <label class="col-sm-6">{{ currentNode.Ref }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">MeeyId</label>
+          <label class="col-sm-6">{{ currentNode.MeeyId }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-9"><em class="text-warning">(Lưu ý: MeeyId này sẽ thành F1 của TTKD này)</em></label>
+        </div>
+      </div>
+    </div>
+    <div class="lines"></div>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Thông tin thay đổi</label>
+    </div>
+    <div class="row">
+      <label class="col-sm-2 col-form-label">Gán MeeyId<span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-9">
+            <editor [(object)]="item" property="Search" (keyPressEnter)="searchUser()" (valueChange)="clearUser()" [decorator]="{ label: '' }"></editor>
+          </div>
+          <div class="col-sm-3">
+            <editor-button label="Kiểm tra" [process]="processSearch" (click)="searchUser()" [disabled]="item.Search ? false : true"></editor-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="user">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <div class="row">
+          <label class="col-sm-3">Họ tên</label>
+          <label class="col-sm-6">{{ user.Name }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">SĐT</label>
+          <label class="col-sm-6">{{ user.Phone }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">Email</label>
+          <label class="col-sm-6">{{ user.Email }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="errorMesssage">
+    <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssage }}</em>
+  </div>
+</div>

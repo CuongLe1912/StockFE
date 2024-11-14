@@ -1,0 +1,78 @@
+<div wrapper *ngIf="item" class="project-video-detail">
+    <div class="row">
+        <div class="col-sm-7">
+            <vm-player autoplay controls>
+                <vm-hls version="latest" [poster]="item?.avatar">
+                    <source [src]="item.url" type="application/x-mpegURL" />
+                </vm-hls>
+            </vm-player>
+        </div>
+        <div class="col-sm-5">
+            <div class="project-video">
+                <div class="content-text">
+                    <label class="content-info">Dự án:</label>
+                    <div class="col-sm-8">
+                        <editor [(object)]="item" property="VideoProjectId"
+                            [decorator]="{ readonly: viewer || readonly, label: '', lookup: { selected: itemProject } }">
+                        </editor>
+                    </div>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Loại video:</label>
+                    <label class="content-info" [ngClass]="item.typeUploadColor">{{ item?.typeUploadLabel ?
+                        item.typeUploadLabel : '--' }}</label>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Người tạo:</label>
+                    <label class="content-info">{{ item?.createdBy?.data?.fullname ? item.createdBy.data.fullname :
+                        '--' }}</label>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Ngày tạo:</label>
+                    <label class="content-info">{{ item.createdAt ? (item.createdAt | datetimex) : '--' }}</label>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">AI kiểm tra:</label>
+                    <label class="content-info" [ngClass]="item.censoredColor?item.censoredColor:'text-info'">{{
+                        item.censoredLabel ? item.censoredLabel : 'AI đang kiểm tra' }}</label>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Kiểm duyệt:</label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-5" style="padding-left: 0;">
+                                <label class="content-info" style="min-width: 100%;"
+                                    [ngClass]="item.censoredTypeColor">{{
+                                    item.censoredTypeLabel ? item.censoredTypeLabel : '--'}}</label>
+                            </div>
+                            <div class="col-sm-7"
+                                *ngIf="(item?.censored?.type === 1 || item?.censored?.type === 2) && item?.censoredType === 1">
+                                <editor [(object)]="item" className="censoredType" property="Censorship"
+                                    [decorator]="{ label: '' }" (valueChange)="censorshipChange()"></editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Trạng thái:</label>
+                    <editor [(object)]="item" className="btn-toggle" property="isPublished"
+                        (valueChange)="item.isPublished ? publish($event, item) : unpublish(item)"
+                        *ngIf="isToggle; else elseContent"></editor>
+                    <ng-template #elseContent>
+                        <label class="content-info">--</label>
+                    </ng-template>
+                </div>
+                <div class="content-text">
+                    <label class="content-info">Mô tả:</label>
+                    <div class="col-sm-8">
+                        <editor [(object)]="item" className="description" property="Description"
+                            [decorator]="{ label: '', readonly: readonly }"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

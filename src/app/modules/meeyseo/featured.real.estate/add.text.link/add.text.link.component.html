@@ -1,0 +1,62 @@
+<div wrapper class="add-text-link">
+    <div *ngIf="item && !loading">
+        <div class="row" *ngIf="item.Id">
+            <div class="col-sm-3">
+                <label class="col-form-label">ID text link: {{ item.LinkId }}</label>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Ngày tạo: {{ item.CreatedDate | dateminutex }}</label>
+            </div>
+            <div class="col-sm-5">
+                <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedDate | dateminutex }}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Loại cấu trúc: </label>
+            </div>
+            <div class="col-sm-9">
+                <label class="col-form-label">Manual</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Cấu trúc:</label>
+            </div>
+            <div class="col-sm-9">
+                <label class="col-form-label">{{overviewStructure}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Giá trị thuộc tính:</label>
+            </div>
+            <div class="col-sm-9">
+                <label class="col-form-label">{{overviewProperty}}</label>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-12">
+                <editor [(object)]="item" property="Text"></editor>
+            </div>
+            <div class="col-sm-12">
+                <label>Url<span _ngcontent-rgk-c104="" style="color: red;" class="ng-star-inserted"> *</span></label>
+                <div class="url">
+                    <div class="label">{{domain}}</div>
+                    <editor [(object)]="item" property="Url" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="Priority"></editor>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="Status"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

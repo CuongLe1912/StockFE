@@ -1,0 +1,57 @@
+<div wrapper class="edit-customer-bank">
+    <h5>Thông tin Doanh Nghiệp Bank</h5>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="Name" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="ShortName" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="RegisterNumber" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="Domain" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="TaxCode" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="Email" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="Phone" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="Address" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="AmountMembers" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5>Nhân viên Chăm Sóc</h5>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="SaleId" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="item" [labelInline]="true" property="SupportId" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

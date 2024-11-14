@@ -1,0 +1,432 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+    <edit-header
+      *ngIf="breadcrumbs && actions && actions.length > 0"
+      [breadcrumbs]="breadcrumbs"
+      [actions]="actions"
+      [processing]="processing"
+    ></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Tạo giao dịch</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã giao dịch:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.Transaction?.Code }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Loại giao dịch:</label>
+                    <label class="col-sm-8 col-form-label">{{ typeTransaction }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Nơi tạo:</label>
+                    <label class="col-sm-8 col-form-label" >{{ item.Transaction?.ClientId }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Thời gian tạo:</label>
+                    <label class="col-sm-8 col-form-label" >{{ item.Transaction?.CreatedDate }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Người tạo:</label>
+                    <label class="col-sm-8 col-form-label" >Khách hàng</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Nội dung:</label>
+                    <label class="col-sm-8 col-form-label" >{{ item.Transaction?.TransactionType }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div *ngIf="item.Transaction?.Type === 'payment'">
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">Thông tin thanh toán</h3>
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                      <label class="col-sm-8 col-form-label"> {{ item.Transaction?.Metadata?.refTransaction?.BuyerFullName }} </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Số điện thoại:</label>
+                      <label class="col-sm-8 col-form-label" >{{ item.Transaction?.Metadata?.refTransaction?.BuyerPhoneNumber }}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Email:</label>
+                      <label class="col-sm-8 col-form-label" >{{ item.Transaction?.Metadata?.refTransaction?.BuyerEmail }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Trạng thái giao dịch</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Số tiền:</label>
+                    <label class="col-sm-8 col-form-label">{{ item?.Transaction?.Amount ? item?.Transaction?.Amount?.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Trạng thái:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <div [innerHTML]="statusTransaction"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Phương thức:</label>
+                    <label class="col-sm-6 col-form-label">Tài khoản ưu đãi</label>
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="item.Transaction?.Type === 'charge'">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Seri:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewSeri(item?.Transaction?.Seri)" href="javascript:;" tooltip="Xem chi tiết"> {{ item?.Transaction?.Seri }}</a>
+                    </label>
+                    <!-- <label class="col-sm-8 col-form-label" >{{ item?.Transaction?.Seri }}</label> -->
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="item.Transaction?.Type === 'charge'">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã nạp:</label>
+                    <label class="col-sm-8 col-form-label" >{{ item?.Transaction?.OrderCode }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!--VNPAY thông tin kết quả-->
+            <div>
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">Thông tin kết quả</h3>
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <div class="row">
+                  <div class="col-sm-12" *ngIf="item.Transaction?.Type === 'payment'">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label">Mã tham chiếu:</label>
+                      <label class="col-sm-8 col-form-label">{{ item?.Transaction?.RefTransaction }}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Thời gian:</label>
+                      <label class="col-sm-8 col-form-label">{{ item?.Transaction?.UpdatedDate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Nội dung:</label>
+                      <label class="col-sm-8 col-form-label">{{ item?.Transaction?.Metadata?.description }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type === 'transfer' && (item.Transaction?.Support || item.Transaction?.Sale)">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Nhân viên chăm sóc</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="item.Transaction?.Type === 'transfer'">
+              <div class="row">
+                <div class="col-sm-12" *ngIf="item.Transaction?.Sale">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Sale:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.Transaction?.Sale }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="item.Transaction?.Support">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >CSKH:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.Transaction?.Support }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title" >Thông tin khách hàng</h3>
+              </div>
+            </div>
+            
+            <!-- thông tin khách hàng -->
+            <div class="kt-portlet__body" *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã khách hàng - Meey ID:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewUser(item.UserInfo?._id)" href="javascript:;" tooltip="Xem chi tiết"> {{ item.UserInfo?._id }}</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfo?.name }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Số điện thoại:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfo?.phone }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Email:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfo?.email }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Loại ví:</label>
+                    <label class="col-sm-8 col-form-label"> Tài khoản ưu đãi</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- thông tin người chuyển -->
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type === 'transfer'">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title" >Thông tin người chuyển</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="item.Transaction?.Type === 'transfer'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã khách hàng - Meey ID:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewUser(item.UserInfoTransfer._id)" href="javascript:;" tooltip="Xem chi tiết"> {{ item.UserInfoTransfer?._id }}</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoTransfer?.name }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Số điện thoại:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoTransfer?.phone }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Email:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoTransfer?.email }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- thông tin người nhận -->
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type === 'transfer'">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Thông tin người nhận</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="item.Transaction?.Type === 'transfer'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã khách hàng - Meey ID:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewUser(item.UserInfoReceive._id)" href="javascript:;" tooltip="Xem chi tiết"> {{ item.UserInfoReceive?._id }}</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoReceive?.name }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Số điện thoại:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoReceive?.phone }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Email:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.UserInfoReceive?.email }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Tài khoản liên quan</h3>
+              </div>
+            </div>
+            
+            <div class="kt-portlet__body"  *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >MeeyID:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewUser(item?.Crm?.Id)" href="javascript:;" tooltip="Xem chi tiết"> {{ item?.Crm?.Id }}</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Mã CRM:</label>
+                    <label class="col-sm-8 col-form-label">
+                      <a (click)="viewCrm(item?.Crm?.Code)" href="javascript:;" tooltip="Xem chi tiết"> {{ item?.Crm?.Code }}</a>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div *ngIf="item.Transaction?.Type === 'payment'">
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">Tài khoản nhận</h3>
+                </div>
+              </div>
+              <div class="kt-portlet__body" *ngIf="item.Transaction?.Type === 'payment'">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label" >Merchant:</label>
+                      <label class="col-sm-8 col-form-label">{{ item.Transaction?.To }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kt-portlet__head" *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Nhân viên chăm sóc</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="item.Transaction?.Type !== 'transfer'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >Sale:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.Transaction?.Sale }}</label>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label" >CSKH:</label>
+                    <label class="col-sm-8 col-form-label">{{ item.Transaction?.Support }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Cộng / Trừ tiền vào ví</h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <mo-transaction-wallet *ngIf="item.WalletTransactions" [items]="item.WalletTransactions"></mo-transaction-wallet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-toolbar">
+                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">                
+                  <li class="nav-item">
+                    <a class="nav-link" (click)="selectedTab('historyTransaction')" [ngClass]="{'active':tab == 'historyTransaction'}">
+                      <i class="la la-history"></i> Lịch sử giao dịch
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="tab-content">
+                <div class="tab-pane" [ngClass]="{'active':tab == 'historyTransaction'}">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <mo-transaction-history *ngIf="item.Histories" [items]="item.Histories"></mo-transaction-history>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+      <loading></loading>
+    </div>
+  </div>
+  
+  <ng-template #empty_content>
+    <td colspan="2" style="margin: 20px">
+      Hiện tại không có dữ liệu nào phù hợp
+    </td>
+  </ng-template>
+  

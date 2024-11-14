@@ -1,0 +1,10 @@
+include:
+  - project: 'ci-cd-templates/build-docker-images'
+    ref: master
+    file: '/general.yml'
+  - project: 'ci-cd-templates/build-docker-images'
+    ref: master
+    file: '/build-image-gitlab-registry.yml'
+  - project: 'ci-cd-templates/gitlab-ci-projects'
+    ref: master
+    file: meeyadmin/meeyadmin-ui-v3.yaml

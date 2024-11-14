@@ -1,0 +1,15 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="Domain" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="CustomerPhone" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="ContactName" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="ContactPhone" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="ContactEmail" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-8">
+        <editor [(object)]="item" property="JsonConfig" [decorator]="{readonly: viewer}"></editor>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

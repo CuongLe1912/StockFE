@@ -1,0 +1,52 @@
+<div wrapper class="videoWapper">
+    <div *ngIf="decorator.readonly" class="form-view">
+        <div class="video-container" *ngIf="items && items.length > 0; else empty_content">
+            <div class="video-inner" *ngFor="let item of items">
+                <a [href]="item.Path" class="hrefVideoList">
+                    <video width="140" height="120" [src]="(item.Data || item.Path) | sanitizeUrl">
+                        Your browser does not support the video tag.
+                    </video>
+                </a>
+            </div>
+        </div>
+        <ng-template #empty_content>
+            <div class="video-container">
+                <div class="video-inner">
+                    <i class="la la-user"></i>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div *ngIf="!decorator.readonly" class="input-group">
+        <div class="video-container" *ngIf="items" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+            <div class="video-inner" *ngFor="let item of items">
+                <a class="hrefVideoList" (click)="viewVideo()">
+                    <video width="140" height="120" [src]="(item.Data || item.Path) | sanitizeUrl" *ngIf="!item.CaptureImage">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img *ngIf="item.CaptureImage" [src]="item.CaptureImage" />
+                </a>
+                <div class="overlay" *ngIf="item.Name">
+                    <p class="name">{{ item.Name }}</p>
+                    <p class="size" *ngIf="item.Size">
+                        {{item.Size > 0 ? item.Size.toFixed(2) + 'MB' : (item.Size * 1024).toFixed(2) + 'KB'}}
+                    </p>
+                </div>
+                <div class="edit" (click)="selectFileToUpload(item)" title="Chọn video khác">
+                    <i class="fa fa-pen"></i>
+                </div>
+                <div class="close" (click)="removeFile(item)" title="Xóa video">
+                    <i class="fa fa-times"></i>
+                </div>
+                <div class="progress" *ngIf="item.Percent">
+                    <div class="progress-bar" role="progressbar" [style.width]="item.Percent + '%'">{{item.Percent}}%</div>
+                </div>
+            </div>
+            <div class="video-inner" [ngClass]="{'have-description': decorator.description}" (click)="selectFileToUpload()" *ngIf="(items.length == 0 || decorator.multiple) && (items.length < decorator.max)">
+                <label *ngIf="decorator.description">{{ decorator.description }}</label>
+                <i class="la la-plus-circle"></i>
+            </div>
+        </div>
+        <input #fileInput type="file" [id]="decorator.id" [multiple]="decorator.multiple" (change)="selectedFile($event)" style="width: 100%; height: 100%; display: none;" [attr.accept]="decorator.accept">
+    </div>
+</div>

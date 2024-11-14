@@ -1,0 +1,119 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-project-video">
+  <edit-header-view *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions"></edit-header-view>
+  <div class="kt-portlet__body">
+    <div class="kt-form kt-form--label-right">
+      <div class="kt-portlet">
+        <div class="kt-portlet__body">
+          <div class="row-search">
+            <div class="col-sm-3" style="margin-top: 15px;">
+              <editor [(object)]="item" (keyPressEnter)="search()" property="Name">
+              </editor>
+            </div>
+            <div class="col-sm-3" style="margin-top: 15px;">
+              <editor [(object)]="item" property="FilterDateRange">
+              </editor>
+            </div>
+            <div class="col-sm-3" style="margin-top: 15px;">
+              <editor [(object)]="item" property="VideoProjectId">
+              </editor>
+            </div>
+            <div class="col-sm-3" style="margin-top: 15px;">
+              <editor [(object)]="item" property="TypeUpload">
+              </editor>
+            </div>
+            <div class="col-sm-3">
+              <editor [(object)]="item" property="FilterCreatedBy">
+              </editor>
+            </div>
+            <div class="col-sm-3 ml-auto p-2">
+              <div class="button_custom_filters">
+                <button class="btn btn-secondary btn-secondary--icon mr-2" (click)="clearCustomFilter()">
+                  <span>
+                    <i class="la la-close"></i>
+                    <span>Đặt lại</span>
+                  </span>
+                </button>
+                <editor-button [icon]="'la la-search'" label="Tìm kiếm" [process]="processSearch" (click)="search()">
+                </editor-button>
+              </div>
+            </div>
+          </div>
+          <div class="file-body">
+            <div class="file-header">
+              <button class="btn btn-success" (click)="getItem()">
+                <span>Đưa vào danh sách</span>
+              </button>
+            </div>
+            <paging [loading]="loading" [sizes]="PageSizes" [paging]="Paging" (pagingChange)="pageChanged($event)">
+            </paging>
+          </div>
+          <div class="project-video">
+            <div class="row" style="margin:0 -10px;" *ngIf="videos">
+              <div class="col-item" *ngFor="let item of videos; let index = index">
+                <div class="video-item">
+                  <div class="video" (click)="view(item)"
+                    [style.background-image]="'url(&quot;' + item?.avatar?.url + '&quot;)'">
+                    <a>
+                      <img class="rounded" [src]="item?.avatar?.url" style="opacity: 0;" />
+                    </a>
+                  </div>
+                  <div class="item-content" (click)="selectFile(item)">
+                    <div class="content-title">
+                      <span class="text-info" [title]="item.title">{{ getName(item.title) }}</span>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info" style="min-width: 90px;">Tên dự án:</label>
+                      <label class="content-info">{{item?.project?.tradeName ? item.project.tradeName : '--' }}</label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">Loại video:</label>
+                      <label class="content-info" [ngClass]="item.typeUploadColor">
+                        {{ item?.typeUploadLabel ? item.typeUploadLabel : '--' }}
+                      </label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">Người tạo:</label>
+                      <label class="content-info">{{ item?.createdBy?.data?.fullname ? item.createdBy.data.fullname :
+                        '--' }}</label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">Ngày tạo:</label>
+                      <label class="content-info">{{ item.createdAt ? (item.createdAt | datetimex) : '--' }}</label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">AI kiểm tra:</label>
+                      <label class="content-info" [ngClass]="item.censoredColor?item.censoredColor:'text-info'">{{
+                        item.censoredLabel ? item.censoredLabel : 'AI đang kiểm tra' }}</label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">Kiểm duyệt:</label>
+                      <label class="content-info" [ngClass]="item.censoredTypeColor">{{
+                        item.censoredTypeLabel ? item.censoredTypeLabel : '--'}}</label>
+                    </div>
+                    <div class="content-text">
+                      <label class="content-info">Hoạt động:</label>
+                      <label class="content-info" [ngClass]="item.isPublished ? 'text-success': 'text-danger'">{{
+                        item.isPublished ? 'Công khai' : 'Đã gỡ' }}</label>
+                    </div>
+                  </div>
+                  <div class="item-checked">
+                    <label class="kt-checkbox kt-checkbox--success">
+                      <input type="checkbox" [(ngModel)]="item.Checked" [id]="'video-' + index">
+                      <label [for]="'video-' + index"></label>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="!videos || videos.length < 1">
+              <div class="col-sm-12">
+                <em>{{ messageEmpty }}</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

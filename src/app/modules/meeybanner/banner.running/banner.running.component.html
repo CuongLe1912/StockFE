@@ -1,0 +1,30 @@
+<div class="row schedule-edit-status" *ngIf="item">
+    <div class="col-sm-12">
+        <div>
+            <div class="row">
+                <label class="col-sm-4 col-form-label label-date"> Thời gian treo <span style="color: red;"
+                        class="ng-star-inserted"> *</span></label>
+                <div class="col-sm-8">
+                    <div class="form-group ng-star-inserted label-inline">
+                        <div class="kt-input-icon hanging-time">
+                            <editor [(object)]="item" [labelInline]="true" property="StartDate"
+                                [decorator]="{ label:'' }">
+                            </editor>
+                            <editor [(object)]="item" [labelInline]="true" property="EndDate"
+                                [decorator]="{ label:'' }">
+                            </editor>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-4 col-form-label">Thời gian hiển thị (giây) <span style="color: red;"
+                        class="ng-star-inserted"> *</span></label>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="DisplayTime" [decorator]="{ label: ''}"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

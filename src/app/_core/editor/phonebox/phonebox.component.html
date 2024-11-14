@@ -1,0 +1,9 @@
+<div class="kt-input-icon" wrapper [ngClass]="{'kt-input-icon--left':decorator.icon}">
+    <input class="form-control" [(ngModel)]="valueText" [ngModelOptions]="{standalone: true}" [attr.maxLength]="decorator.max" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" [placeholder]="decorator.placeholder" [id]="decorator.id" (input)="inputChange()" (keyup)="onKeyup()" (keypress)="onKeypress($event)">
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="value && decorator.allowClear && !decorator.readonly" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+</div>

@@ -1,0 +1,195 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-meey-user" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <editor #uploadAvatar [(object)]="item" property="Avatar"></editor>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Họ và tên *</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Name" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group d-flex align-items-center">
+                                                <label class="col-form-label">Trạng thái</label>
+                                                <div style="margin-left: 10px; white-space: nowrap;" [innerHTML]="item.StatusText | sanitizeHtml"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Số điện thoại *</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Phone" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Email *</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Email" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Tên đăng nhập</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="UserName" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Mạng xã hội</label>
+                                        <div class="col-sm-6">
+                                            <ul class="social">
+                                                <li [attr.tooltip]="item.GoogleId ? 'Đã liên kết' : ''" [ngClass]="{'active' : item.GoogleId}"><i class="la la-google-plus"></i></li>
+                                                <li [attr.tooltip]="item.FacebookId ? 'Đã liên kết' : ''" [ngClass]="{'active' : item.FacebookId}"><i class="socicon-facebook"></i></li>
+                                                <li [attr.tooltip]="item.AppleId ? 'Đã liên kết' : ''" [ngClass]="{'active' : item.AppleId}"><i class="la la-apple"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div>
+                                        <h6>Thông tin ví</h6>
+                                        <ul *ngIf="item.MPConnected">
+                                            <li>Tài khoản: {{ item.MPPhone }}</li>
+                                            <li style="color: #5867dd;"><i class="la la-caret-right"></i> TK Chính: {{ item.Balance | currencyx }}</li>
+                                            <li><i class="la la-caret-right"></i> TK KM1: {{ item.DiscountBalance1 | currencyx }}</li>
+                                            <li><i class="la la-caret-right"></i> TK KM2: {{ item.DiscountBalance2 | currencyx }}</li>
+                                        </ul>
+                                        <ul *ngIf="!item.MPConnected">
+                                            <li><i class="la la-info"></i> Chưa liên kết ví</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--tabs">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">CMND</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="IdentityCard" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Ngày sinh</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Birthday" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Giới tính</label>
+                                        <div class="col-sm-8" style="padding-top: 8px;">
+                                            <editor [(object)]="item" property="Gender" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Địa chỉ</label>
+                                        <div class="col-sm-8">
+                                            <div class="row">
+                                                <div class="col-sm-4"><editor [(object)]="item" property="CityId" [decorator]="{ label: '' }"></editor></div>
+                                                <div class="col-sm-4"><editor [(object)]="item" property="DistrictId" [decorator]="{ label: '' }"></editor></div>
+                                                <div class="col-sm-4"><editor [(object)]="item" property="WardId" [decorator]="{ label: '' }"></editor></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: -15px;">
+                                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Address" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Đối tượng</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Type" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.Type != null && (item.Type == MLUserType.Brokers || item.Type == MLUserType.Investor || item.Type == MLUserType.Company || item.Type == MLUserType.Exchanges || item.Type == MLUserType.Bank || item.Type == MLUserType.Advertiser)">
+                                        <label class="col-sm-2 col-form-label">Công ty</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="CompanyText" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.Type != null && (item.Type == MLUserType.Brokers || item.Type == MLUserType.Investor || item.Type == MLUserType.Company || item.Type == MLUserType.Exchanges || item.Type == MLUserType.Bank || item.Type == MLUserType.Advertiser)">
+                                        <label class="col-sm-2 col-form-label">Website</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Website" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.Type != null && (item.Type == MLUserType.Brokers || item.Type == MLUserType.BrokerIndividual || item.Type == MLUserType.Investor || item.Type == MLUserType.Company || item.Type == MLUserType.Exchanges || item.Type == MLUserType.Bank || item.Type == MLUserType.Advertiser)">
+                                        <label class="col-sm-2 col-form-label">Giới thiệu</label>
+                                        <div class="col-sm-10">
+                                            <editor [(object)]="item" property="Description" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.Type != null && (item.Type == MLUserType.Brokers || item.Type == MLUserType.BrokerIndividual)">
+                                        <label class="col-sm-2 col-form-label">Chứng chỉ môi giới</label>
+                                        <div class="col-sm-10" [ngClass]="{'readonly': fileReadonly }">
+                                            <editor #uploadFile [(object)]="item" property="BrokerCertificate" [labelInline]="true" [decorator]="{ label: '' }" (valueChange)="fileChange()"></editor>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" *ngIf="item.Type != null && (item.Type == MLUserType.Company || item.Type == MLUserType.Exchanges || item.Type == MLUserType.Bank || item.Type == MLUserType.Advertiser)">
+                                        <label class="col-sm-2 col-form-label">Số đăng ký KD</label>
+                                        <div class="col-sm-10">
+                                            <editor [(object)]="item" property="NumberBussiness" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="!(item.Type == MLUserType.Company || item.Type == MLUserType.Exchanges || item.Type == MLUserType.Bank || item.Type == MLUserType.Advertiser)">
+                                        <label class="col-sm-2 col-form-label">Mã số thuế</label>
+                                        <div class="col-sm-10">
+                                            <editor [(object)]="item" property="Tax" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Ngày cấp</label>
+                                        <div class="col-sm-10">
+                                            <editor [(object)]="item" property="DateTax" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Nơi cấp</label>
+                                        <div class="col-sm-10">
+                                            <editor [(object)]="item" property="PlaceTax" [decorator]="{ label: '' }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

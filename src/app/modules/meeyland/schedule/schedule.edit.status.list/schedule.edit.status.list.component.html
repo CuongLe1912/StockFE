@@ -1,0 +1,24 @@
+<div class="row schedule-edit-status" *ngIf="item && statuses">
+    <div class="col-sm-12">       
+        <div class="row">
+            <label class="col-sm-3 col-form-label">Trạng thái</label>
+            <div class="col-sm-9">
+                <editor [(object)]="item" property="Status" [decorator]="{ label: '', lookup: { items: statuses }}"></editor>
+            </div>
+        </div>
+        <div *ngIf="item.Status == MLScheduleStatusType.Reject">
+            <div class="row form-radio">
+                <label class="col-sm-3 col-form-label">Lý do</label>
+                <div class="col-sm-9">
+                    <editor [(object)]="item" property="RejectType" [decorator]="{ label: ''}"></editor>
+                </div>
+            </div>
+            <div class="row" [ngClass]="{'disable':item.RejectType != MLScheduleRejectType.OtherReason}">
+                <label class="col-sm-3 col-form-label">&nbsp;</label>
+                <div class="col-sm-9">
+                    <editor [(object)]="item" property="CancelText" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

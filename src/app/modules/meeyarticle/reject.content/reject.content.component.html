@@ -1,0 +1,15 @@
+<div class="row reject-content" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Type" [decorator]="{ label: 'Nhập lý do từ chối' }" (valueChange)="typeChange()"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.Type == MLArticleReasonType.Other">
+        <editor [(object)]="item" property="Reason" [decorator]="{ label: 'Mô tả' }" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+    <div class="col-sm-12" style="margin-top: 20px;" *ngIf="item.StatusType == MLArticleStatusType.Publish">
+        <p style="color: brown;">Bạn có muốn đồng thời Hạ tin của tin đăng này không?</p>
+        <editor [(object)]="item" property="OptionType" [decorator]="{ label: '' }"></editor>
+        <div *ngIf="item.OptionType == MLArticleRejectOptionType.UnPublish">
+            <editor [(object)]="item" property="SendEmail" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+</div>

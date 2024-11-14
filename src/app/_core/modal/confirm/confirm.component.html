@@ -1,0 +1,19 @@
+<div wrapper class="modal fade modal-confirm" [ngClass]="{'show':visible}" style="z-index: 1051;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" *ngIf="dialog" [id]="id">
+            <div class="modal-header">
+                <h5 class="modal-title">{{dialog.title}}</h5>
+                <button *ngIf="!dialog.restrict" type="button" class="close" (click)="closeModal()">
+                </button>
+            </div>
+            <div class="modal-body" [innerHTML]="dialog.content | sanitizeHtml"></div>
+            <div class="modal-footer" *ngIf="!dialog.restrict">
+                <button type="button" *ngIf="dialog.cancelText" class="btn btn-secondary" (click)="closeModal()">{{ dialog.cancelText }}</button>
+                <editor-button *ngIf="dialog.confirmText" [label]="processing ? 'Đang xử lý...' : dialog.confirmText"
+                    [(process)]="processing" (click)="confirmModal()"></editor-button>
+                <editor-button *ngIf="dialog.resultText" [label]="processingResult ? 'Đang xử lý...' : dialog.resultText"
+                    [(process)]="processingResult" (click)="resultModal()"></editor-button>
+            </div>
+        </div>
+    </div>
+</div>

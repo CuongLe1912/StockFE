@@ -1,0 +1,92 @@
+<div class="group-customer" *ngIf="item">
+  <div class="wizard wizard-6">
+      <div class="wizard-content">          
+          <form class="px-10 fv-plugins-bootstrap fv-plugins-framework" id="kt_wizard_form">
+              <div data-wizard-type="step-content" [attr.data-wizard-state]="'current'">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="kt-portlet kt-portlet--mobile kt-portlet-right">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-label">
+                                    <h3 class="kt-portlet__head-title">
+                                        Yêu cầu
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body">                                
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-viewer row">
+                                            <label class="col-3">Loại yêu cầu</label>
+                                            <div class="col-9">
+                                                <span>Gộp khách hàng</span>
+                                            </div>
+                                        </div>
+                                        <editor [(object)]="item" property="User" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="DateRequest" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="Reason" [viewer]="true"></editor>                                        
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <editor [(object)]="item" property="Status" [viewer]="true" [html]="true"></editor>
+                                        <editor [(object)]="item" property="UserApprove" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="DateApprove" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="ApproveReason" [viewer]="true" *ngIf="viewDetail"></editor>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" *ngIf="items">
+                        <div class="kt-portlet kt-portlet--mobile kt-portlet-right">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-label">
+                                    <h3 class="kt-portlet__head-title">
+                                        Danh sách khách hàng muốn gộp: {{ items && items.length }}
+                                    </h3>
+                                </div>
+                            </div>                        
+                            <div class="kt-portlet__body" style="padding: 5px 0 0 0;">
+                                <mcrm-customer-list [statusRequest]="item.Status" [customers]="items" [rootId]="item.RootId" [action]="action" [viewer]="true"></mcrm-customer-list>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="kt-portlet kt-portlet--mobile" style="height: 94%;">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-label">
+                                    <h3 class="kt-portlet__head-title">
+                                        Kết quả gộp thông tin khách hàng
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <editor [(object)]="item" property="Name" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="Phone" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="Email" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="SaleId" [viewer]="true"></editor>
+                                        <editor [(object)]="item" property="SupportId" [viewer]="true"></editor>
+                                        <div class="form-group form-group-viewer row">
+                                            <label class="col-12 text-danger mt-2">Các thông tin cá nhân, trạng thái của khách hàng này sẽ lấy theo khách hàng gốc</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                  <div class="col-sm-12" *ngIf="!viewDetail">
+                    <editor [(object)]="item" property="ApproveReason"></editor>
+                  </div>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

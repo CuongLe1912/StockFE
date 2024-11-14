@@ -1,0 +1,19 @@
+.alert {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+    }
+    h4 {
+        margin-bottom: 1rem;
+    }
+    div {
+        display: flex;
+        label {
+            width: 100px;
+        }
+    }
+}

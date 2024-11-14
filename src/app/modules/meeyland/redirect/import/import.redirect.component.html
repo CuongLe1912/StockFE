@@ -1,0 +1,57 @@
+<div wrapper class="add-project">
+    <div class="row">
+        <div class="col-md-12 d-flex" style="margin-bottom: -25px;">
+            <input [(ngModel)]="fileName" disabled type="text" class="form-control"
+                style="margin: auto 0; margin-right: 20px;" placeholder="Hiển thị tên file sau khi tải lên">
+            <editor (valueChange)="uploadFileImport()" #fileImport [(object)]="item" property="FileImport"></editor>
+            <!-- <button class="btn btn-sm btn-success" style="margin: auto;" (click)="uploadFileImport()">Tải tệp</button> -->
+        </div>
+        <div class="col-md-12" *ngIf="isUpload">
+            <div class="row">
+                <div class="col-md-12" style="line-height: 40px;">
+                    <span><i class="check-success fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;Bước 1: Tải tệp
+                        mẫu.
+                        <a class="btn btn-sm btn-warning font-weight-bolder text-uppercase"
+                                                                href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/Import Chuyển hướng 301, 302.xlsx">
+                                                                Tải file mẫu</a>
+                    </span><br>
+                    <span><i class="check-success fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;Bước 2: Điền
+                        đầy đủ dữ liệu vào tệp mẫu.</span><br>
+                    <span><i class="check-success fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;Bước 3: Tải tệp
+                        lên hệ thống. Chỉ cho phép upload file định dạng xlsx.</span><br>
+                    <span><i class="check-success fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;Bước 4: Quan
+                        sát trạng thái import dữ liệu hệ thống trả về. Thành công hoặc lỗi.</span><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="!isUpload && listImport?.length > 0">
+            <p class="text-danger">Tối đa 1000 bản ghi</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Loại chuyển hướng</th>
+                        <th>URL cũ</th>
+                        <th>URL mới</th>
+                        <th>Mô tả</th>
+                        <th>Lý do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let obj of listImport">
+                        <td>{{obj.STT}}</td>
+                        <td>{{obj['Loại chuyển hướng *']}}</td>
+                        <td>{{subStringUrl(obj['URL cũ *'])}}</td>
+                        <td>{{subStringUrl(obj['URL mới *'])}}</td>
+                        <td *ngIf="!obj.status" class="text-warning">Không hợp lệ</td>
+                        <td *ngIf="obj.status" style="color: #5867dd;">Hợp lệ</td>
+                        <td>{{obj.note}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

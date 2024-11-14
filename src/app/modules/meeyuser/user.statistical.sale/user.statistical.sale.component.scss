@@ -1,0 +1,43 @@
+::ng-deep .grid-user-statistic {
+    td {
+        position: relative;
+        &:nth-of-type(7),
+        &:nth-of-type(8),
+        &:nth-of-type(9) {
+            padding: 0 !important;
+            div.red {
+                padding: 10px;
+                text-align: center;
+                background-color: #F6B26B;
+            }
+            div.pink {
+                padding: 10px;
+                text-align: center;
+                background-color: #B6D7A8;
+            }
+            div.gray {
+                padding: 10px;
+                text-align: center;
+                background-color: #B7B7B7;
+            }
+            div.yellow {
+                padding: 10px;
+                text-align: center;
+                background-color: #FFFF00;
+            }
+            div.yellowgreen {
+                padding: 10px;
+                text-align: center;
+                background-color: yellowgreen;
+            }
+        }
+    }
+    .grid-content {
+        .table {
+            tr.clicked {
+                font-weight: 600;
+                background-color: bisque;
+            }
+        }
+    }
+}

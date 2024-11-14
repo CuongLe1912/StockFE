@@ -1,0 +1,114 @@
+.table {
+    td {
+        height: 40px;
+        p.title {
+            margin: 0;
+            display: block;
+            font-weight: 500;
+            color: #595d6e;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            a {
+                border: none;
+                &:hover {
+                    color: royalblue;
+                }
+            }
+        }
+        span.sub {
+            font-size: 0.9rem;
+            color: rgba($color: #595d6e, $alpha: 0.9);
+        }
+        i {
+            font-weight: bold;
+        }
+        a {
+            cursor: pointer;
+            font-size: 1.1rem;
+            border-radius: 100%;
+            border: 1px solid #ebedf2;
+            text-decoration: none !important;
+            &:hover {
+                color: royalblue;
+            }
+        }
+        .btn {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+}
+
+.accordion-organization {
+    margin-bottom: 10px;
+}
+
+.accordion .card .card-body {
+    background-color: #fff;
+}
+
+.kt-portlet-permission {
+    .card-header {
+        border: none;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1.25rem;
+        .title {
+            min-width: 200px;
+        }
+        .kt-switch {
+            height: 24px;
+        }
+        label,
+        span {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
+    .kt-portlet--tabs {
+        width: 100%;
+        .nav-tabs-line {
+            border-bottom: 1px solid #ebedf2 !important;
+        }
+    }
+    #kt_tab_permissions {
+        opacity: 0.9;
+        pointer-events: none;
+    }
+}
+
+.kt-portlet-team,
+.kt-portlet-organization {
+    width: 100%;
+    .table-content {
+        width: 100%;
+        overflow: auto;
+        max-height: 500px;
+        thead tr th {
+            top: 0;
+            z-index: 96;
+            position: sticky;
+            background: #efefef;
+        }
+
+        thead {
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.85);
+        }
+
+        tbody tr:hover {
+            background: #e6f7ff;
+        }
+    }
+}
+
+.group {
+    margin: 10px 0;
+    font-weight: 500;
+    color: #48465b;
+    font-size: 1.2rem;
+}
+
+#tree-location {
+    width: 100%;
+}

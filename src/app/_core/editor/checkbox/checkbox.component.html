@@ -1,0 +1,10 @@
+<label wrapper class="kt-checkbox kt-checkbox--success" [ngClass]="{'kt-checkbox--disabled':decorator.readonly}" *ngIf="!decorator.type || decorator.type == BooleanType.Checkbox">
+    <input type="checkbox" [id]="decorator.id" [checked]="value" [disabled]="decorator.readonly" (change)="inputChange()">
+    <label *ngIf="label" [attr.for]="decorator.id">{{ label }}</label>
+<span></span>
+</label>
+<span [ngClass]="'switch switch-primary switch-sm ' + (value ? '' : 'switch-outline')" *ngIf="decorator.type == BooleanType.Toggle">
+    <label>
+        <input type="checkbox" [checked]="value" name="select" (change)="inputChange()"><span></span>
+</label>
+</span>

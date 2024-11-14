@@ -1,0 +1,9 @@
+<div wrapper [ngClass]="{'kt-input-icon kt-input-icon--left':decorator.icon, 'kt-input-inline':decorator.inline}" style="position: relative;">
+    <input [name]="decorator.id" class="form-control" [attr.maxlength]="decorator.format.length" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [placeholder]="decorator.placeholder" [id]="decorator.id" [ngClass]="{'disabled':decorator.readonly}" />
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="value && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+</div>

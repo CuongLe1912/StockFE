@@ -1,0 +1,207 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+      <div class="kt-form kt-form--label-right">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="kt-portlet kt-portlet--tabs">
+                      <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Nhóm dịch vụ
+                            </h3>
+                            <div class="row" style="width: 800px;">
+                              <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label"></label>
+                                    <label class="col-sm-8 col-form-label">{{ groupServiceText }}</label>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>                      
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                      <div class="kt-portlet__head-label">
+                          <h3 class="kt-portlet__head-title">
+                              Thông tin cơ bản
+                          </h3>
+                      </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Tên định danh:</label>
+                                    <label class="col-sm-3 col-form-label">{{ itemService.Name }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Tên hiển thị:</label>
+                                    <label class="col-sm-3 col-form-label">{{ itemService.NameShow }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Mã dịch vụ:</label>
+                                    <label class="col-sm-3 col-form-label">{{ itemService.Code }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Mô tả:</label>
+                                    <label class="col-sm-3 col-form-label">{{ itemService.Description }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Đơn vị tính:</label>
+                                    <label class="col-sm-3 col-form-label">{{ getUnitName(itemService.Unit) }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="itemService.TypeObject == 1">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Thời gian sử dụng:</label>
+                                    <label class="col-sm-2 col-form-label">{{ getDurationText(itemService) }}</label>
+                                    <label class="col-sm-4 col-form-label">
+                                      <em class="text-muted">(Tính từ thời điểm mua)</em>
+                                    </label>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label">Trạng thái:</label>
+                                    <label class="col-sm-6 col-form-label">
+                                      <p *ngIf="itemService.IsActive" class="kt-badge kt-badge--inline kt-badge--success">Đang hiển thị</p>
+                                      <p *ngIf="!itemService.IsActive" class="kt-badge kt-badge--inline kt-badge--danger">Chưa kích hoạt</p>
+                                    </label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label">Người tạo:</label>
+                                    <label class="col-sm-6 col-form-label">{{ itemService.CreatedBy }}</label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label">Ngày tạo:</label>
+                                    <label class="col-sm-6 col-form-label">{{ itemService.CreatedDate | datetimex }}</label>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kt-portlet__head" *ngIf="itemService.TypeObject == 2">
+                      <div class="kt-portlet__head-label">
+                          <h3 class="kt-portlet__head-title">
+                              Các dịch vụ trong Combo
+                          </h3>
+                      </div>
+                    </div>
+                    <div class="kt-portlet__body" *ngIf="itemService.TypeObject == 2">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table class="table table-bordered table-hover dataTable no-footer" style="margin-top: 15px !important">
+                            <thead>
+                              <tr>
+                                <th scope="col">Tên dịch vụ/combo</th>
+                                <th scope="col">Mã dịch vụ/combo</th>
+                                <th scope="col" style="width: 10%">Số lượng</th>
+                                <th scope="col">Thời gian sử dụng</th>
+                                <th scope="col">Giá gốc</th>
+                                <th scope="col" style="width: 15%">Khuyến mại</th>
+                                <th scope="col">Giá sau KM</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let product of item.PriceProductCombo; let i=index;">
+                                <td>{{ product.Name }}</td>
+                                <td>{{ product.Code }}</td>
+                                <td>{{ product.Amount }} {{ getUnitName(product.Unit) }}</td>
+                                <td>{{ getDurationText(product) }}</td>
+                                <td>{{ product.PriceRoot ? product.PriceRoot.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '' }}</td>
+                                <td>{{ product.Discount ? product.Discount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '' }} {{ product.Discount ? getDiscountText(product) : '' }}</td>
+                                <td>{{ product.PriceDiscount ? product.PriceDiscount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '' }}</td>
+                              </tr>
+                              <tr>
+                                <td colspan="4"><h5>Tổng</h5></td>
+                                <td><h5>{{ item.PriceRoot ? item.PriceRoot.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '' }}</h5></td>
+                                <td>{{ item.Discount }} {{ item.Discount ? discountText : '' }}</td>
+                                <td><h5>{{ item.PriceDiscount ? item.PriceDiscount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '' }}</h5></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="kt-portlet kt-portlet--tabs">
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Giá đang áp dụng
+                        </h3>
+                        <div class="btn-tabs-right">
+                          <button class="btn btn-primary" (click)="popupHistoryPrice()">
+                            <i class="la la-history"></i>
+                            Lịch sử giá
+                          </button>
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <mo-price-config-grid #priceConfigGrid [filter]="filterPriceConfig"></mo-price-config-grid>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="kt-form" *ngIf="!item">
+          {{ message }}
+      </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+      <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

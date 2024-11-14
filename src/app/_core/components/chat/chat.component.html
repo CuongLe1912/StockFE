@@ -1,0 +1,178 @@
+<div class="container-chat" [ngClass]="{'hide': hide}">
+    <div class="chat-close" (click)="toggleChat()">
+        <button class="btn btn-sm btn-icon" *ngIf="!hide && !selectedItem">
+            <i class="flaticon2-cross"></i>
+        </button>
+        <button class="btn btn-sm btn-icon kt-pulse kt-pulse--light" *ngIf="hide">
+            <i class="fa fa-comment"></i>
+            <span class="kt-pulse__ring" *ngIf="pulseCount"></span>
+            <span class="kt-pulse__number" *ngIf="pulseCount">
+                <span class="kt-badge kt-badge--warning kt-badge--md kt-font-bold">{{ pulseCount }}</span>
+            </span>
+        </button>
+    </div>
+    <div class="people-list-chat">
+        <ul class="list" *ngIf="selectedItems && selectedItems.length > 0">
+            <li *ngFor="let item of selectedItems" (click)="choiceItem(item)" [ngClass]="{'online':item.Online,'active':item.Id == selectedItem.Id}">
+                <button class="btn btn-light btn-circle btn-icon" (click)="closeItem(item)">
+                    <i class="la la-close"></i>
+                </button>
+                <span *ngIf="item.PulseCount" class="pulse-count">
+                    <span class="kt-badge kt-badge--warning kt-font-bold">{{ item.PulseCount }}</span>
+                </span>
+                <img *ngIf="item.Avatar" [src]="item.Avatar" alt="avatar" />
+                <div *ngIf="!item.Avatar" class="letter">{{ item.Letter }}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="kt-chat" *ngIf="selectedItem">
+        <div class="kt-portlet kt-portlet--last">
+            <div class="kt-portlet__head">
+                <div class="kt-chat__head ">
+                    <div class="kt-chat__left">
+                        <div class="kt-chat__label">
+                            <a class="kt-chat__title">{{ selectedItem.FullName || selectedItem.Name }}</a>
+                            <div class="kt-chat__status" *ngIf="selectedItem.Type == HubType.User">
+                                <i class="fa fa-circle" [ngClass]="{'online': selectedItem.Online}"></i> {{ selectedItem.Online ? 'online' : 'offline' }}
+                            </div>
+                            <div class="kt-chat__status" *ngIf="selectedItem.Type != HubType.User">
+                                <a (click)="viewUsers(selectedItem)"><i class="fa fa-user-friends online"></i> {{ selectedItem.Count }} nhân viên</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-chat__right">
+                        <button type="button" class="btn btn-clean btn-sm btn-icon" (click)="closeItem(selectedItem)">
+                            <i class="flaticon2-cross"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" id="kt-portlet__body">
+                <div class="kt-chat__messages kt-chat__messages--solid">
+                    <div *ngFor="let item of messages">
+                        <div class="kt-chat__message" [ngClass]="item.Right ? 'kt-chat__message--right kt-chat__message--brand' : 'kt-chat__message--success'">
+                            <div class="kt-chat__user">
+                                <span class="kt-media kt-media--circle kt-media--sm" *ngIf="item.SendAvatar || item.ReceiveAvatar; else elseContent">
+                                    <img [src]="item.SendAvatar || item.ReceiveAvatar" alt="Ảnh">
+                                </span>
+                                <ng-template #elseContent>
+                                    <span class="kt-media kt-media--circle kt-media--sm">
+                                        <span>{{ item.SendShortName || item.ReceiveShortName }}</span>
+                                    </span>
+                                </ng-template>
+                                <a class="kt-chat__username">{{ item.SendName || item.ReceiveName }}</a>
+                                <span class="kt-chat__datetime">{{ item.DateTime | datetimex }}</span>
+                            </div>
+                            <div class="kt-chat__text">
+                                {{ item.Content }}
+                            </div>
+                        </div>
+                        <div style="clear: both; height: 0;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-chat__input">
+                    <div class="kt-chat__editor">
+                        <editor [(object)]="item" property="Content" [decorator]="{label: ''}" (keyPressEnter)="sendMessage()"></editor>
+                    </div>
+                    <div class="kt-chat__toolbar">
+                        <div class="kt_chat__tools">
+                            <a><i class="flaticon2-link"></i></a>
+                            <a><i class="flaticon2-photograph"></i></a>
+                            <a><i class="flaticon2-photo-camera"></i></a>
+                        </div>
+                        <div class="kt_chat__actions">
+                            <button type="button" class="btn btn-brand btn-md  btn-font-sm btn-upper btn-bold kt-chat__reply" (click)="sendMessage()">Gửi tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="people-list">
+        <div class="search">
+            <input type="text" placeholder="Tìm kiếm...." [(ngModel)]="searchText" (ngModelChange)="searchChange()" />
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="kt-head kt-head--skin-dark">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-success kt-notification-item-padding-x" role="tablist">
+                <li class="nav-item" (click)="selectedTab = 'chat_user'">
+                    <a class="nav-link" [ngClass]="{'active show':selectedTab == 'chat_user'}">Nhân viên <span *ngIf="filterUsers">[{{ filterUsers.length }}]</span></a>
+                </li>
+                <li class="nav-item" (click)="selectedTab = 'chat_team'" *ngIf="filterTeams && filterTeams.length > 0">
+                    <a class="nav-link" [ngClass]="{'active show':selectedTab == 'chat_team'}">Nhóm <span>[{{ filterTeams.length }}]</span></a>
+                </li>
+                <li class="nav-item" (click)="selectedTab = 'chat_group'" *ngIf="filterGroups && filterGroups.length > 0">
+                    <a class="nav-link" [ngClass]="{'active show':selectedTab == 'chat_group'}">Nhóm khác <span>[{{ filterGroups.length }}]</span></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" [ngClass]="{'active show':selectedTab == 'chat_user'}">
+                    <ul class="list" *ngIf="filterUsers && filterUsers.length > 0">
+                        <li *ngFor="let item of filterUsers" (click)="choiceItem(item)">
+                            <img *ngIf="item.Avatar" [src]="item.Avatar" alt="avatar" />
+                            <div *ngIf="!item.Avatar" class="letter">{{ item.Letter }}</div>
+                            <div class="about">
+                                <div class="name">
+                                    {{ item.FullName }}
+                                    <span *ngIf="item.PulseCount" class="pulse-count">
+                                        <span class="kt-badge kt-badge--warning kt-font-bold">{{ item.PulseCount }}</span>
+                                    </span>
+                                </div>
+                                <div class="status">
+                                    <i class="fa fa-circle" [ngClass]="{'online': item.Online}"></i> {{ item.Online ? 'online' : 'offline' }}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list" *ngIf="loading && !hide">
+                        <li><loading></loading></li>
+                    </ul>
+                </div>
+                <div class="tab-pane" [ngClass]="{'active show':selectedTab == 'chat_team'}">
+                    <ul class="list" *ngIf="filterTeams && filterTeams.length > 0">
+                        <li *ngFor="let item of filterTeams" (click)="choiceItem(item)">
+                            <div class="letter">{{ item.Letter }}</div>
+                            <div class="about">
+                                <div class="name">
+                                    {{ item.Name }}
+                                    <span *ngIf="item.PulseCount" class="pulse-count">
+                                        <span class="kt-badge kt-badge--warning kt-font-bold">{{ item.PulseCount }}</span>
+                                    </span>
+                                </div>
+                                <div class="status">
+                                    <i class="fa fa-user-friends online"></i> {{ item.Code }} - {{ item.Count }} nhân viên
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list" *ngIf="loading && !hide">
+                        <li><loading></loading></li>
+                    </ul>
+                </div>
+                <div class="tab-pane" [ngClass]="{'active show':selectedTab == 'chat_group'}">
+                    <ul class="list" *ngIf="filterGroups && filterGroups.length > 0">
+                        <li *ngFor="let item of filterGroups" (click)="choiceItem(item)">
+                            <div class="letter">{{ item.Letter }}</div>
+                            <div class="about">
+                                <div class="name">
+                                    {{ item.Name }}
+                                    <span *ngIf="item.PulseCount" class="pulse-count">
+                                        <span class="kt-badge kt-badge--warning kt-font-bold">{{ item.PulseCount }}</span>
+                                    </span>
+                                </div>
+                                <div class="status">
+                                    <i class="fa fa-user-friends online"></i> {{ item.Count }} nhân viên
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list" *ngIf="loading && !hide">
+                        <li><loading></loading></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

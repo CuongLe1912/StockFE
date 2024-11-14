@@ -1,0 +1,28 @@
+<div class="row box-edit-review" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <div class="box-item">
+            <label>Viết phản hồi về dự án *</label>
+            <div class="row">
+                <div class="col-sm-4">
+                    <editor [(object)]="item" property="UserId" [decorator]="{ label: '', index: index }" (optionChange)="userChange($event)" [readonly]="readonly"></editor>
+                </div>
+                <div class="col-sm-4">
+                    <editor [(object)]="item" property="NickName" [decorator]="{ label: '', index: index }" [readonly]="readonly"></editor>
+                </div>
+                <div class="col-sm-4" *ngIf="!replyId">
+                    <editor [(object)]="item" property="PublishedAt" [decorator]="{ label: '', index: index }" [readonly]="readonly" (valueChange)="changePublishedAt()"></editor>
+                    <span *ngIf="isValidPublishAt == false" style="color: red;">{{messageAlertPublishAt}}</span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="box-editor">
+                        <editor [(object)]="item" property="Comment" [decorator]="{ label: '', index: index}" [readonly]="readonly"></editor>
+                        <editor #uploadFiles [(object)]="item" property="Files" [decorator]="{ label: '', index: index}" [readonly]="readonly"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

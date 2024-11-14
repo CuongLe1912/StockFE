@@ -1,0 +1,14 @@
+::ng-deep .verify-article {
+    .grid-content {
+        max-height: 300px !important;
+        .table {
+            .actions {
+                width: 80px !important;
+                max-width: 80px !important;
+                .choice-column {
+                    display: none;
+                }
+            }
+        }
+    }
+}

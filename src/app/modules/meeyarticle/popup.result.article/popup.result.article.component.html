@@ -1,0 +1,9 @@
+<div class="row verify-article" *ngIf="items">
+    <div class="col-sm-12">
+        <div style="margin-bottom: 10px;">
+            <div>Tổng số tin thất bại: {{ error }}</div>
+            <div>Tổng số tin thành công: {{ success }}</div>
+        </div>
+        <ml-list-article-error [items]="items"></ml-list-article-error>
+    </div>
+</div>

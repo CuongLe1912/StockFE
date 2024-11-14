@@ -1,0 +1,17 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <div style="margin-bottom: 20px;" *ngIf="!balance">
+            <span>Bạn chắc chắn muốn xóa nhân viên khỏi công ty này?</span>
+        </div>
+        <div style="margin-bottom: 20px;" *ngIf="balance">
+            <p>Tài khoản này có số dư trong tài khoản Meey Pay. Bạn chắc chắn muốn xóa nhân viên khỏi công ty này?</p>
+            <p class="remove-balance" [innerHTML]="balance | sanitizeHtml"></p>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Reason" (valueChange)="valueChange()"></editor>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

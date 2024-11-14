@@ -1,0 +1,58 @@
+<div class="kt-portlet kt-portlet--tabs" *ngIf="item">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        Bạn xác nhận đã nhận được đủ hóa đơn của doanh nghiệp 
+      </h3>
+    </div>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" *ngIf="item?.Invoice">
+          <div class="col-sm-12">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radioBusinesses" name="customRadio" [(ngModel)]="radioInvoice" [value]="1" class="custom-control-input">
+              <label class="custom-control-label" for="radioBusinesses">Đồng ý với hóa đơn Doanh nghiệp đã gửi</label>
+            </div>
+          </div>
+          <label class="col-sm-12 col-form-label">
+            <p *ngIf="item.Invoice?.PdfFile">- Pdf: <a [href]="item.Invoice?.PdfFile" target="_blank">{{ getFileName(item.Invoice?.PdfFile) }}</a></p>
+            <p *ngIf="item.Invoice?.XmlFile">- Xml: <a [href]="item.Invoice?.XmlFile" target="_blank">{{ getFileName(item.Invoice?.XmlFile) }}</a></p>
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radioUpload" name="customRadio" [(ngModel)]="radioInvoice" [value]="2" class="custom-control-input">
+              <label class="custom-control-label" for="radioUpload">Upload file hóa đơn mới cho Doanh nghiệp này</label>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="radioInvoice == 2">
+          <label class="col-sm-2 col-form-label">File XML</label>
+          <div class="col-sm-5">
+            <editor #uploadXmlFile [(object)]="invoice" property="XmlFile" [decorator]="{ label: '' }"></editor>
+          </div>
+        </div>
+        <div class="row" *ngIf="radioInvoice == 2">
+          <label class="col-sm-2 col-form-label">File PDF</label>
+          <div class="col-sm-5">
+            <editor #uploadPdfFile [(object)]="invoice" property="PdfFile" [decorator]="{ label: '' }"></editor>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-form-label">
+        <em *ngIf="currentDay < 15">Lưu ý: Sau khi xác nhận hệ thống sẽ tự động thanh toán về TKKM1 Meey Pay vào ngày 15</em>
+        <em *ngIf="currentDay >= 15">Lưu ý: Sau khi xác nhận hệ thống sẽ tự động THANH TOÁN NGAY về TKKM1 Meey Pay của KH</em>
+      </div>
+    </div>
+    <div class="row" *ngIf="errorMessage">
+      <div class="col-sm-12 col-form-label">
+        <em class="text-danger">{{ errorMessage }}</em>
+      </div>
+    </div>
+  </div>
+</div>

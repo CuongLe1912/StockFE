@@ -1,0 +1,170 @@
+.video-container {
+    z-index: 1;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    &.fullwidth {
+        width: 100%;
+        height: unset;
+        .video-inner {
+            margin: 0;
+            width: 100%;
+            img {
+                height: auto;
+                max-width: 100%;
+            }
+        }
+    }
+    .video-inner {
+        height: 120px;
+        display: flex;
+        cursor: pointer;
+        transform: unset;
+        min-width: 140px;
+        position: relative;
+        margin: 0 20px 0 0;
+        transition: all 0.5s;
+        align-content: center;
+        border-radius: 0.25rem;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        &.have-description {
+            .la-plus-circle {
+                margin-top: 5px;
+            }
+        }
+        img {
+            width: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .edit {
+            opacity: 1;
+            z-index: 1;
+            top: -16px;
+            width: 30px;
+            right: -16px;
+            height: 30px;
+            color: #fff;
+            display: flex;
+            cursor: pointer;
+            overflow: hidden;
+            position: absolute;
+            align-items: center;
+            border-radius: 100%;
+            font-weight: normal;
+            transition: all 0.5s;
+            justify-content: center;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.1);
+            .fa {
+                color: #5d78ff;
+                font-size: 0.9rem;
+            }
+            &:hover {
+                background-color: #5d78ff;
+                .fa {
+                    color: #fff;
+                }
+            }
+        }
+        label {
+            top: 0;
+            font-size: smaller;
+            position: absolute;
+            text-align: center !important;
+            padding: 0 10px;
+        }
+        .close {
+            top: 16px;
+            z-index: 1;
+            opacity: 1;
+            width: 30px;
+            right: -16px;
+            height: 30px;
+            color: #fff;
+            display: flex;
+            cursor: pointer;
+            overflow: hidden;
+            position: absolute;
+            align-items: center;
+            border-radius: 100%;
+            font-weight: normal;
+            transition: all 0.5s;
+            justify-content: center;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.1);
+            .fa {
+                color: #fd397a;
+                font-size: 0.9rem;
+            }
+            &:hover {
+                background-color: #fd397a;
+                .fa {
+                    color: #fff;
+                }
+            }
+        }
+        .overlay {
+            opacity: 0;
+            width: 100%;
+            color: #fff;
+            bottom: -50px;
+            overflow: hidden;
+            position: absolute;
+            transition: all 0.5s;
+            pointer-events: none;
+            padding: 5px 10px 0 10px;
+            border-radius: 0 0 5px 5px;
+            background-color: rgba($color: #232323, $alpha: 0.5);
+            p {
+                margin: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+        .la-user,
+        .la-plus-circle {
+            position: unset;
+            color: #e2e5ec;
+            transform: unset;
+            line-height: 118px;
+            transition: all 0.5s;
+            font-size: 3.6rem !important;
+        }
+        &:hover {
+            border-color: #7096f6;
+            .overlay {
+                bottom: 0;
+                opacity: 1;
+            }
+            .fa-user,
+            .fa-plus-circle {
+                color: #7096f6;
+            }
+        }
+    }
+}
+
+.progress {
+    bottom: 0;
+    width: 100%;
+    height: 1.5rem;
+    position: absolute;
+    border-radius: 0 0 4px 4px;
+}
+
+.hrefVideoList {
+    width: 100%;
+    div {
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

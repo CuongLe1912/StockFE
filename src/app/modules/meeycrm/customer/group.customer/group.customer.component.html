@@ -1,0 +1,60 @@
+<div class="group-customer" *ngIf="item">
+    <div class="row">
+        <div class="col-sm-6">
+            <editor [(object)]="item" property="CustomerId" (valueChange)="customerChange()"></editor>                            
+        </div>
+        <div class="col-sm-2">
+            <div *ngIf="processing" class="kt-spinner kt-spinner--v2 kt-spinner--primary mt-5"></div>
+        </div>
+        <div class="col-sm-12" *ngIf="items" style="margin-bottom: 20px;">
+            <label>Danh sách khách hàng muốn gộp: {{ items && items.length }}</label>
+            <mcrm-customer-list #customerList [customers]="items" [rootId]="item.RootId" (removed)="removedItems($event)" [action]="action" (selected)="selectedCustomer($event)"></mcrm-customer-list>
+        </div>
+        <div class="col-sm-6" *ngIf="SaleOption && SaleOption.length > 0 && !processing">
+            <editor [(object)]="item" property="SaleId" (valueChange)="toggleDisableButton()" [decorator]="{ lookup: { items: SaleOption } }"></editor>
+        </div>
+        <div class="col-sm-6" *ngIf="!(SaleOption && SaleOption.length > 0) && !processing">
+            <editor [(object)]="item" property="SaleId" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-6" *ngIf="SupportOption && SupportOption.length > 0 && !processing">
+            <editor [(object)]="item" property="SupportId" (valueChange)="toggleDisableButton()" [decorator]="{ lookup: { items: SupportOption } }"></editor>
+        </div>
+        <div class="col-sm-6" *ngIf="!(SupportOption && SupportOption.length > 0) && !processing">
+            <editor [(object)]="item" property="SupportId" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-12">
+            <editor [(object)]="item" property="Reason" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-12" *ngIf="!showResult">
+            <button type="button" class="btn btn-primary float-right mb-3" [disabled]="disabledGroup" (click)="groupCustomer()">Gộp</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="showResult">
+        <div class="col-sm-12">
+            <div class="kt-portlet kt-portlet--mobile" style="height: 94%;">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Kết quả gộp thông tin khách hàng
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <editor [(object)]="item" property="Name" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="Phone" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="Email" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="SaleId" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="SupportId" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="CustomerStatusType" [viewer]="true" [html]="true"></editor>
+                            <div class="form-group form-group-viewer row">
+                                <label class="col-12 text-danger mt-2">Các thông tin cá nhân, trạng thái của khách hàng này sẽ lấy theo khách hàng gốc</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                    
+    </div>
+</div>

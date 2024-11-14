@@ -1,0 +1,22 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-6">
+        <editor [(object)]="item" property="User" [decorator]="{ readonly: true }"></editor>
+        <editor [(object)]="item" property="Level" [decorator]="{ readonly: true }"></editor>
+    </div>
+    <div class="col-sm-6">
+        <editor [(object)]="item" property="CreatedAt" [decorator]="{ readonly: true }"></editor>
+        <editor [(object)]="item" property="Status" [decorator]="{ label: 'Trạng thái' }"></editor>
+    </div>
+    <div class="col-sm-12">
+        <div *ngIf="item.Status == MShareCommentStatus.Hidden">
+            <editor [(object)]="item" property="Reason"></editor>
+        </div>
+        <editor [(object)]="item" property="Content" [decorator]="{ readonly: true }"></editor>
+        <button class="btn btn-primary" (click)="viewComment()">
+            Xem bình luận gốc
+        </button>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

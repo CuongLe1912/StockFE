@@ -1,0 +1,50 @@
+<div class="row edit-project-type" *ngIf="item">
+  <div class="col-sm-12">
+    <editor #uploadFile [(object)]="item" property="Attachments" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+  </div>
+  <div class="col-sm-6">
+    <editor [(object)]="item" property="ContractName" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    <!-- [disabled]="item.Id > 0 ? true : false" -->
+    <editor [(object)]="item" property="CompanyName" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    <editor [(object)]="item" property="IframeCode" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    <editor [(object)]="item" property="Domain" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    
+  </div>
+  <div class="col-sm-6">
+    <!-- <editor [(object)]="item" property="SaleId" [decorator]="{readonly: viewer}" ></editor> -->
+    
+    <editor [(object)]="item" property="StartDate" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    <editor [(object)]="item" property="ExpireDate" [decorator]="{readonly: id > 0 ? true : false}"></editor>
+    <editor [(object)]="item" property="RenewalDate" [decorator]="{readonly: viewer}" ></editor>
+    <editor [(object)]="item" property="IframeRefCode" [decorator]="{readonly: viewer}" ></editor>
+    
+    <!-- <editor [(object)]="item" property="SaleId" [decorator]="{readonly: viewer}" ></editor> -->
+  </div>
+  <div class="col-sm-12">
+    <editor [(object)]="item" property="SaleType" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+  </div>
+  <div class="col-sm-6" *ngIf="item && item.SaleType == 1">
+    <editor [(object)]="item" property="SaleId" [decorator]="{readonly: viewer}" ></editor>
+  </div>
+  <div class="col-sm-6" *ngIf="item && item.SaleType == 2">
+    <!-- <editor [(object)]="item" property="SalePartner" [decorator]="{readonly: viewer}" ></editor> -->
+    <div class="input-group align-items-center">
+      <div class="col-sm-8 p-0">
+        <editor [(object)]="item" (valueChange)="clearItem(item.Search)" property="Search" [decorator]="{readonly: viewer,label:'Cộng tác viên', placeholder:'Nhập Số điện thoại, email hoặc meeyid'}"></editor>
+      </div>
+      <div class="col-sm-4">
+        <editor-button label="Tìm kiếm" (click)="searchItem()" [disabled]="item.Search && item.SaleType == 2 ? false : true"></editor-button>
+      </div>
+    </div>
+    <div style="min-height: 104px;" class="col-sm-12" *ngIf="item && item.PartnerMeeyId && item.SaleType == 2">
+      <div class="employee-info col-sm-12">
+        <editor *ngIf="item.PartnerName" [(object)]="item" property="PartnerName" [viewer]="true" [labelInline]="true"></editor>
+        <editor *ngIf="item.Phone" [(object)]="item" property="Phone" [viewer]="true" [labelInline]="true"></editor>
+        <editor *ngIf="item.Email" [(object)]="item" property="Email" [viewer]="true" [labelInline]="true"></editor>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="item.Id && viewer == false">
+    <editor [(object)]="item" property="Note" [decorator]="{readonly: viewer}" ></editor>
+  </div>
+</div>

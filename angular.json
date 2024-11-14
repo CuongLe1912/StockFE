@@ -1,0 +1,195 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "cli": {
+        "packageManager": "yarn",
+        "analytics": "4294f3e9-3fa5-40ab-ace1-ee69f7562309"
+    },
+    "newProjectRoot": "projects",
+    "projects": {
+        "meey-admin": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "inlineTemplate": true,
+                    "inlineStyle": true,
+                    "style": "scss",
+                    "skipTests": true
+                },
+                "@schematics/angular:class": {
+                    "skipTests": true
+                },
+                "@schematics/angular:directive": {
+                    "skipTests": true
+                },
+                "@schematics/angular:guard": {
+                    "skipTests": true
+                },
+                "@schematics/angular:interceptor": {
+                    "skipTests": true
+                },
+                "@schematics/angular:module": {
+                    "skipTests": true
+                },
+                "@schematics/angular:pipe": {
+                    "skipTests": true
+                },
+                "@schematics/angular:service": {
+                    "skipTests": true
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "meey",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "aot": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "main": "src/main.ts",
+                        "buildOptimizer": false,
+                        "index": "src/index.html",
+                        "outputPath": "dist/meey-admin",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "/assets"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/line-awesome/fonts",
+                                "output": "/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/flaticon/fonts",
+                                "output": "/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/flaticon2/fonts",
+                                "output": "/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/tinymce/icons",
+                                "output": "/icons"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/tinymce/langs",
+                                "output": "/langs"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/tinymce/skins",
+                                "output": "/skins"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/tinymce/plugins",
+                                "output": "/plugins"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/plugins/tinymce/themes",
+                                "output": "/themes"
+                            }
+                        ],
+                        "styles": [
+                            "./src/styles.scss",
+                            "./node_modules/leaflet/dist/leaflet.css",
+                            "./node_modules/@fancyapps/ui/dist/fancybox.css",
+                            "./src/assets/plugins/color-picker/coloris.min.css",
+                            "./src/assets/plugins/datetime/css/datepicker.min.css",
+                            "./src/assets/plugins/custom/jstree/jstree.bundle.min.css",
+                            "./src/assets/plugins/tui-color-picker/dist/tui-color-picker.min.css",
+                            "./src/assets/plugins/tui-image-editor/dist/tui-image-editor.min.css",
+                            "./src/assets/plugins/bootstrap-phone/build/css/intlTelInput.min.css",
+                            "./node_modules/leaflet-responsive-popup/leaflet.responsive.popup.css"
+                        ],
+                        "scripts": [
+                            "./src/assets/plugins/jquery/dist/jquery-3.4.1.min.js",
+                            "./node_modules/fabric/dist/fabric.min.js",
+                            "./src/assets/plugins/select2/select2.min.js",
+                            "./src/assets/plugins/tinymce/tinymce.min.js",
+                            "./src/assets/plugins/color-picker/coloris.js",
+                            "./src/assets/plugins/toastr/build/toastr.min.js",
+                            "./node_modules/apexcharts/dist/apexcharts.min.js",
+                            "./src/assets/plugins/global/plugins.bundle.min.js",
+                            "./src/assets/plugins/datetime/js/datepicker.min.js",
+                            "./src/assets/plugins/draggabilly/draggabilly.min.js",
+                            "./src/assets/plugins/bootstrap-daterangepicker/moment.min.js",
+                            "./src/assets/plugins/table.resizable/colResizable-1.6.min.js",
+                            "./src/assets/plugins/tui-code-snippet/dist/tui-code-snippet.min.js",
+                            "./src/assets/plugins/tui-color-picker/dist/tui-color-picker.min.js",
+                            "./src/assets/plugins/tui-image-editor/dist/tui-image-editor.min.js",
+                            "./src/assets/plugins/bootstrap-phone/build/js/intlTelInput-jquery.min.js",
+                            "./src/assets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js",
+                            "./src/assets/plugins/bootstrap-daterangepicker/bootstrap-daterangepicker.min.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "aot": true,
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": true,
+                            "vendorChunk": true,
+                            "optimization": {
+                                "styles": false,
+                                "scripts": false
+                            },
+                            "outputHashing": "all",
+                            "buildOptimizer": false,
+                            "extractLicenses": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "50mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "50mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "port": 8080,
+                        "browserTarget": "meey-admin:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "meey-admin:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "meey-admin:build"
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "meey-admin"
+}

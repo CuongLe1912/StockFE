@@ -1,0 +1,81 @@
+<div class="row edit-project-type">
+  <div class="col-sm-12 row ml-0">
+    <div class="col-sm-8">
+      <editor [(object)]="item" property="DateRangeReward"></editor>
+    </div>
+    <div class="col-sm-4 fixButton">
+      <editor-button label="Tìm kiếm" (click)="searchItem()"></editor-button>
+    </div>
+    
+    
+  </div>
+  <div class="statisLayout col-sm-12">
+    <b>Thống kê giao dịch trên tài khoản ưu đãi</b>
+  </div>
+  <div class="statisLayout col-sm-12">
+    <p>Số tiền đang có trên hệ thống: {{ total?.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) }} đ</p>
+  </div>
+  <div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Giao dịch</th>
+                <th>Số lượng user thao tác</th>
+                <th>Số giao dịch</th>
+                <th>Số tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Giao dịch nạp</td>
+                <td>{{ items?.charge_tx_user_numb > 0 ? items?.charge_tx_user_numb : 0 }}</td>
+                <td>{{ items?.charge_tx_num ? items?.charge_tx_num : 0 }}</td>
+                <td>{{ items?.charge_tx_amount > 0 ? items.charge_tx_amount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ</td>
+            </tr>
+            <tr>
+                <td>Chuyển tiền</td>
+                <td>{{ items?.transfer_tx_user_numb > 0 ? items?.transfer_tx_user_numb : 0 }}</td>
+                <td>{{ items?.transfer_tx_num > 0 ? items?.transfer_tx_num : 0 }}</td>
+                <td>{{ items?.transfer_tx_amount > 0 ? items?.transfer_tx_amount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ</td>
+            </tr>
+            <tr>
+                <td>Thanh toán</td>
+                <td>{{ items?.payment_tx_user_numb > 0 ? items?.payment_tx_user_numb : 0 }}</td>
+                <td>{{ items?.payment_tx_num > 0 ? items?.payment_tx_num : 0 }}</td>
+                <td>{{ items?.payment_tx_amount > 0 ? items?.payment_tx_amount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <div class="statisLayout col-sm-12">
+    <b>Chi tiết mua sản phẩm</b>
+  </div>
+  
+  <div class="table-detail">
+    <table>
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng user thao tác</th>
+                <th>Số giao dịch</th>
+                <th>Số tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Meey Map</td>
+                <td>{{ itemsMM?.paymentMM_tx_user_numb > 0 ? itemsMM?.paymentMM_tx_user_numb : 0 }}</td>
+                <td>{{ itemsMM?.payment_tx_num ? itemsMM?.payment_tx_num : 0 }}</td>
+                <td>{{ itemsMM?.payment_tx_amount > 0 ? itemsMM?.payment_tx_amount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ</td>
+            </tr>
+            <tr>
+                <td>Meey Land</td>
+                <td>{{ itemsML?.paymentML_tx_user_numb > 0 ? itemsML?.paymentML_tx_user_numb : 0 }}</td>
+                <td>{{ itemsML?.payment_tx_num ? itemsML?.payment_tx_num : 0 }}</td>
+                <td>{{ itemsML?.payment_tx_amount > 0 ? itemsML.payment_tx_amount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : 0 }} đ</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

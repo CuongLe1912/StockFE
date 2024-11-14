@@ -1,0 +1,65 @@
+.kt-portlet__head .kt-portlet__head-actions .input-group::ng-deep {
+    max-width: 69%;
+}
+
+::ng-deep .grid-structure {
+    table tbody .clicked {
+        background: #ded !important;
+    }
+    .dataTables_paginate {
+        width: 100%;
+        justify-content: center;
+    }
+    .dataTables_length {
+        &.reload,
+        &.page-group {
+            display: none !important;
+        }
+        &.page-size {
+            margin-left: 0 !important;
+        }
+    }
+    table thead {
+        display: none;
+    }
+    table tbody tr td {
+        &.actions {
+            width: 80px;
+            min-width: 50px;
+        }
+        a {
+            text-decoration: none !important;
+            .structure-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                p {
+                    flex-grow: 1;
+                }
+                span {
+                    display: flex;
+                    color: #fff;
+                    min-width: 25px;
+                    margin-left: 20px;
+                    width: fit-content;
+                    text-align: center;
+                    border-radius: 4px;
+                    white-space: nowrap;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #eea200;
+                }
+            }
+        }
+        .btn-group .dropdown button {
+            border-radius: 0.2rem;
+        }
+    }
+    .grid-content.grid-popup {
+        max-height: calc(100vh - 360px);
+    }
+}
+
+// .box-number{
+//     background: #1310dd;
+// }

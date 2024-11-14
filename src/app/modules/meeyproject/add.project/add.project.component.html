@@ -1,0 +1,217 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-article">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions"
+        [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="row" *ngIf="isProduct">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title" style="padding: 10px 0; color: red;">Bạn đang xem thông
+                                tin dự án của
+                                sản phẩm <b>{{productName}}</b></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head" style="padding-top: 0 !important;">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x"
+                        [ngClass]="{'disabled': processing}">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('info')"
+                                [ngClass]="{'active':!tab || tab == 'info', 'tab-link-error': validTabs.includes('info')}">
+                                Thông tin cơ bản <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('info')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('location')"
+                                [ngClass]="{'active':tab == 'location', 'tab-link-error': validTabs.includes('location')}">
+                                Vị trí <i class="fa fa-exclamation-circle" *ngIf="validTabs.includes('location')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('utilities')"
+                                [ngClass]="{'active':tab == 'utilities', 'tab-link-error': validTabs.includes('utilities')}">
+                                Tiện ích <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('utilities')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('juridical')"
+                                [ngClass]="{'active':tab == 'juridical', 'tab-link-error': validTabs.includes('juridical')}">
+                                Pháp lý dự án <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('juridical')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('image')"
+                                [ngClass]="{'active':tab == 'image', 'tab-link-error': validTabs.includes('image')}">
+                                Hình ảnh dự án <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('image')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('files')"
+                                [ngClass]="{'active':tab == 'files', 'tab-link-error': validTabs.includes('files')}">
+                                Tài liệu dự án <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('files')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('videos')"
+                                [ngClass]="{'active':tab == 'videos', 'tab-link-error': validTabs.includes('videos')}">
+                                Video dự án <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('videos')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('salePolicy')"
+                                [ngClass]="{'active':tab == 'salePolicy', 'tab-link-error': validTabs.includes('salePolicy')}">
+                                Chính sách bán hàng <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('salePolicy')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('investorRelated')"
+                                [ngClass]="{'active':tab == 'investorRelated', 'tab-link-error': validTabs.includes('investorRelated')}">
+                                Chủ đầu tư & các đơn vị liên quan <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('investorRelated')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('construction')"
+                                [ngClass]="{'active':tab == 'construction', 'tab-link-error': validTabs.includes('construction')}">
+                                Tiến độ xây dựng <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('construction')"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('paymentProgress')"
+                                [ngClass]="{'active':tab == 'paymentProgress', 'tab-link-error': validTabs.includes('paymentProgress')}">
+                                Tiến độ thanh toán <i class="fa fa-exclamation-circle"
+                                    *ngIf="validTabs.includes('paymentProgress')"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding-bottom: 0;">
+                <div class="tab-content group-image">
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'info'}">
+                        <mpo-project-info #projectInfo
+                            [params]="{item: item, viewer: viewer, isProduct: isProduct, projectLocation: projectLocation, projectUtilities: projectUtilities, projectSalePolicy: projectSalePolicy, projectJuridical: projectJuridical, projectInvestorRelated: projectInvestorRelated, projectConstruction: projectConstruction, projectPaymentProgress: projectPaymentProgress }"
+                            (validTabChange)="validTabChange($event)"></mpo-project-info>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'location'}">
+                        <mpo-project-location #projectLocation
+                            [params]="{item: item, viewer: viewer, isProduct: isProduct, locationTab: locationTab }">
+                        </mpo-project-location>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'utilities'}">
+                        <mpo-project-utilities #projectUtilities
+                            [params]="{item: item, viewer: viewer, isProduct: isProduct, utilitiesTab: utilitiesTab }">
+                        </mpo-project-utilities>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'juridical'}">
+                        <mpo-project-juridical #projectJuridical
+                            [params]="{item: item, viewer: viewer, isProduct: isProduct, utilitiesTab: utilitiesTab }">
+                        </mpo-project-juridical>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'image'}">
+                        <mpo-project-image #projectImage [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-image>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'files'}">
+                        <mpo-project-files #projectFiles [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-files>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'videos'}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="kt-portlet kt-portlet--tabs">
+                                    <div class="kt-portlet__head" style="padding-top: 0 !important;">
+                                        <div class="kt-portlet__head-toolbar">
+                                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x"
+                                                [ngClass]="{'disabled': processing}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" (click)="selectedVideosTab('admin')"
+                                                        [ngClass]="{'active':videoTab == 'admin'}">
+                                                        Upload từ hệ thống
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" (click)="selectedVideosTab('meeyId')"
+                                                        [ngClass]="{'active':videoTab == 'meeyId'}">
+                                                        Upload từ người dùng
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="btn-tabs-right" *ngIf="!viewer && videoTab == 'admin'">
+                                                <button class="btn btn-primary" (click)="popupUpload()">
+                                                    <i class="la la-file-video-o"></i>
+                                                    Tải video dự án
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__body" style="padding-bottom: 0;" *ngIf="tab=='videos'">
+                                        <div class="tab-content group-image">
+                                            <div class="tab-pane" [ngClass]="{'active':videoTab == 'admin'}">
+                                                <div class="row">
+                                                    <div class="col-sm-12" *ngIf="videoTab == 'admin'">
+                                                        <mpo-video-project-grid #projectVideoAdmin *ngIf="item"
+                                                            [params]="{ item: item, isProduct: isProduct, type: videoTab }">
+                                                        </mpo-video-project-grid>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" [ngClass]="{'active':videoTab == 'meeyId'}">
+                                                <div class="row">
+                                                    <div class="col-sm-12" *ngIf="videoTab == 'meeyId'">
+                                                        <mpo-video-project-grid *ngIf="item"
+                                                            [params]="{ item: item, isProduct: isProduct, type: videoTab }">
+                                                        </mpo-video-project-grid>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'salePolicy'}">
+                        <mpo-project-sale-policy #projectSalePolicy
+                            [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-sale-policy>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'investorRelated'}">
+                        <mpo-project-investor-related #projectInvestorRelated
+                            [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-investor-related>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'construction'}">
+                        <mpo-project-construction-progress #projectConstruction
+                            [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-construction-progress>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'paymentProgress'}">
+                        <mpo-project-payment-progress #projectPaymentProgress
+                            [params]="{item: item, isProduct: isProduct, viewer: viewer}">
+                        </mpo-project-payment-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loadingInfo">
+        <loading></loading>
+    </div>
+</div>

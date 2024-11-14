@@ -1,0 +1,265 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-coupon" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs"
+        [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_information">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_information">
+                                    Thông tin chung
+                                </div>
+                            </div>
+                            <div id="collapse_information" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Chủ đầu tư <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="InvestorName"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tên người đại diện <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="RepresentativeName"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mã số thuế</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="TaxCode"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Số điện thoại <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="Phone"
+                                                        [decorator]="{ label: '', readonly: viewer || isUpdate }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mã số doanh nghiệp</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="BusinessCode"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Email <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="Email"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Địa chỉ</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="Address"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mã hợp đồng</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="ContractCode"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <editor [(object)]="item" property="CityId"
+                                                                [decorator]="{ label: '', readonly: viewer }">
+                                                            </editor>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <editor [(object)]="item" property="DistrictId"
+                                                                [decorator]="{ label: '', readonly: viewer }">
+                                                            </editor>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <editor [(object)]="item" property="WardId"
+                                                                [decorator]="{ label: '', readonly: viewer }">
+                                                            </editor>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">DB Uri <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="DBUri"
+                                                        [decorator]="{ label: '', readonly: viewer || isUpdate }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_product_usage_information">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse"
+                                    data-target="#collapse_product_usage_information">
+                                    Thông tin sử dụng sản phẩm
+                                </div>
+                            </div>
+                            <div id="collapse_product_usage_information" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tền miền sản phẩm <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="Domain"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Ngày hết hạn</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="EndDate"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="StartDate"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Hạn bảo hành (Tháng)</label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="WarrantyPeriod"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_care_information">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_care_information">
+                                    Thông tin chăm sóc
+                                </div>
+                            </div>
+                            <div id="collapse_care_information" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Sale <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="SaleId"
+                                                        (optionChange)="saleChange($event)"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">CSKH <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <editor [(object)]="item" property="SupportId"
+                                                        (optionChange)="supportChange($event)"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<!-- <ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template> -->

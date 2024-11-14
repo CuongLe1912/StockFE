@@ -1,0 +1,28 @@
+::ng-deep .project-video-detail {
+  .project-video {
+    .content-text {
+      display: flex;
+      .content-info {
+        flex-grow: 1;
+        padding: 0 6px;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &:first-of-type {
+          width: 25%;
+          max-width: 25%;
+        }
+      }
+      .btn-toggle .switch {
+        display: inline !important;
+      }
+      .description{
+          width: 100%;
+      }
+      .censoredType{
+          margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+    <edit-header [fixed]="true" *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--tabs">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row" style="flex-wrap: nowrap;">
+                                        <div class="col-sm-3 avatar">
+                                            <editor #uploadAvatar [(object)]="item" property="Avatar"></editor>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <label class="col-sm-3 col-form-label w-150">Họ và tên *</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Name" [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-3 col-form-label w-150">Số điện thoại *</label>
+                                                <div class="col-sm-9">
+                                                    <editor [(object)]="item" property="Phone" [decorator]="{ label: '', readonly: true }"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--tabs">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Loại khách hàng *</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerType" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Nhóm khách hàng</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerGroupId" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Mức độ tiềm năng</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerPotentialType" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Nguồn giới thiệu</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="SourceId" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <editor [(object)]="item" property="CityId" [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <editor [(object)]="item" property="DistrictId" [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <editor [(object)]="item" property="WardId" [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: -15px;">
+                                        <label class="col-sm-3 col-form-label">&nbsp;</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Address" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Ngày sinh</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Birthday" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Miêu tả</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Description" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Loại hình hoạt động</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerActivityType" [decorator]="{ label: '' }" (valueChange)="activityTypeChange()"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.CustomerActivityType == CustomerActivityType.Business">
+                                        <label class="col-sm-3 col-form-label">Doanh nghiệp</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CompanyId" [decorator]="{ label: '' }" (valueChange)="companyChange()"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse_invoice_tax">
+                                                Thông tin xuất hóa đơn
+                                            </div>
+                                        </div>
+                                        <div id="collapse_invoice_tax" class="collapse show">
+                                            <div class="card-body" *ngIf="item.CustomerActivityType == CustomerActivityType.Business">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Tên/Mã số thuế</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <editor [(object)]="item" property="InvoiceName" [decorator]="{ label: '', readonly: true }"></editor>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <editor [(object)]="item" property="InvoiceTaxCode" [decorator]="{ label: '', readonly: true }"></editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                                    <div class="col-sm-9 no-padding">
+                                                        <editor [(object)]="item" property="InvoiceAddress" [decorator]="{ label: '', readonly: true }"></editor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body" *ngIf="item.CustomerActivityType != CustomerActivityType.Business">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Tên/Mã số thuế</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <editor [(object)]="item" property="InvoiceName" [decorator]="{ label: '' }"></editor>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <editor [(object)]="item" property="InvoiceTaxCode" [decorator]="{ label: '' }"></editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                                    <div class="col-sm-9 no-padding">
+                                                        <editor [(object)]="item" property="InvoiceAddress" [decorator]="{ label: '' }"></editor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse_contact">
+                                                Thông tin liên hệ
+                                            </div>
+                                        </div>
+                                        <div id="collapse_contact" class="collapse show">
+                                            <div class="card-body" style="padding-bottom: 0;">
+                                                <mcrm-customer-contact [id]="id"></mcrm-customer-contact>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

@@ -1,0 +1,62 @@
+<div class="row box-edit-review" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <div class="box-item">
+            <div class="row">
+                <div class="col-sm-4">
+                    <editor [(object)]="item" property="UserId" [decorator]="{ label: 'Tài khoản', index: index }" [readonly]="readonly" (optionChange)="userChange($event)"></editor>
+                </div>
+                <div class="col-sm-4">
+                    <editor [(object)]="item" property="NickName" [decorator]="{ label: 'Biệt danh', index: index }" [readonly]="readonly"></editor>
+                </div>
+                <div class="col-sm-4">
+                    <editor [(object)]="item" property="PublishedAt" [decorator]="{ index: index }" [readonly]="readonly" (valueChange)="changePublishedAt()"></editor>
+                    <span *ngIf="isValidPublishAt == false" style="color: red;">Thời gian đăng không được nhỏ hơn thời gian khi bấm gửi review</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Cho điểm dự án</label>
+                    <div class="box-score">
+                        <editor [(object)]="item" property="VoteScore" [decorator]="{ label: '', index: index }" (valueChange)="scoreChange()" [readonly]="readonly"></editor>
+                        <a (click)="activeScoreDetail = !activeScoreDetail">Đánh giá chi tiết <i class="la la-angle-down ml-2"></i></a>
+                    </div>
+                    <div class="box-score-detail" *ngIf="activeScoreDetail">
+                        <editor [(object)]="item" property="Vote1" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote2" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote4" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote3" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote5" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote8" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote7" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                        <editor [(object)]="item" property="Vote6" (valueChange)="scoreDetailChange()" [decorator]="{ index: index }" [readonly]="readonly"></editor>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-sm-12">
+                    <label>Viết review về dự án <span style="color: red;">*</span></label>
+                    <div class="box-editor">
+                        <editor [(object)]="item" property="Comment" [decorator]="{ label: '', index: index }" [readonly]="readonly"></editor>
+                        <editor #uploadFiles [(object)]="item" property="Files" [decorator]="{ label: '', index: index }" [readonly]="readonly"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="arrayReplies && arrayReplies.length >= 0 && id">
+        <div *ngFor="let item of arrayReplies; let i = index;" class="box-item">
+            <div class="index">Phản hồi {{ i + 1 }}</div>
+            <mrv-edit-reply #editorReply [index]="(index * 100) + i" [reviewId]="id"></mrv-edit-reply>
+            <button class="btn btn-danger" *ngIf="item.allowDelete" (click)="removeMoreReply(i)"><i class="la la-times"></i></button>
+        </div>
+        <div class="buttons" *ngIf="arrayReplies.length < 10">
+            <button class="btn btn-success" (click)="addMoreReply()">
+                <i class="la la-plus mr-2"></i>
+                Thêm phản hồi
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

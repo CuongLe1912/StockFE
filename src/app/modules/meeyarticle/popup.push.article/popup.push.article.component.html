@@ -1,0 +1,148 @@
+<div class="row popup-push-article" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="PostType" (valueChange)="postTypeChange()"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.PostType == MLArticlePostType.Repeat">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="row d-flex align-items-center">
+                <div class="col-sm-3" style="white-space: nowrap;">Số ngày</div>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="PostNumber" [decorator]="{label: '', min: 1, max: item.MaxPostNumber }" (valueChange)="postNumberChange()"></editor>
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="col-sm-4" style="white-space: nowrap;">Ngày bắt đầu</div>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="PushTime" [decorator]="{label: '', min: item.PublishTime, max: item.ExpireTime }" (valueChange)="pushTimeChange()"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 d-flex align-items-center" *ngIf="item.PostType == MLArticlePostType.Custom" style="height: 42px;">
+        <editor [(object)]="item" property="PostByEachDay" [decorator]="{description: 'Thiết lập cho từng ngày'}" (valueChange)="postByEachDayChange()"></editor>
+    </div>
+    <div class="col-sm-12">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                        <li class="nav-item" *ngIf="item.PostType == MLArticlePostType.Custom">
+                            <a class="nav-link" (click)="selectedTypeTab('day')" [ngClass]="{'active':typeTab == 'day'}">
+                                <i class="la la-user"></i> Chọn ngày đẩy tin
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngFor="let time of times">
+                            <a class="nav-link" (click)="selectedTypeTab(time.day)" [ngClass]="{'active':typeTab == time.day}">
+                                <i class="la la-th-list"></i> {{ time.day }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding-bottom: 0; min-height: 400px;">
+                <div class="tab-content">
+                    <div class="tab-pane" [ngClass]="{'active':typeTab == 'day'}">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <label>Chọn ngày đẩy tin</label>
+                                <editor [(object)]="item" property="PostDays" [decorator]="{ label: '', multiple: activeDay, min: item.PublishTime, max: item.ExpireTime }" (valueChange)="postDaysChange($event)"></editor>
+                            </div>
+                            <div class="col-sm-5">
+                                <label>Ngày đẩy tin <span *ngIf="item.PostDays">({{ item.PostDays.length }} ngày)</span></label>
+                                <ul class="box-item" *ngIf="item.PostDays && item.PostDays.length > 0">
+                                    <li *ngFor="let date of item.PostDays">
+                                        {{ date | datex }}
+                                        <span class="close" (click)="removePostDay(date)"><i class="la la-times"></i></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" *ngFor="let time of times" [ngClass]="{'active':typeTab == time.day}" style="margin-top: -20px;">
+                        <div class="kt-portlet kt-portlet--tabs">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTimeTab('gold')" [ngClass]="{'active':!timeTab || timeTab == 'gold'}">
+                                                <i class="la la-user"></i> Khung giờ vàng
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTimeTab('other')" [ngClass]="{'active':timeTab == 'other'}">
+                                                <i class="la la-th-list"></i> Các giờ khác
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body">
+                                <div class="tab-content">
+                                    <div class="tab-pane" [ngClass]="{'active':!timeTab || timeTab == 'gold'}">
+                                        <ul class="box-item">
+                                            <li *ngFor="let hour of time.timeGolds" (click)="choiceTime(hour)" [ngClass]="{'active': hour.selected, 'disabled':hour.disabled}">
+                                                {{ hour.label }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" [ngClass]="{'active':timeTab == 'other'}">
+                                        <ul class="box-item">
+                                            <li *ngFor="let hour of time.timeOthers" (click)="choiceTime(hour)" [ngClass]="{'active': hour.selected, 'disabled':hour.disabled}">
+                                                {{ hour.label }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="item.PushTime || (item.PostDays && item.PostDays.length > 0)">
+        <div class="grid-content grid-popup" style="margin-bottom: 10px;">
+            <table class="table table-striped table-bordered dataTable no-footer table-resizable">
+                <tbody>
+                    <tr>
+                        <td style="border: none;">
+                            <div class="d-flex">
+                                <span style="margin-right: 10px;">Thời gian bắt đầu</span>
+                                <span>{{ item.PushTime | datetimex }}</span>
+                            </div>
+                            <div class="d-flex">
+                                <span style="margin-right: 10px;">Thời gian kết thúc</span>
+                                <span>{{ item.ExpireTime | datetimex }}</span>
+                            </div>
+                        </td>
+                        <td style="text-align: right;"><a (click)="resetTimes()">Thiết lập lại</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="grid-content grid-popup">
+            <table class="table table-striped table-bordered dataTable no-footer table-resizable">
+                <thead>
+                    <tr class="heading">
+                        <th>Số ngày</th>
+                        <th *ngIf="totalHour">Số khung giờ</th>
+                        <th>Số lần đẩy</th>
+                        <th>Số tiền/lần</th>
+                        <th>Tổng số tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ totalDay | numberx }} ngày</td>
+                        <td *ngIf="totalHour">{{ totalHour | numberx }} khung giờ</td>
+                        <td>{{ totalTime | numberx }} lần</td>
+                        <td>{{ pricePush | numberx }} đ/lần</td>
+                        <td>{{ totalTime * pricePush | numberx }} đ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+.kt-menu__item {
+    .kt-menu__link {
+        padding: 0.65rem 0.5rem !important;
+        .kt-menu__link-text {
+            padding: 0;
+            &:hover {
+                color: #fff !important;
+            }
+        }
+    }
+    .kt-menu__submenu {
+        .kt-menu__link {
+            padding: 0.65rem 1.1rem 0.65rem 1.5rem !important;
+        }
+    }
+}
+
+.kt-header-notify {
+    .dropdown-menu {
+        right: 0;
+        left: unset;
+    }
+}
+
+.kt-header__topbar-item--user {
+    position: relative;
+    .dropdown-menu.dropdown-menu-anim {
+        right: 0;
+        left: unset;
+    }
+}
+
+.kt-header {
+    z-index: 99 !important;
+}
+
+::ng-deep .kt-notification__login {
+    display: flex;
+    align-items: flex-start;
+    &:after {
+        display: none;
+    }
+    .kt-notification__item-title {
+        .form-group {
+            margin: 0;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .kt-header {
+        z-index: 96 !important;
+    }
+}

@@ -1,0 +1,19 @@
+.nav-close {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: space-between;
+    &.active,
+    &:hover {
+        .nav-link-close {
+            border-bottom: 2px solid #0abb87;
+        }
+    }
+    .nav-link-close {
+        padding: 12px 0;
+        cursor: pointer;
+        color: #0abb87;
+        padding-left: 10px;
+        border-bottom: 2px solid transparent;
+    }
+}

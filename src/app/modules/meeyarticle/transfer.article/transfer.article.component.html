@@ -1,0 +1,19 @@
+<div class="row transfer-article" *ngIf="item">
+    <div class="col-sm-12" *ngIf="items">
+        <label>Tổng số tin điều chuyển: {{ ids.length }} / {{ this.items && this.items.length }}</label>
+        <p class="warning text-danger">Lưu ý: nếu tin thuộc CSKH khác thì sẽ không thể điều chuyển</p>
+        <ml-list-article [articles]="items" [action]="ActionType.TransferArticle" (removed)="removedItems($event)" (selected)="closePopup()"></ml-list-article>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="DepartmentId" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="SupportId" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="Coordinator" [decorator]="{ readonly: true }"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Notes"></editor>
+    </div>
+</div>

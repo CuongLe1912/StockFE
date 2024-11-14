@@ -1,0 +1,56 @@
+<div class="kt-portlet kt-portlet--tabs" *ngIf="item">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        {{ title }}
+      </h3>
+    </div>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <label class="col-sm-4 col-form-label">Kỳ hoa hồng:</label>
+          <label class="col-sm-5 col-form-label">Tháng {{ item.Month }}</label>
+        </div>
+        <div class="row" *ngIf="action == 'payment'">
+          <label class="col-sm-4 col-form-label">Số lượng user đủ điều kiện thanh toán:</label>
+          <label class="col-sm-5 col-form-label">{{ item.UserEligible | numberx }}</label>
+        </div>
+        <div class="row" *ngIf="action == 'approve'">
+          <label class="col-sm-4 col-form-label">Số lượng user:</label>
+          <label class="col-sm-5 col-form-label">{{ item.UserNeedContract | numberx }}</label>
+        </div>
+        <div class="row" *ngIf="action == 'approve'">
+          <label class="col-sm-4 col-form-label">Tổng hoa hồng cần thanh toán:</label>
+          <label class="col-sm-5 col-form-label">
+            {{ item.MoneyNotPayment | numberx }} đ 
+            <span *ngIf="action == 'approve'">(Về TKKM1: {{ item.MoneyNotPayment | numberx }} đ)</span>
+          </label>
+        </div>
+        <div class="row" *ngIf="action == 'payment'">
+          <label class="col-sm-4 col-form-label">Tổng hoa hồng cần thanh toán:</label>
+          <label class="col-sm-5 col-form-label">
+            {{ item.MoneyNeedPaymentEligible | numberx }} đ 
+            <span *ngIf="action == 'approve'">(Về TKKM1: {{ item.MoneyNeedPaymentEligible | numberx }} đ)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-form-label" *ngIf="allowViewDetail">
+        <a [href]="url + item.Month" target="_blank">Danh sách chi tiết</a>
+      </div>
+      <div class="col-sm-12 col-form-label" *ngIf="action == 'payment'">
+        <em class="text-muted input-info">(Vẫn còn {{ item.UserNotContract }} user chưa hoàn thiện hồ sơ không được thanh toán)</em>
+      </div>
+    </div>
+  </div>
+  <h5 class="kt-portlet__head-title" style="text-align: center;">
+    <em *ngIf="action == 'payment'">Xác nhận thực hiện thanh toán cho khách hàng ngay bây giờ ?</em>
+    <em *ngIf="action == 'approve'">Xác nhận kiểm duyệt dữ liệu hoa hồng ?</em>
+  </h5>
+</div>
+<div class="kt-portlet__body" *ngIf="loading">
+  <loading></loading>
+</div>

@@ -1,0 +1,13 @@
+::ng-deep .grid-article {
+    td {
+        ul {
+            margin: 0;
+            padding: 0;
+            padding-left: 15px;
+            li {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}

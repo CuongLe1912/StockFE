@@ -1,0 +1,51 @@
+::ng-deep  .edit-project-image {
+    .input-group.input-search {
+        margin-bottom: 10px;
+        .btn {
+            height: 36px;
+            border-radius: 0 4px 4px 0;
+        }
+        .form-group {
+            margin: 0;
+            flex-grow: 1;
+            .form-control {
+                border-radius: 4px 0 0 4px;
+            }
+        }
+    }
+
+    .row-search {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-grow: 1 !important;
+        justify-content: flex-end;
+        .input-group-search {
+            width: 380px;
+        }
+    }
+}
+.image-upload {
+    position: relative;
+    width: 100%;    
+    .upload-file {
+        position: absolute;
+        top: -22px;
+        right: -12px;
+        cursor: pointer;
+        img {
+            max-width: 80px;
+            float: right;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .title {
+            position: absolute;
+            right: -5px;
+            top: 70px;
+            font-weight: 800;
+            width: max-content;
+        }
+    }    
+}

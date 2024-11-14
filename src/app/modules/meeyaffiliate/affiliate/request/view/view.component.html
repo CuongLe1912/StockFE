@@ -1,0 +1,136 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <div class="kt-portlet__body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+          <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+              <h3 class="kt-portlet__head-title">Khách hàng</h3>
+            </div>
+          </div>
+          <div class="kt-portlet__body">
+            <div class="col-sm-12">
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                <label class="col-sm-8 col-form-label">
+                  <a (click)="viewUser(item.MeeyId)" href="javascript:;" target="_blank" tooltip="Xem chi tiết">{{ item.Name }}</a>
+                </label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Số điện thoại:</label>
+                <label class="col-sm-8 col-form-label">{{ item.Phone }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Email:</label>
+                <label class="col-sm-8 col-form-label">{{ item.Email }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >MeeyId:</label>
+                <label class="col-sm-8 col-form-label">{{ item.MeeyId }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Mã Ref:</label>
+                <label class="col-sm-8 col-form-label">{{ item.RefCode }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="kt-portlet kt-portlet--tabs">
+          <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+              <h3 class="kt-portlet__head-title">Trạng thái yêu cầu</h3>
+            </div>
+          </div>
+          <div class="kt-portlet__body">
+            <div class="col-sm-12">
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Thời gian tạo:</label>
+                <label class="col-sm-8 col-form-label">{{ item.DateRequest | datetimex }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Người tạo:</label>
+                <label class="col-sm-8 col-form-label">{{ item.User }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Trạng thái:</label>
+                <label class="col-sm-8 col-form-label"><div [innerHTML]="getStatus()"></div></label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Người duyệt:</label>
+                <label class="col-sm-8 col-form-label">{{ item.UserApprove }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Thời gian duyệt:</label>
+                <label class="col-sm-8 col-form-label">{{ item.DateApprove | datetimex }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-form-label" >Ghi chú/Lý do:</label>
+                <label class="col-sm-8 col-form-label">{{ item.Note }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="kt-portlet kt-portlet--tabs">
+          <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+              <h3 class="kt-portlet__head-title">Thông tin yêu cầu thay đổi người giới thiệu</h3>
+            </div>
+          </div>
+          <div class="kt-portlet__body">
+            <div class="col-sm-12">
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Người giới thiệu hiện tại:</label>
+                <label class="col-sm-8 col-form-label">{{ item.RefCurrentName }} - {{ item.RefCurrentPhone }} - {{ item.RefCurrentRankName }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Người giới thiệu mới:</label>
+                <label class="col-sm-8 col-form-label">{{ item.RefChangeName }} - {{ item.RefChangePhone }} - {{ item.RefChangeRankName }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Lý do:</label>
+                <label class="col-sm-8 col-form-label">{{ item.Reason }}</label>
+              </div>
+              <div class="row" *ngIf="item.File">
+                <label class="col-sm-2 col-form-label" >File đính kèm:</label>
+                <label class="col-sm-8 col-form-label"><a [href]="item?.File" target="_blank">{{ item?.File }}</a></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="kt-portlet__head" *ngIf="approve">
+            <div class="kt-portlet__head-label">
+              <h3 class="kt-portlet__head-title">Thông tin Doanh số F1 tháng hiện tại mà Khách hàng mang lại cho Người giới thiệu</h3>
+            </div>
+          </div>
+          <div class="kt-portlet__body" *ngIf="approve">
+            <div class="col-sm-12">                
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Cấp bậc:</label>
+                <label class="col-sm-8 col-form-label">{{ currentNode?.Rank }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Doanh số đến hiện tại:</label>
+                <label class="col-sm-8 col-form-label">{{ currentNode?.F1Amount | numberx }}</label>
+              </div>
+              <div class="row">
+                <label class="col-sm-12 col-form-label"><em>(Lưu ý: Giai đoạn do Người giới thiệu nào chăm sóc thì doanh số sẽ thuộc về người đó)</em></label>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label" >Ghi chú/Lý do:</label>
+                <div class="col-sm-8">
+                  <editor [(object)]="request" property="Note" [decorator]="{ label: '', placeholder: 'Nội dung' }"></editor>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

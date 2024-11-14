@@ -1,0 +1,28 @@
+.input-icon-search {
+    flex-wrap: nowrap;
+    .la-close {
+        font-weight: bold;
+        font-size: 1rem !important;
+    }
+}
+
+::ng-deep .edit-orders {
+    .input-group {
+        margin-bottom: 2rem;
+        .btn {
+            height: 39px;
+            border-radius: 0 4px 4px 0;
+        }
+        .form-group {
+            margin: 0;
+            flex-grow: 1;
+            .form-control {
+                border-radius: 4px 0 0 4px;
+            }
+        }
+    }
+
+    .invalid-feedback {
+        position: absolute;
+    }
+}

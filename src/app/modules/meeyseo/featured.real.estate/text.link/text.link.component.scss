@@ -1,0 +1,20 @@
+.kt-portlet__body {
+    background-color: #fff;
+}
+
+::ng-deep .kt-portlet-text-link {
+    .kt-structure {
+        .kt-portlet__head-actions {
+            .button-group {
+                .btn-primary {
+                    i {
+                        padding: 0;
+                    }
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

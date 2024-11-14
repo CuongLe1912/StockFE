@@ -1,0 +1,102 @@
+.permissions {
+    overflow: auto;
+    max-height: 350px;
+    > div {
+        margin-top: 10px;
+    }
+}
+
+.card-header {
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    .title {
+        min-width: 200px;
+    }
+    .kt-switch {
+        height: 24px;
+    }
+    label,
+    span {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+.card-content {
+    border: 1px solid #ebedf2;
+    .card-body {
+        ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            li {
+                width: 300px;
+                display: flex;
+                align-items: center;
+                .kt-checkbox {
+                    margin-bottom: 0 !important;
+                    padding-bottom: 0 !important;
+                    label,
+                    span {
+                        margin-bottom: 0 !important;
+                        padding-bottom: 0 !important;
+                    }
+                }
+                .dropdown {
+                    border: none;
+                    opacity: 0.6;
+                    margin-left: 10px;
+                    pointer-events: none;
+                    &.active {
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                    .form-group {
+                        margin: 10px 20px;
+                        .title {
+                            font-weight: 500;
+                        }
+                        .form-text {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.group {
+    margin: 10px 0;
+    font-weight: 500;
+    color: #48465b;
+    font-size: 1.2rem;
+}
+
+.links {
+    padding-left: 30px;
+    a {
+        display: block;
+        cursor: pointer;
+        font-weight: 500;
+        color: #595d6e;
+        font-size: 1.1rem;
+        line-height: 1.5rem;
+        transition: all 0.3s ease;
+        &:hover {
+            color: #5d78ff;
+        }
+    }
+}
+
+.kt-popup {
+    .kt-portlet__body {
+        height: unset;
+        overflow: hidden;
+    }
+    .kt-portlet {
+        padding: 0 20px;
+    }
+}

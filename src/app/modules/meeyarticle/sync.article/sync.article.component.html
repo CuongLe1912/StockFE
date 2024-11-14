@@ -1,0 +1,10 @@
+<div class="row verify-article" *ngIf="items">
+    <div class="col-sm-12">
+        <label>Tổng số tin cần đồng bộ: {{ ids.length }} / {{ this.items && this.items.length }}</label>
+        <p class="warning text-danger">Lưu ý: nếu tin thuộc CSKH khác thì sẽ không thể đồng bộ</p>
+        <ml-list-article [items]="articles" [action]="ActionType.SyncArticle" (removed)="removedItems($event)" (selected)="closePopup()"></ml-list-article>
+    </div>
+    <div class="col-sm-12" style="margin-top: 20px;" *ngIf="ids && ids.length > 0">
+        <label>Có phải bạn muốn đồng bộ {{ ids.length }} tin này không?</label>
+    </div>
+</div>

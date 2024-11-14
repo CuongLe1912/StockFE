@@ -1,0 +1,19 @@
+<ul class="nav nav-light-success nav-pills">
+    <li class="nav-item" *ngFor="let item of buttons; let i = index;" (click)="filter(item)">
+        <a class="nav-link" [ngClass]="{'active': activeIndex == item.id}">
+            <span class="nav-text">{{ item.name }}</span>
+        </a>
+    </li>
+</ul>
+
+<div class="row" style="background: #efefef; margin: 10px 0;">
+    <ng-container *ngIf="item">
+        <label class="col-sm-3 col-form-label"><b>Kỳ hoa hồng: Tháng {{ item.Month }}/{{ item.Year }}</b></label>
+        <label class="col-sm-3 col-form-label">User chưa thanh toán: <b>{{ item.UserNotPayment | numberx }}/{{ item.UserNeedPayment | numberx }}</b></label>
+        <label class="col-sm-3 col-form-label">Số tiền chưa thanh toán: <b>{{ item.MoneyNotPayment | numberx }}/{{ item.MoneyNeedPayment | numberx }}</b></label>
+        <label class="col-sm-3 col-form-label">Số user chưa hoàn thành hồ sơ: <b>{{ item.UserNotContract | numberx }}/{{ item.UserNeedContract | numberx }}</b></label>
+    </ng-container>
+    <div class="col-sm-12" *ngIf="!item" style="min-height: 35px; display: flex;">
+        <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+    </div>
+</div>

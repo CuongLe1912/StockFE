@@ -1,0 +1,36 @@
+.kt-popup {
+    .kt-portlet__body {
+        height: unset;
+        overflow: hidden;
+    }
+    .kt-portlet {
+        height: 100%;
+        padding: 0 20px;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+::ng-deep .view-aff {
+    .button_custom_filters {
+        .btn-success {
+            display: none;
+        }
+    }
+    .kt-portlet-grid {
+        box-shadow: none;
+        margin: 0 !important;
+
+        .kt-portlet__head {
+            min-height: unset;
+            padding: 0 !important;
+            padding-bottom: 10px !important;
+        }
+
+        .kt-portlet__body {
+            padding: 0 !important;
+        }
+    }
+}

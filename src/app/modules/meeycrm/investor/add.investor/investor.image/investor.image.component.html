@@ -1,0 +1,79 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-coupon" *ngIf="image">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs"
+        [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_logo">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_logo">
+                                    Logo
+                                </div>
+                            </div>
+                            <div id="collapse_logo" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <editor #uploadLogoWeb [(object)]="image" property="LogoWeb"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <editor #uploadLogoApp [(object)]="image" property="LogoApp"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <editor #uploadLogoWebMobile [(object)]="image" property="LogoMobileWeb"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_background">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_background">
+                                    Background đăng nhập
+                                </div>
+                            </div>
+                            <div id="collapse_background" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <editor #uploadBackgroundWeb [(object)]="image" property="BackgroundWeb"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <editor #uploadBackgroundApp [(object)]="image" property="BackgroundApp"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <editor #uploadBackgroundWebMobile [(object)]="image" property="BackgroundMobileWeb"
+                                                [decorator]="{ readonly: viewer }">
+                                            </editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<!-- <ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template> -->

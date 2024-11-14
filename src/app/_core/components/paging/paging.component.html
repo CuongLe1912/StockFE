@@ -1,0 +1,65 @@
+<div wrapper class="paging_wapper">
+    <div>
+        <div class="dataTables_info" id="kt_table_2_info" role="status" aria-live="polite">
+            <span class="label-total-lite">Tổng số {{ paging.Total | numberx }} bản ghi</span>
+            <span class="label-total-all">Hiển thị kết quả từ {{ from | numberx }} đến {{ to | numberx }} trong tổng số {{ paging.Total | numberx }} bản ghi</span>
+            <span *ngIf="selected && selected > 0"> [Đã chọn: <b>{{ selected }}</b> bản ghi]</span>
+            <span *ngIf="text && total && !summaryText"> / <b>{{ text }} {{ total | numberx }}</b></span>
+            <span *ngIf="summaryText"> / <span [innerHtml]="summaryText | sanitizeHtml"></span></span>
+        </div>
+    </div>
+    <div class="dataTables_paginate paging_simple_numbers">
+        <div class="refresh-icon" tooltip="Tải lại" (click)="refreshItems()">
+            <i [ngClass]="loading ? 'kt-spinner kt-spinner--v2 kt-spinner--primary' : 'la la-refresh'"></i>
+        </div>
+        <div class="dataTables_length reload" *ngIf="allowReload">
+            <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid kt-checkbox--brand" title="Tự động tải lại">
+                <input type="checkbox" class="kt-checkable" [checked]="reload" [(ngModel)]="reload" (change)="reloadChange()"><span></span>
+            </label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="timeReload" (ngModelChange)="timeChanged(paging.Size)">
+                <option *ngFor="let item of times" [value]="item.value">{{ item.label }}</option>
+            </select>
+            <span *ngIf="reload" class="kt-reload">
+                <span> - </span>
+            <input type="text" disabled class="form-control form-control-sm" [value]="counterReload" title="Thời gian tải lại" />
+            </span>
+            <label style="margin-left: 5px;">Tải lại</label>
+        </div>
+        <div class="dataTables_length page-size" style="margin-left: 20px;">
+            <label>Hiển thị</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.Size" (ngModelChange)="sizeChanged(paging.Size)">
+                <option *ngFor="let item of sizes" [value]="item">{{ item == 10000 ? 'Tất cả' : item }}</option>
+            </select>
+        </div>
+        <div class="dataTables_length page-group" style="max-width: 150px; margin-left: 20px;" *ngIf="paging.Pages > 1">
+            <label style="margin-right: 10px; word-break: normal;">Trang</label>
+            <input type="number" [min]="1" [max]="paging.Pages" [maxlength]="maxLength" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="page" />
+            <button class="btn btn-sm btn-primary" (click)="goto()">Đi</button>
+        </div>
+        <ul class="pagination" *ngIf="paging.Pages > 1">
+            <li class="paginate_button page-item previous" *ngIf="!(paging.Index <= 1)" tooltip="Trang đầu">
+                <a class="page-link" (click)="indexChanged(1)">
+                    <i class="la la-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="paginate_button page-item previous" *ngIf="!(paging.Index <= 1)" tooltip="Trang trước đó">
+                <a class="page-link" (click)="indexChanged(paging.Index - 1)">
+                    <i class="la la-angle-left"></i>
+                </a>
+            </li>
+            <li class="paginate_button page-item" *ngFor="let item of numbers" [ngClass]="{'active':paging.Index == item}" [attr.tooltip]="'Trang ' + item">
+                <a class="page-link" (click)="indexChanged(item)">{{ item | numberx }}</a>
+            </li>
+            <li class="paginate_button page-item next" *ngIf="!(paging.Pages <= paging.Index)" tooltip="Trang tiếp theo">
+                <a class="page-link" (click)="indexChanged(paging.Index + 1)">
+                    <i class="la la-angle-right"></i>
+                </a>
+            </li>
+            <li class="paginate_button page-item previous" *ngIf="!(paging.Index >= paging.Pages)" tooltip="Trang cuối">
+                <a class="page-link" (click)="indexChanged(paging.Pages)">
+                    <i class="la la-angle-double-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

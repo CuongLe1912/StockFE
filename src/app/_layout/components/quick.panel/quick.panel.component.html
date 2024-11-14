@@ -1,0 +1,13 @@
+<div wrapper id="kt_quick_user" class="offcanvas offcanvas-right" [ngClass]="{'offcanvas-on': active}">
+    <div class="offcanvas-header">
+        <h4 class="font-weight-bold d-flex align-items-center justify-content-between">
+            <span>{{ title }}</span>
+            <a class="btn btn-xs btn-icon btn-hover-primary" (click)="hidePanel()">
+                <i class="la la-close"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="offcanvas-content">
+        <ng-template #container></ng-template>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div wrapper *ngIf="item" class="edit-project-files">
+  <div class="row" *ngIf="!viewer">
+    <div class="col-sm-12">
+      <editor #uploadFiles [(object)]="item" property="Files"></editor>
+    </div>
+  </div>
+  <mpo-project-files-grid [params]="{ viewer: viewer, item: item }"></mpo-project-files-grid>
+</div>

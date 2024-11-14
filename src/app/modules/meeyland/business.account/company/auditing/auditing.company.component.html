@@ -1,0 +1,41 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('statistical')" [ngClass]="{'active':tab == 'statistical'}">Thống kê </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('detail')" [ngClass]="{'active':tab == 'detail'}"> Chi tiết </a>
+                        </li>
+                        <li class="nav-item nav-close" *ngFor="let item of detailItems" [ngClass]="{'active':tab == item.MeeyId}">
+                            <a class="nav-link" (click)="selectedTab(item.MeeyId)" [ngClass]="{'active':tab == item.MeeyId}">
+                                {{ item.Name }}
+                            </a>
+                            <a class="nav-link-close" (click)="closeTab(item.MeeyId)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="tab-content">
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'statistical'}">
+                        <ml-company-auditing-statistical-grid *ngIf="id" [params]="{ id: id }" (rowClick)="rowClick($event)"></ml-company-auditing-statistical-grid>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'detail'}">
+                        <ml-company-auditing-statistical-detail-grid *ngIf="id" [params]="{ id: id }"></ml-company-auditing-statistical-detail-grid>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == item.MeeyId}" *ngFor="let item of detailItems">
+                        <ml-company-auditing-statistical-detail-grid *ngIf="id" [params]="{ id: id, meeyId: item.MeeyId }"></ml-company-auditing-statistical-detail-grid>
+                    </div>
+                </div>
+            </div>
+            <!-- <loading *ngIf="loading"></loading> -->
+        </div>
+    </div>
+</div>

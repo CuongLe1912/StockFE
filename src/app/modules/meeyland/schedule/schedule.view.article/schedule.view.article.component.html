@@ -1,0 +1,22 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12 row">
+        <div class="col-sm-3">
+            <div style="width: 120px; margin: 0 auto;">
+                <editor [(object)]="item" property="Image" [viewer]="true" [decorator]="{label:''}"></editor>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Code" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Type" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="AccessType" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Title" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="StartDate" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="EndDate" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="CategoryName" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Location" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <div *ngIf="item.Coordinates">
+                <a (click)="quickViewMap()">Xem bản đồ</a>
+            </div>
+        </div>
+    </div>
+</div>

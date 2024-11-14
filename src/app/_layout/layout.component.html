@@ -1,0 +1,27 @@
+<layout-header-mobile></layout-header-mobile>
+<div class="kt-grid kt-grid--hor kt-grid--root">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+        <layout-aside></layout-aside>
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+            <layout-header></layout-header>
+            <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+                <!-- <layout-sub-header></layout-sub-header> -->
+                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                    <main [@routerTransition]="getState(o)">
+                        <router-outlet #o="outlet"></router-outlet>
+                    </main>
+                </div>
+            </div>
+            <layout-footer></layout-footer>
+        </div>
+    </div>
+    <layout-quick-panel></layout-quick-panel>
+</div>
+<call></call>
+<modal-alert></modal-alert>
+<modal-prompt></modal-prompt>
+<modal-confirm></modal-confirm>
+<modal-timeout></modal-timeout>
+<modal-wrapper></modal-wrapper>
+<layout-scroll-top></layout-scroll-top>
+<modal-wrapper-above></modal-wrapper-above>

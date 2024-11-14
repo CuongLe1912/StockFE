@@ -1,0 +1,35 @@
+ul {
+    list-style: none;
+    &.social {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        margin-top: 10px;
+        align-items: center;
+        li {
+            margin-right: 10px;
+            i {
+                opacity: 0.35;
+                font-size: x-large;
+                &.la-google-plus {
+                    color: red;
+                }
+                &.la-facebook {
+                    color: blue;
+                }
+                &.la-apple {
+                    color: gray;
+                }
+                &.active {
+                    opacity: 1;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.switch {
+    margin-right: 5px;
+    pointer-events: none;
+}

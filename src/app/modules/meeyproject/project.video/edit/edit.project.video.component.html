@@ -1,0 +1,43 @@
+<div class="row edit-project-video" *ngIf="item && !loading">
+    <div class="col-sm-6">
+        <div class="box-item">
+            <editor #uploadVideo [className]="!item.Video ? 'full' : ''" [(object)]="item" property="Video"
+                [decorator]="{ readonly: viewer }" (captureChange)="videoChange($event)"></editor>
+            <editor className="no-margin" [(object)]="item" property="Type" [decorator]="{ readonly: viewer }"
+                (valueChange)="typeChange()"></editor>
+            <div class="image">
+                <editor #uploadImageFromVideo [(object)]="item" property="ImageFromVideo"
+                    [decorator]="{ readonly: viewer }"></editor>
+            </div>
+            <div class="image" [ngClass]="{'active': item.Type == MPOAvatarType.Upload}">
+                <editor #uploadImageFromUpload [(object)]="item" property="ImageFromUpload"
+                    [decorator]="{ readonly: viewer }"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="box-item">
+            <editor [(object)]="item" property="Title" [decorator]="{ readonly: viewer }"></editor>
+            <!-- <editor [(object)]="item" property="Description" [decorator]="{ readonly: viewer }"></editor> -->
+            <div class="form-group">
+                <label>Miêu tả</label>
+                <div class="kt-input">
+                    <div class="backdrop">
+                        <div class="highlights"></div>
+                    </div>
+                    <textarea id="txtHashtag" rows="5" class="form-control" maxlength="2000"
+                        [(ngModel)]="item.Description" placeholder="Miêu tả (hashtag phân biệt bằng #)"
+                        (scroll)="handleScroll()" (input)="inputDescription($event)"></textarea>
+                    <span class="kt-maxlength" *ngIf="item.Description">{{ item.Description.length + '/' + 2000
+                        }}</span>
+                </div>
+            </div>
+            <editor [(object)]="item" property="VideoProjectId" [decorator]="{ readonly: viewer }"></editor>
+            <!-- <editor [(object)]="item" property="CategoryId" [decorator]="{ readonly: viewer }"></editor> -->
+            <!-- <editor [(object)]="item" property="Tags" [decorator]="{ readonly: viewer }"></editor> -->
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

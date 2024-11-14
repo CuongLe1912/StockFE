@@ -1,0 +1,50 @@
+<div *ngIf="item">
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Mã tin</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Code" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Loại tin</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="TypeArticle" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Nhóm tin</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Type" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Tiêu đề</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Title" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Thời gian bắt đầu</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="CreatedDate" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Thời gian kết thúc</label>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="ExpriedDate" [viewer]="true" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+</div>

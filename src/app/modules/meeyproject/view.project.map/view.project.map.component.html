@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="map-container">
+            <div [attr.id]="mapId" class="project-map">
+                <loading *ngIf="loadingMap" text="Tải bản đồ..."></loading>
+            </div>
+        </div>
+    </div>
+</div>

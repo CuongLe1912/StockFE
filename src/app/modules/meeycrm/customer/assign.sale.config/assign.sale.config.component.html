@@ -1,0 +1,174 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" style="box-shadow: none;"[ngClass]="{'kt-popup' : popup}">
+    <div class="row">
+        <div class="col-9">
+            <edit-header-view [breadcrumbs]="breadcrumbs" [actions]="actions"></edit-header-view>
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <button (click)="history()" class="col-5 btn btn-outline-primary" style="margin-right: 13px;" *ngIf="!isEditAssign && checkPermissionViewHistory">Xem lịch sử</button>            
+            <button class="col-5 btn btn-primary" (click)="actionEdit(1)" *ngIf="!isEditAssign && checkPermissionEdit">Sửa</button>
+            <button class="col-5  btn btn-outline-primary" style="margin-right: 13px;" *ngIf="isEditAssign" (click)="clickButtonCancel()">Hủy</button>
+            <button class="col-5 btn btn-primary" (click)="clickButtonSave()" *ngIf="isEditAssign">Lưu</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="loading">
+      <loading></loading>
+  </div>
+    <div class="kt-portlet__head"> 
+        <label class="switch">
+            <input id="toggleActive" type="checkbox"
+            [(ngModel)]="model.IsActive"
+
+            [disabled]="!isEditAssign"
+            >
+            <span class="slider round"></span>
+            <label>Phân sale tự động</label>
+        </label>
+    </div>
+    <div class="kt-portlet__body" *ngIf="model.IsActive">
+        <div class="kt-form kt-form--label-right">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label w-100" >
+                                    <h3 class="kt-portlet__head-title col-11">Đối tượng phân sale</h3>
+                                <div class="col-1"><button class="btn btn-outline-primary" (click)="addDepartment()" *ngIf="isEditAssign && checkPermissionAddDepartment">Thêm phòng ban</button></div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;" >
+                          <div class="row department-tree" *ngFor="let item of departments">
+                            <div class="col-sm-6">
+                              <ngx-treeview [config]="config" [items]="item.data" class="checkbox-department" (selectedChange)="onSelectedChange($event)"></ngx-treeview>
+                            </div>
+                            <div class="col-sm-6" *ngIf="item.showActive||item.activeNewMember">
+                              <input type="checkbox" [(ngModel)]="item.activeNewMember" [disabled]="!isEditAssign" /> <label class="auto_assign_sale_text">Tự động phân sale khi có nhân viên mới</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Cách thức phân sale
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="kt-portlet__body">
+                          <div class="row">
+                            <div class="col-6 is_product">
+                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                              [checked]="model.IsProduct"
+                              (click)="changeAssignSaleMothod(true)"
+                              [disabled]="!isEditAssign">
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                Phân sale theo sản phẩm
+                              </label>
+                              <i class="fas fa-info-circle" title="Danh sách sale được phân khách sẽ phân chia về các sản phẩm và phân khách theo vòng tròn đối với từng sản phẩm"></i>
+                            </div>
+                            <div class="col-6 is_product">
+                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                              [checked]="!model.IsProduct"
+                              (click)="changeAssignSaleMothod(false)"
+                              [disabled]="!isEditAssign">
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                Phân sale không phân biệt sản phẩm
+                              </label>
+                              <i class="fas fa-info-circle" title="Danh sách sale được phân khách xếp theo thâm niên nhân viên, phân khách theo vòng tròn với toàn bộ danh sách"></i>
+                            </div>
+                      </div>
+                          </div>
+                            
+                    </div>
+                </div>
+                <div class="col-sm-12" *ngIf="isEditAssign">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Ghi chú *
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div class="kt-portlet__body">
+                            <input type="text" class="form-control" [(ngModel)]="model.Note" [disabled]="!isEditAssign" maxlength="500" placeholder="Nhập lý do cần chỉnh sửa" (change)="changeSave()">
+                            <span *ngIf="!checkNote" style="color: red;">Hãy nhập ghi chú</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- popup confirm -->
+
+    </div>
+    <!-- Begin Popup confirm Phân sale tự động -->
+    <button type="button" id="btnConfirmAssign" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModal"></button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="display: block;">
+            <button type="button" class="close" id="closeConfirmAssign" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div><i class="fas fa-exclamation-triangle" style="margin-left: 47%;
+              color: red;
+              font-size: 27px;"></i></div>
+          </div>
+          <div class="modal-body d-flex justify-content-center">
+            <div [innerHTML]="messConfirmAssign" style="text-align: center;"></div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Hủy</button>
+            <button type="button" class="btn btn-primary" (click)="actionEdit(2)">Lưu thay đổi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end phân sale tự động -->
+
+    <!-- Modal thêm phòng ban -->
+    <button type="button" id="btnAddDepartment" class="btn btn-primary d-none" data-toggle="modal" data-target="#addDepartment"></button>    
+    <div class="modal fade" id="addDepartment" tabindex="-1" role="dialog" aria-labelledby="addDepartmentTitle" aria-hidden="true" style="overflow: unset;">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Thêm mới phòng ban</h5>
+            <button type="button" class="close" id="closeAddDepartment" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> 
+          <div class="modal-body" style="overflow: unset;">
+            <div class="row" style="margin-bottom: 15px;">
+              <span class="col-3" style="margin: auto;">Phòng/ Ban  *</span>
+              <div class="col-9">
+                <select2 [data]="addDepartmentList" [value]="newDepartment" multiple="true" (update)="selectDepartmentAssignSale($event)" placeholder="Chọn Phòng/Ban"></select2>
+                <!-- <editor-combobox [items]="addDepartmentList" [decorator]="{placeholder:'Chọn phòng ban', multiple: true}">
+                </editor-combobox> -->
+                <span *ngIf="!checkAddDepartment" style="color: red;">Hãy chọn phòng ban</span>
+              </div>            
+            </div>
+            <div class="row">
+              <span class="col-3" style="margin: auto;">Ghi chú  *</span> 
+              <div class="col-9">
+                <input type="text" class="" class="form-control" [(ngModel)]="newNote" placeholder="Nhập lý do thêm mới Phòng/ Ban vào danh sách" maxlength="500" (change)="onChangeCheckNote()">
+                <span *ngIf="!checkAddNote" style="color: red;">Hãy nhập ghi chú</span>
+              </div>                            
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-primary" (click)="addDepartmentAssignSale()">Thêm vào danh sách phân sale</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end model thêm phòng ban-->
+
+<ng-template #empty_content>
+    <p style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</p>
+</ng-template>

@@ -1,0 +1,33 @@
+<div wrapper *ngIf="decorator.type != NumberType.Between" class="kt-input-icon" [ngClass]="{'kt-input-icon--left':decorator.icon,'kt-input-icon--right':!touch && value && decorator.allowClear,'kt-subfix': decorator.subfix}">
+    <div class="kt-number" [ngClass]="'kt-number-' + decorator.id">
+        <div class="d-flex" [ngClass]="{'touch':touch}">
+            <button class="btn btn-default btn-minus" *ngIf="touch && !decorator.readonly" (click)="minus()" [ngClass]="{'disabled':!value || value <= decorator.min}"><i class="la la-minus"></i></button>
+            <input class="form-control" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" [placeholder]="decorator.placeholder" [id]="decorator.id" [(ngModel)]="value" [ngModelOptions]="{standalone: true}" (input)="inputChange()"
+                (keyup)="onNumberKeypress($event)" (keydown)="onNumberKeydown($event)" (blur)="onNumberBlur()">
+            <button class="btn btn-default btn-plus" *ngIf="touch && !decorator.readonly" (click)="plus()" [ngClass]="{'disabled':value >= decorator.max}"><i class="la la-plus"></i></button>
+        </div>
+        <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+            <span><i [ngClass]="decorator.icon"></i></span>
+        </span>
+        <span class="subfix" *ngIf="decorator.subfix">{{decorator.subfix}}</span>
+    </div>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" [ngClass]="{'touch':touch}" *ngIf="value && !touch && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+</div>
+<div wrapper *ngIf="decorator.type == NumberType.Between" class="kt-input-icon kt-input-between" [ngClass]="{'kt-input-icon--left':decorator.icon,'kt-input-icon--right':value && decorator.allowClear,'kt-subfix': decorator.subfix}">
+    <div class="kt-number" [ngClass]="'kt-number-between-' + decorator.id">
+        <input class="form-control" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" placeholder="Từ" [id]="'from-' + decorator.id" [(ngModel)]="valueFrom" [ngModelOptions]="{standalone: true}" (input)="inputFromToChange('from')"
+            (keydown)="onNumberKeypress($event)" (blur)="inputFromToBlur('from')">
+        <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="valueFrom && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clearFrom()">
+            <span><i class="la la-close"></i></span>
+        </span>
+    </div>
+    <div class="kt-number" [ngClass]="'kt-number-between-' + decorator.id">
+        <input class="form-control" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" placeholder="Đến" [id]="'to-' + decorator.id" [(ngModel)]="valueTo" [ngModelOptions]="{standalone: true}" (input)="inputFromToChange('to')"
+            (keydown)="onNumberKeypress($event)" (blur)="inputFromToBlur('to')">
+        <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="valueTo && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clearTo()">
+            <span><i class="la la-close"></i></span>
+        </span>
+    </div>
+</div>

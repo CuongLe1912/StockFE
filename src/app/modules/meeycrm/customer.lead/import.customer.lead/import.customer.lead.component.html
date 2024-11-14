@@ -1,0 +1,30 @@
+<div wrapper class="add-project">
+    <div class="row" *ngIf="isActive">
+        <div class="d-flex align-items-center" style="margin: 15px auto;">
+            <button class="btn btn-warning font-weight-bolder text-uppercase btn-icon">
+                <a class="la la-download font-weight-bolder" href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/Mau_KHLeadID.xlsx"></a> Tải file mẫu
+                <!-- <a class="btn btn-primary font-weight-bolder text-uppercase btn-icon" ></a>Tải file mẫu -->
+            </button>
+            <button class="btn btn-primary font-weight-bolder text-uppercase btn-icon" (click)="changeView(2)">
+                <i class="la la-upload"></i>Import Lead ID</button>
+        </div>
+    </div>
+    <div *ngIf="isImport">
+        <div class="row">
+            <div class="col-sm-12 col-form-label file-import d-flex align-items-center justify-content-center" [ngClass]="{'disable':item.FileImport}">
+                <editor #importLead [(object)]="item" property="FileImport" [decorator]="{ label: 'Import Lead ID' }">
+                </editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex align-items-center" style="margin: 15px auto;">
+                <button class="btn btn-secondary font-weight-bolder text-uppercase" (click)="changeView(0)">Quay
+                    lại</button>
+                <editor-button label="Import file" [process]="processing" (click)="confirm()" className="btn btn-primary font-weight-bolder text-uppercase"></editor-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

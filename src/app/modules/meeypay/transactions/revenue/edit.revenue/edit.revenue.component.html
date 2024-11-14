@@ -1,0 +1,23 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-6" *ngIf="!item.Id">
+        <editor [(object)]="item" property="Code"></editor>
+    </div>
+    <div class="col-sm-6" *ngIf="item.Id">
+        <editor [(object)]="item" property="Code" [decorator]="{readonly: true}"></editor>
+    </div>
+    <div class="col-sm-6">
+        <editor [(object)]="item" property="ReceiveDate" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-6">
+        <editor [(object)]="item" property="Amount" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-6">
+        <editor [(object)]="item" property="BankId" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Note" [decorator]="{readonly: viewer}"></editor>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

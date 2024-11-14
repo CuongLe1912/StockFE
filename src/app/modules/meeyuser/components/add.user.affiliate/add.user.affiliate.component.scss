@@ -1,0 +1,18 @@
+::ng-deep .search-user {
+    input {
+        width: 325px;
+    }
+    button {
+        position: absolute;
+        top: 0;
+        right: 79px;
+    }
+
+    .input-info {
+        top: 43px;
+        position: absolute;
+    }
+    .is-invalid ~ .input-info {
+        top: 55px;
+    }
+}

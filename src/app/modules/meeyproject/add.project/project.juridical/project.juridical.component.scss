@@ -1,0 +1,54 @@
+h4 {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  &.small {
+    text-transform: none;
+  }
+}
+
+.accordion {
+  margin-bottom: 20px;
+  .card-title {
+    color: #fff !important;
+    text-transform: uppercase;
+    background-color: #d9071b;
+    &:after {
+      color: #fff !important;
+    }
+  }
+}
+
+::ng-deep .edit-project-legal {
+  &.readonly {
+    .form-group {
+      .kt-input,
+      .form-control,
+      .input-group .file-inner {
+        pointer-events: none;
+        background-color: #f7f8fa;
+        .select2-container--default .select2-selection--single {
+          background-color: #f7f8fa;
+        }
+        .edit,
+        .close {
+          display: none !important;
+        }
+      }
+      .la-close,
+      .select2-selection__clear {
+        display: none !important;
+      }
+      .non-readonly {
+        background-color: #fff;
+        pointer-events: unset !important;
+      }
+    }
+  }
+  .imageWapper {
+    width: 100%;
+    overflow: auto;
+    max-height: 400px;
+  }
+}

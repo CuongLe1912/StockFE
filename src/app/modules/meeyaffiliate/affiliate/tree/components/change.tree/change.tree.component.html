@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Người giới thiệu hiện tại</label>
+      <label class="col-sm-9 col-form-label">        
+        <a (click)="viewUser(currentNode?.Parent?.MeeyId)" href="javascript:;" target="_blank" tooltip="Xem chi tiết">{{ currentNode?.Parent?.Name}}</a> - {{ currentNode?.Parent?.Phone }} - {{ currentNode?.Parent?.Branch }}
+      </label>
+    </div>
+    <div class="lines"></div>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Người giới thiệu mới<span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-9">
+            <editor [(object)]="item" property="Search" (keyPressEnter)="searchUser()" (valueChange)="clearUser()" [decorator]="{ label: '' }"></editor>
+          </div>
+          <div class="col-sm-3">
+            <editor-button label="Kiểm tra" [process]="processSearch" (click)="searchUser()" [disabled]="item.Search ? false : true"></editor-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="user">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <div class="row">
+          <label class="col-sm-3">Họ tên</label>
+          <label class="col-sm-6">{{ user.Name }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">SĐT</label>
+          <label class="col-sm-6">{{ user.Phone }}</label>
+        </div>
+        <div class="row">
+          <label class="col-sm-3">Email</label>
+          <label class="col-sm-6">{{ user.Email }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="user">
+      <label class="col-sm-3 col-form-label">Lý do yêu cầu<span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <editor [(object)]="item" property="Reason" [decorator]="{ label: '' }"></editor>
+      </div>
+    </div>
+    <div class="row" *ngIf="user">
+      <label class="col-sm-3 col-form-label">File đính kèm<span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <editor #uploadFile [(object)]="item" property="File" [decorator]="{ label: '' }"></editor>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="errorMesssage">
+    <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssage }}</em>
+  </div>
+</div>

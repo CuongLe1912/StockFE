@@ -1,0 +1,140 @@
+.portlet-body-left {
+    min-height: calc(100vh - 250px);
+}
+
+fieldset.fs-config {
+    position: relative;
+    background: #f9f9f9;
+    padding-left: 15px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 5px;
+}
+
+.add-text-link {
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.btn-tabs-right {
+    position: absolute;
+    right: -17px;
+    top: -31px;
+}
+
+.btn-tabs-right button i {
+    font-size: 25px;
+}
+
+.box-left {
+    position: sticky;
+    top: 0;
+}
+
+.col-btn-copy {
+    float: right;
+}
+
+.col-btn-copy button {
+    margin: 0 7px;
+    float: right;
+}
+
+.navi-title {
+    margin: 20px;
+    margin-bottom: 5px;
+}
+
+.navi-nav {
+    padding: 0;
+    margin-left: 35px;
+    .navi-link {
+        display: flex;
+        margin: 15px 0;
+        cursor: pointer;
+        align-items: center;
+        .navi-icon {
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .navi-number {
+                width: 20px;
+                height: 20px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                border-radius: 100%;
+                justify-content: center;
+                background-color: #5867dd;
+            }
+        }
+        .navi-text {
+            font-size: 16px;
+            color: rgba(30, 30, 45, 0.8);
+        }
+        &:hover,
+        &.active {
+            .navi-text {
+                color: #5867dd;
+            }
+        }
+    }
+}
+
+.table {
+    th {
+        text-align: center;
+    }
+    .number {
+        text-align: center;
+        span {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            display: block;
+            margin: 0 auto;
+            border-radius: 100%;
+            background-color: green;
+        }
+    }
+    .d-flex {
+        .btn {
+            padding: 8px;
+            opacity: 0.8;
+            border-radius: 0;
+            border: 1px solid #ccc;
+            &:first-of-type {
+                border-radius: 4px 0 0 4px;
+            }
+            &:last-of-type {
+                border-left: none;
+                border-radius: 0 4px 4px 0;
+            }
+            &.btn-danger,
+            &.btn-primary {
+                opacity: 1;
+            }
+            i {
+                margin: 0;
+            }
+        }
+    }
+}
+
+::ng-deep .table {
+    .td-input {
+        .form-group {
+            margin: 0;
+        }
+    }
+}
+
+.kt-checkbox.kt-checkbox--single {
+    height: 4px;
+    &.kt-checkbox--brand {
+        span {
+            background-color: #fff !important;
+            border: 1px solid #5d78ff !important;
+        }
+    }
+}

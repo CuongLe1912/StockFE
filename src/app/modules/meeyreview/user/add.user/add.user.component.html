@@ -1,0 +1,22 @@
+<div class="row" *ngIf="item">
+  <div class="col-sm-12">
+    <editor [(object)]="item" property="UserType" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+    <div *ngIf="item.UserType == 2">
+      <editor [(object)]="item" property="DeviceId" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <editor [(object)]="item" property="NickNames" [labelInline]="true" [decorator]="{readonly: viewer}">
+    </editor>
+    <div *ngIf="item.UserType != 2">
+      <editor [(object)]="item" property="Name" label="Tên tài khoản" [labelInline]="true"
+        [decorator]="{readonly: viewer}"></editor>
+      <editor #uploadImage [(object)]="item" property="Avatar" [labelInline]="true" [decorator]="{readonly: viewer}">
+      </editor>
+      <editor [(object)]="item" property="Phone" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+      <editor [(object)]="item" property="Email" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+      <editor [(object)]="item" property="Gender" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+      <div *ngIf="item.UserType == 3">
+        <editor [(object)]="item" click="changeStatus()" property="StatusTypeToogle" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+      </div>
+    </div>
+  </div>
+</div>

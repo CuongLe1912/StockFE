@@ -1,0 +1,32 @@
+.kt-portlet__head {
+    top: 0;
+    z-index: 1;
+    position: sticky;
+    &.fixed {
+        top: 65px;
+        z-index: 98;
+        position: fixed;
+        width: calc(100% - 60px);
+        background-color: #fff;
+        padding: 8px 25px !important;
+    }
+}
+
+.btn-group {
+    border-radius: 0.25rem;
+}
+
+.kt-message {
+    padding: 20px 20px 0 20px;
+    background-color: #ecedf3;
+    p {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 2px;
+    }
+    .alert {
+        margin: 0;
+    }
+}
+
+

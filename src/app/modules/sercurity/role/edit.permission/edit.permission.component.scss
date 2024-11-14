@@ -1,0 +1,129 @@
+.row {
+    &.disabled {
+        opacity: 0.9;
+        pointer-events: none;
+        .card-content {
+            .card-body {
+                ul {
+                    li {
+                        .dropdown {
+                            pointer-events: none !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.accordion {
+    width: 100%;
+    .card-title {
+        width: 100%;
+    }
+}
+.card-header {
+    border: none;
+    display: flex;
+    margin-top: -1px;
+    align-items: center;
+    border: 1px solid #ebedf2;
+    padding: 0.5rem 1.25rem !important;
+    .title {
+        min-width: 200px;
+    }
+    .kt-switch {
+        height: 24px;
+    }
+    label,
+    span {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+.card-content {
+    border: 1px solid #ebedf2;
+    border-top: none;
+    .card-body {
+        padding: 1rem 0;
+        ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            align-items: center;
+            li {
+                display: flex;
+                min-width: 180px;
+                margin: 10px 20px;
+                width: fit-content;
+                align-items: center;
+                .kt-checkbox {
+                    margin-bottom: 0 !important;
+                    padding-bottom: 0 !important;
+                    label,
+                    span {
+                        margin-bottom: 0 !important;
+                        padding-bottom: 0 !important;
+                    }
+                }
+                .dropdown {
+                    opacity: 0.5;
+                    border: none;
+                    margin-left: 10px;
+                    pointer-events: none;
+                    &.active {
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                    .form-group {
+                        margin: 10px 20px;
+                        .title {
+                            font-weight: 500;
+                        }
+                        .form-text {
+                            margin-top: 10px;
+                        }
+                    }
+                    .kt-checkbox-list {
+                        margin: 12px 0;
+                        .kt-checkbox {
+                            margin: 8px 0;
+                            span {
+                                border-radius: 100%;
+                                &:after {
+                                    top: 50%;
+                                    left: 50%;
+                                    width: 6px;
+                                    height: 6px;
+                                    content: "";
+                                    transform: unset;
+                                    margin-top: -3px;
+                                    margin-left: -3px;
+                                    position: absolute;
+                                    border-width: unset !important;
+                                    border-radius: 100% !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card-section {
+    .card-header {
+        &:hover {
+            color: #0abb87;
+        }
+    }
+}
+
+.kt-checkbox.readonly {
+    opacity: 0.8;
+    cursor: not-allowed;
+    pointer-events: none;
+}

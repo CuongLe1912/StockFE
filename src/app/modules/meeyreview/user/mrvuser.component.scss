@@ -1,0 +1,26 @@
+::ng-deep .meeyreview-user-grid {
+    td {
+        max-width: 300px;
+        .title-article {
+            display: flex;
+            .thumbnail-img {
+                width: 30px;
+                padding: 6px;
+                height: 30px;
+                min-width: 30px;
+                margin-right: 6px;
+                border-radius: 6px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    [tooltip]::after {
+        max-width: unset;
+    }
+}

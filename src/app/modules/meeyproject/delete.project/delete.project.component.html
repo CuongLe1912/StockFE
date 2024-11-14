@@ -1,0 +1,43 @@
+<div *ngIf="item">
+    <div *ngIf="type == 1">
+        <div class="title">Bạn có chắc chắn muốn xóa dự án này</div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div style="height: 100px;"><img [src]="urlImage" alt="" srcset="" style="width: 100%;height: 100%;"></div>
+            </div>
+            <div class="col-sm-9 info-project">
+                <p class="project-name">{{item.TradeName}}</p>
+                <p>{{address}}</p> 
+            </div>
+        </div>
+        
+    </div>
+    <div *ngIf="type ==  2">
+        <div class="title">Phát hiện dự án đang xóa:</div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div style="height: 100px;"><img [src]="urlImage" alt="" srcset="" style="width: 100%;height: 100%;"></div>
+            </div>
+            <div class="col-sm-9 info-project">
+                <p class="project-name">{{item.TradeName}}</p>
+                <p>{{address}}</p> 
+            </div>
+        </div>
+        <div class="title">Có trên các ứng dụng:</div>
+        <div *ngFor="let p of listMPCheckArticleModel; index as i"><p style="color: #1968eb;">{{i+1}}.{{p.Name}}</p></div>
+    </div>
+    <!-- <div *ngIf="type ==  3">
+        <p>Đã phát hiện sự tồn tại của tin đăng, bài viết... có sử dụng thông tin dự án:</p>
+        <div class="row">
+            <div class="col-sm-3">ảnh</div>
+            <div class="col-sm-9"></div>
+        </div>
+        <p>Hãy chọn dự án thay thế trước khi xóa:</p>
+        
+            <editor [(object)]="item" property="ListProjectId" [decorator]="{label: ''}"></editor>
+        
+    </div> -->
+</div>
+<div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+</div>

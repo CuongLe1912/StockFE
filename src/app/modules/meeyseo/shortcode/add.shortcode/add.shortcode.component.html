@@ -1,0 +1,38 @@
+<div wrapper>
+    <div *ngIf="item && !loading" class="add-shortcode">
+        <div class="row" *ngIf="viewer">
+            <div class="col-12 d-flex">
+                <div>
+                    <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="ShortCode"></editor>
+                </div>
+                <button class="btn btn-success" (click)="copyLink(item)">Copy</button>
+            </div>
+        </div>
+        <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="UrlType">
+        </editor>
+        <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: !isAddNew }" property="Url">
+        </editor>
+        <div class="row">
+            <div class="col-6">
+                <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="Title"></editor>
+            </div>
+            <div class="col-6">
+                <editor class="col-6" [(object)]="item" [labelInline]="true" [decorator]="{ readonly: !isAddNew }" property="Code"></editor>
+            </div>
+        </div>
+        <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="PageDisplay"></editor>
+        <div class="row">
+            <div class="col-6">
+                <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="TotalShow"></editor>
+            </div>
+            <div class="col-6">
+                <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="TextButton"></editor>
+            </div>
+        </div>
+        <editor [(object)]="item" [labelInline]="true" [decorator]="{ readonly: viewer }" property="Note"></editor>
+    </div>
+
+    <div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

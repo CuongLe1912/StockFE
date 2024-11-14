@@ -1,0 +1,31 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs"></edit-header>
+    <div class="kt-portlet__body">
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5 style="margin-bottom: 10px;">Cập nhật trạng thái</h5>
+                    <div class="d-flex">
+                        <editor [(object)]="item" property="Code" [labelInline]="true" [decorator]="{ label: 'Mã khách hàng' }"></editor>
+                        <div style="margin-left: 10px;">
+                            <editor-button [label]="processingUpdateStatus ? 'Đang xử lý...' : 'Cập nhật'" [(process)]="processingUpdateStatus" (click)="updateStatus()"></editor-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h5 style="margin-bottom: 10px;">Kiểm tra tài khoản ghộp</h5>
+                    <div class="d-flex">
+                        <editor [(object)]="item" property="Code2" [labelInline]="true" [decorator]="{ label: 'Mã khách hàng' }"></editor>
+                        <div style="margin-left: 10px;">
+                            <editor-button [label]="processingGetRootId ? 'Đang xử lý...' : 'Tìm kiếm'" [(process)]="processingGetRootId" (click)="getRootId()"></editor-button>
+                        </div>
+                        <div style="margin-left: 10px;">
+                            <editor [(object)]="item" property="RootId" [labelInline]="true" [decorator]="{ label: 'Mã KH ghộp', readonly: true }"></editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

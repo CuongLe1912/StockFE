@@ -1,0 +1,73 @@
+<div *ngIf="item" class="popup-note-email">
+    <div class="row" style="margin-bottom: 20px;">
+        <label class="col-sm-1">Khách hàng</label>
+        <div class="col-sm-11">
+            <div class="d-flex" *ngIf="entity">
+                <div>
+                    <editor [(object)]="entity" property="Name" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+                <div style="margin-left: 10px;">
+                    <editor [(object)]="entity" property="CustomerStatusType" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="d-flex" *ngIf="entityLead">
+                <div>
+                    <editor [(object)]="entityLead" property="Name" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+                <div style="margin-left: 10px;">
+                    <editor [(object)]="entityLead" property="CustomerStatusType" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <label class="col-sm-1">Người gửi</label>
+        <div class="col-sm-11">
+            <span [innerHTML]="getGoogleMail()"></span> - (<a style="cursor: pointer;" (click)="changeGmail()">Đổi tài khoản</a>)
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Người nhận</label>
+        <div class="col-sm-10">
+            <editor [(object)]="item" property="EmailTo" [decorator]="{ label: '' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-1" style="margin-top: 10px;">
+            <a style="margin-right: 10px; cursor: pointer;" [ngClass]="{'active-border': activeCc}" (click)="toggleCc()">Cc</a>
+            <a style="cursor: pointer;" [ngClass]="{'active-border': activeBcc}" (click)="toggleBcc()">Bcc</a>
+        </div>
+    </div>
+    <div class="row" *ngIf="activeCc">
+        <label class="col-sm-1">Người nhận [Cc]</label>
+        <div class="col-sm-11">
+            <editor [(object)]="item" property="EmailCc" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row" *ngIf="activeBcc">
+        <label class="col-sm-1">Người nhận [Bcc]</label>
+        <div class="col-sm-11">
+            <editor [(object)]="item" property="EmailBcc" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Tiêu đề</label>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Title" [decorator]="{ label: '' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-2">
+            <editor [(object)]="item" property="EmailTemplateId" [decorator]="{ label: '' }" (valueChange)="emailTemplateChange()"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Nội dung</label>
+        <div class="col-sm-11">
+            <editor [(object)]="item" property="Content" [decorator]="{ label: '' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Tệp đính kèm</label>
+        <div class="col-sm-11">
+            <editor #uploadFile [(object)]="item" property="Attachments" [decorator]="{ label: '' }"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage" [innerHtml]="errorMessage"></div>
+</div>

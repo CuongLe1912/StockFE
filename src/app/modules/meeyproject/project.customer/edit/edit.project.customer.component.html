@@ -1,0 +1,50 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-project-customer">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head" style="padding-top: 0 !important;">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x" [ngClass]="{'disabled': processing}">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('info')" [ngClass]="{'active':!tab || tab == 'info'}">
+                                Thông tin cơ bản
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('video')" [ngClass]="{'active':tab == 'video'}">
+                                Video & dự án
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding-bottom: 0;">
+                <div class="tab-content group-image">
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'info'}">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <editor [(object)]="item" property="MeeyId" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Name" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Phone" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Email" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Sex" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="CityId" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="DistrictId" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Role" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="FirstLogin" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="LastLogin" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                                <editor [(object)]="item" property="Introduce" [labelInline]="true" [decorator]="{ readonly: viewer }"></editor>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':tab == 'video'}">
+                        <mpo-video-project-detail *ngIf="item" [params]="{ item: item }"></mpo-video-project-detail>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

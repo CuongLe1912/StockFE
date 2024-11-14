@@ -1,0 +1,51 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-coupon" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs"
+        [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_transaction_history">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse"
+                                    data-target="#collapse_transaction_history">
+                                    Lịch sử giao dịch
+                                </div>
+                            </div>
+                            <div id="collapse_transaction_history" class="collapse show">
+                                <div class="card-body">
+                                    <mcrm-investor-transaction-grid #investorTransactionGrid
+                                        [params]="{item: item, viewer: viewer }"></mcrm-investor-transaction-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_order_history">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_order_history">
+                                    Lịch sử đơn hàng
+                                </div>
+                            </div>
+                            <div id="collapse_order_history" class="collapse show">
+                                <div class="card-body">
+                                    <mcrm-investor-order-grid #investorOrderGrid
+                                        [params]="{item: item, viewer: viewer }"></mcrm-investor-order-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<!-- <ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template> -->

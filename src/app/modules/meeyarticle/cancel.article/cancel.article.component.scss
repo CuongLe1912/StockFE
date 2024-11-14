@@ -1,0 +1,33 @@
+::ng-deep .cancel-article {
+    .grid-content {
+        max-height: 300px !important;
+        .table {
+            .actions {
+                width: 80px !important;
+                max-width: 80px !important;
+                .choice-column {
+                    display: none;
+                }
+            }
+        }
+    }
+    .cancel-section {
+        margin-top: 0;
+        padding-top: 0;
+        .form-group {
+            margin-top: 20px;
+            margin-bottom: 0 !important;
+        }
+    }
+    .article-section {
+        margin: 0;
+        padding-top: 10px;
+        border: 1px solid #ccc;
+    }
+    .image-inner {
+        width: 110px;
+        height: 110px !important;
+        min-width: 110px !important;
+        margin: 0 16px 20px 0 !important;
+    }
+}

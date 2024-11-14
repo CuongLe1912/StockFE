@@ -1,0 +1,14 @@
+<div class="row edit-project-type" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Name" [decorator]="{readonly: viewer}" [labelInline]="true" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="NameEn" [decorator]="{readonly: viewer}" [labelInline]="true" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Active" [decorator]="{readonly: viewer}" [labelInline]="true"></editor>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

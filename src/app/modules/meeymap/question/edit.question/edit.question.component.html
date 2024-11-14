@@ -1,0 +1,14 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="Title" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="ParentId" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="Level" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Content" [decorator]="{readonly: viewer}"></editor>
+    </div>
+</div>

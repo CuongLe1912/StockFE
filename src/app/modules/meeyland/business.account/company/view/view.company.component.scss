@@ -1,0 +1,16 @@
+.kt-portlet {
+    border: 1px solid #e8ecfa;
+    &.kt-portlet-right {
+        height: 100%;
+    }
+    &.kt-portlet-bottom {
+        margin-bottom: 0;
+    }
+    .kt-portlet__head-title {
+        padding-left: 20px;
+    }
+}
+
+a {
+    cursor: pointer;
+}

@@ -1,0 +1,26 @@
+.popup-note-email {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .row {
+        width: 100%;
+
+        .d-flex {
+            white-space: nowrap;
+        }
+    }
+
+    .error {
+        color: #fd397a;
+    }
+
+    .active-border {
+        font-weight: 800;
+        background: #5867dd;
+        color: #fff;
+        border-radius: 3px;
+        padding: 5px;
+    }
+}

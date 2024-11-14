@@ -1,0 +1,11 @@
+<div wrapper *ngIf="item" class="edit-project-location" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-12">
+            <editor [(object)]="location" className="non-readonly" property="TrafficLineDescription" [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }"></editor>
+        </div>
+        <div class="col-sm-12">
+            <editor #uploadImages [(object)]="location" property="Images" [decorator]="{ readonly: viewer, popupArchive: dialogPopupImageArchive }"></editor>
+        </div>
+    </div>
+    
+</div>

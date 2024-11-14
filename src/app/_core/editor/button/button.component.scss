@@ -1,0 +1,6 @@
+.btn {
+    height: fit-content;
+    &.disabled {
+        pointer-events: none;
+    }
+}

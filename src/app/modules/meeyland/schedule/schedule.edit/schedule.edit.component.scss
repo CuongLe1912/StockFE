@@ -1,0 +1,56 @@
+.kt-popup {
+    .kt-portlet__body {
+        height: unset;
+        overflow: hidden;
+    }
+    .kt-portlet {
+        height: 100%;
+        padding: 0 20px;
+    }
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+::ng-deep .editable {
+    padding-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    border-top: 1px solid #efe5ec;
+    .form-group {
+        margin-bottom: 15px;
+        .kt-radio-inline {
+            padding-top: 6px;
+            .kt-radio {
+                margin-bottom: 0;
+                label {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.form-viewer {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: flex-start;
+    .col-form-label {
+        padding: 0;
+    }
+}
+
+a {
+    cursor: pointer;
+}
+
+.schedule-warning {
+    display: block;
+    font-size: small;
+    color: #ffb822;
+    margin-top: -10px;
+    font-style: italic;
+    margin-bottom: 10px;
+}

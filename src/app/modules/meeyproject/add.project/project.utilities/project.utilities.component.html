@@ -1,0 +1,72 @@
+<div wrapper *ngIf="item" class="edit-project-utilities" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="kt-portlet kt-portlet--tabs">
+                <div class="kt-portlet__head" style="padding-top: 0 !important;">
+                    <div class="kt-portlet__head-toolbar">
+                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">                                                
+                            <li class="nav-item">
+                                <a class="nav-link" (click)="selectedUtilitiesTab('basic')" [ngClass]="{'active':utilitiesTab == 'basic', 'tab-link-error': validTabs.includes('basic')}">
+                                    Cơ bản <i class="fa fa-exclamation-circle" *ngIf="validTabs.includes('basic')"></i>
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" (click)="selectedUtilitiesTab('outstanding')" [ngClass]="{'active':utilitiesTab == 'outstanding', 'tab-link-error': validTabs.includes('outstanding')}">
+                                    Vượt trội <i class="fa fa-exclamation-circle" *ngIf="validTabs.includes('outstanding')"></i>
+                                </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="kt-portlet__body" style="padding-bottom: 0;">
+                    <div class="tab-content group-image">                                            
+                        <div class="tab-pane" [ngClass]="{'active':utilitiesTab == 'basic'}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <editor [(object)]="utilities" property="BasicUtilities"
+                                                [decorator]="{label: 'Tiện ích (Tối đa 100 tiện ích, mỗi tiện ích tối đa 100 ký tự)', readonly: viewer}">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <editor  className="non-readonly" [(object)]="utilities" property="BasicDescription"
+                                                [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <editor #uploadBasicImages [(object)]="utilities" property="BasicImages"
+                                                [decorator]="{ readonly: viewer, popupArchive: dialogPopupImageArchive }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="tab-pane" [ngClass]="{'active':utilitiesTab == 'outstanding'}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <editor [(object)]="utilities" property="OutstandingUtilities"
+                                                [decorator]="{label: 'Tiện ích (Tối đa 100 tiện ích, mỗi tiện ích tối đa 100 ký tự)', readonly: viewer}">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <editor [(object)]="utilities" property="OutstandingDescription"
+                                                [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <editor #uploadOutstandingImages [(object)]="utilities" property="OutstandingImages"
+                                                [decorator]="{ readonly: viewer, popupArchive: dialogPopupImageArchive }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                             -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

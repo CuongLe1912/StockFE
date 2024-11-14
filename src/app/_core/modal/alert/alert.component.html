@@ -1,0 +1,24 @@
+<div wrapper class="modal fade" [ngClass]="{'show':visible}" style="z-index: 1051;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" *ngIf="dialog" [id]="id">
+            <div class="modal-header" [ngClass]="{'modal-header-timeout':dialog.type == DialogType.AlertTimer}">
+                <h5 class="modal-title">{{dialog.title}}</h5>
+                <button *ngIf="!dialog.restrict" type="button" class="close" (click)="closeModal()">
+                </button>
+                <div style="display: flex; align-items: center; justify-content: center;" *ngIf="counter">
+                    <div class="circle x-small" [attr.data-fill]="percent" hour style="--color:#007bff">
+                        <span>{{ counter }}</span>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" [innerHTML]="dialog.content | sanitizeHtml" *ngIf="dialog.type == DialogType.Alert"></div>
+            <div class="modal-body modal-body-timeout" *ngIf="dialog.type == DialogType.AlertTimer">
+                <span [innerHTML]="dialog.content | sanitizeHtml"></span>                
+            </div>
+            <div class="modal-footer" *ngIf="!dialog.restrict">
+                <button type="button" class="btn btn-primary" (click)="confirmModal()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

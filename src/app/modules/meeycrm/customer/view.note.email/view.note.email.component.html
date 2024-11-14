@@ -1,0 +1,23 @@
+<div *ngIf="item" class="popup-note-email">
+    <div class="row">
+        <label class="col-sm-1">Tiêu đề</label>
+        <div class="col-sm-11">
+            <editor [(object)]="item" property="Title" [decorator]="{ label: '', readonly: true }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Nội dung</label>
+        <div class="col-sm-11" style="padding: 0 10px; margin-bottom: 25px;">
+            <div style="border: 1px solid #ccc; border-radius: 4px; padding: 10px;">
+                <editor [(object)]="item" property="Content" [viewer]="true" [html]="true" [decorator]="{ label: '', readonly: true }"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-1">Tệp đính kèm</label>
+        <div class="col-sm-11">
+            <editor #uploadFile [(object)]="item" property="Attachments" [decorator]="{ label: '', readonly: true }"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage" [innerHtml]="errorMessage"></div>
+</div>

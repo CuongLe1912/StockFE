@@ -1,0 +1,58 @@
+<div wrapper class="view-review-contribute">
+    <div *ngIf="item && !loading">
+        <div *ngIf="item.Id">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="col-form-label">Số điện thoại</label>
+                </div>
+                <div class="col-sm-7">
+                    <label class="col-form-label">{{item.Phone}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="col-form-label">Meey Id</label>
+                </div>
+                <div class="col-sm-7">
+                    <label class="col-form-label">{{item.MeeyId}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="col-form-label">Tên dự án</label>
+                </div>
+                <div class="col-sm-7">
+                    <label class="col-form-label">{{item.ProjectName}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <editor-button className="btn btn-danger" label="Check trùng" [process]="processDuplicate"
+                        (click)="duplicate()"></editor-button>
+                </div>
+            </div>
+            <div class="row" *ngIf="message">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-7">
+                    <label class="col-form-label message-success"
+                        [ngClass]="{'error': message?.indexOf('đã tồn tại') >= 0}">{{message}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="col-form-label">Ngày tạo</label>
+                </div>
+                <div class="col-sm-7">
+                    <label class="col-form-label">{{ item.CreatedDate | dateminutex }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <editor [(object)]="item" property="Content" [decorator]="{readonly: true}"></editor>
+            </div>
+        </div>
+    </div>
+    <div class=" kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

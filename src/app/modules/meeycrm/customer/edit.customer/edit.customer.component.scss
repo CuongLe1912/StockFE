@@ -1,0 +1,27 @@
+.kt-portlet-edit-form {
+    .card {
+        margin-bottom: 2rem;
+    }
+    .avatar {
+        max-width: 180px;
+    }
+    .card-title {
+        margin: 0;
+        font-weight: bold;
+    }
+    .col-form-label {
+        max-width: 180px;
+        &.w-150 {
+            max-width: 150px;
+        }
+    }
+    >.kt-portlet__body {
+        padding-top: 70px;
+    }
+}
+
+::ng-deep .no-padding {
+    .form-group {
+        margin-bottom: 0;
+    }
+}

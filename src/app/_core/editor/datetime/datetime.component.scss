@@ -1,0 +1,42 @@
+.kt-input-icon__icon--right {
+    right: 10px;
+    position: absolute;
+    .la-close {
+        color: #74788d;
+        font-weight: bold;
+        font-size: 1rem !important;
+    }
+}
+
+input {
+    cursor: pointer !important;
+    pointer-events: all !important;
+    background-color: #fff !important;
+    &.disabled {
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+        background-color: #f7f8fa !important;
+    }
+}
+
+::ng-deep .kt-input-inline {
+    .form-control {
+        display: none;
+    }
+    .kt-input-icon__icon {
+        display: none;
+    }
+    .datepicker-inline {
+        width: 100%;
+        .datepicker {
+            padding: 0;
+            width: 100%;
+            .datepicker--cell {
+                height: 46px;
+            }
+        }
+    }
+    .datepicker--buttons {
+        display: none;
+    }
+}

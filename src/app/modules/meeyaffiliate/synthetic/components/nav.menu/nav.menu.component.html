@@ -1,0 +1,7 @@
+<ul class="nav nav-light-success nav-pills">
+  <li class="nav-item" *ngFor="let item of buttons; let i = index;" (click)="filter(item)">
+      <a class="nav-link" [ngClass]="{'active': activeIndex == item.id}">
+          <span class="nav-text">{{ item.name }}</span>
+      </a>
+  </li>
+</ul>

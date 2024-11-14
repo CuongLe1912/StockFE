@@ -1,0 +1,477 @@
+<div class="kt-portlet kt-portlet-view-form kt-portlet--mobile view-customer" *ngIf="item">
+    <edit-header-view [fixed]="true" *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs" [actions]="actions" [moreActions]="moreActions"></edit-header-view>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <ul class="nav nav-light-success nav-pills" [ngClass]="{'popup':popup}" id="top-menu">
+            <li class="nav-item" *ngFor="let item of buttons; let i = index;" (click)="scrollToCard(item)">
+                <a class="nav-link" [ngClass]="{'active': activeIndex == item.id}">
+                    <span class="nav-text">{{ item.name }}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="kt-portlet-card__body" [ngClass]="{'popup':popup}">
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_status">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_status">
+                            Trạng thái
+                        </div>
+                    </div>
+                    <div id="collapse_status" class="collapse show">
+                        <div class="card-body">
+                            <div class="wizard-nav border-bottom">
+                                <div class="wizard-steps p-8 p-lg-10">
+                                    <!--begin::Wizard Step 1 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" [attr.data-wizard-state]="item.CustomerStatusType == CustomerStatusType.NotSale ? 'current' : 'pending'">
+                                        <div class="wizard-label">
+                                            <i class="wizard-icon flaticon-bus-stop"></i>
+                                            <h3 class="wizard-title">1. Chưa gán Sale</h3>
+                                            <span *ngIf="item.CustomerStatusType == CustomerStatusType.NotSale && item.Expire && item.ExpireMessage">
+                                                <p class="text-danger"><i class='la la-info'></i> Quá hạn chăm sóc</p>
+                                            </span>
+                                        </div>
+                                        <span class="svg-icon svg-icon-xl wizard-arrow">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"></rect>
+                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </div>
+                                    <!--end::Wizard Step 1 Nav-->
+
+                                    <!--begin::Wizard Step 2 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" [attr.data-wizard-state]="item.CustomerStatusType == CustomerStatusType.NotApproach ? 'current' : 'pending'">
+                                        <div class="wizard-label">
+                                            <i class="wizard-icon flaticon-list"></i>
+                                            <h3 class="wizard-title">2. Chưa tiếp cận</h3>
+                                            <span *ngIf="item.CustomerStatusType == CustomerStatusType.NotApproach && item.Expire && item.ExpireMessage">
+                                                <p class="text-danger"><i class='la la-info'></i> Quá hạn chăm sóc</p>
+                                            </span>
+                                        </div>
+                                        <span class="svg-icon svg-icon-xl wizard-arrow">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"></rect>
+                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </div>
+                                    <!--end::Wizard Step 2 Nav-->
+
+                                    <!--begin::Wizard Step 3 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" [attr.data-wizard-state]="item.CustomerStatusType == CustomerStatusType.Consider ? 'current' : 'pending'">
+                                        <div class="wizard-label">
+                                            <i class="wizard-icon flaticon-responsive"></i>
+                                            <h3 class="wizard-title">3. Xem xét</h3>
+                                            <span *ngIf="item.CustomerStatusType == CustomerStatusType.Consider && item.Expire && item.ExpireMessage">
+                                                <p class="text-danger"><i class='la la-info'></i> Quá hạn chăm sóc</p>
+                                            </span>
+                                        </div>
+                                        <span class="svg-icon svg-icon-xl wizard-arrow">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"></rect>
+                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </div>
+                                    <!--end::Wizard Step 3 Nav-->
+
+                                    <!--begin::Wizard Step 4 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" *ngIf="item.CustomerStatusType == CustomerStatusType.Reject" [attr.data-wizard-state]="item.CustomerStatusType == CustomerStatusType.Reject ? 'current' : 'pending'">
+                                        <div class="wizard-label">
+                                            <i class="wizard-icon flaticon-truck"></i>
+                                            <h3 class="wizard-title">4. Từ chối</h3>
+                                            <span *ngIf="item.CustomerStatusType == CustomerStatusType.Reject && item.Expire && item.ExpireMessage">
+                                                <p class="text-danger"><i class='la la-info'></i> Quá hạn chăm sóc</p>
+                                            </span>
+                                        </div>
+                                        <span class="svg-icon svg-icon-xl wizard-arrow">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"></rect>
+                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </div>
+                                    <!--end::Wizard Step 4 Nav-->
+
+                                    <!--begin::Wizard Step 5 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" [attr.data-wizard-state]="item.CustomerStatusType == CustomerStatusType.Success ? 'current' : 'pending'">
+                                        <div class="wizard-label">
+                                            <i class="wizard-icon flaticon-globe"></i>
+                                            <h3 class="wizard-title">4. Thành công</h3>
+                                            <span *ngIf="item.CustomerStatusType == CustomerStatusType.Success && item.Expire && item.ExpireMessage">
+                                                <p class="text-danger"><i class='la la-info'></i> Quá hạn chăm sóc</p>
+                                            </span>
+                                        </div>
+                                        <span class="svg-icon svg-icon-xl wizard-arrow last">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"></rect>
+                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </div>
+                                    <!--end::Wizard Step 5 Nav-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_information">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_information">
+                            Thông tin chung [{{ item.Code }}]
+                        </div>
+                    </div>
+                    <div id="collapse_information" class="collapse show">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-1 avatar">
+                                    <editor #uploadAvatar [(object)]="item" property="Avatar" [decorator]="{ readonly: true }"></editor>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Họ và tên</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Name" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Ngày sinh</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Birthday" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Phone" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Nguồn giới thiệu</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="SourceId" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Mức độ tiềm năng</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerPotentialType" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Loại khách hàng</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerType" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Loại hình hoạt động</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerActivityType" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="item.CustomerActivityType == CustomerActivityType.Business">
+                                        <label class="col-sm-3 col-form-label">Doanh nghiệp</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CompanyId" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Nhóm khách hàng</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CustomerGroupId" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="AddressDetail" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Miêu tả</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="Description" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse_invoice_tax">
+                                                Thông tin xuất hóa đơn
+                                            </div>
+                                        </div>
+                                        <div id="collapse_invoice_tax" class="collapse show">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Tên/Mã số thuế</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <editor [(object)]="item" property="InvoiceName" [decorator]="{ label: '', readonly: true }"></editor>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <editor [(object)]="item" property="InvoiceTaxCode" [decorator]="{ label: '', readonly: true }"></editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label">Địa chỉ hóa đơn</label>
+                                                    <div class="col-sm-9 no-padding">
+                                                        <editor [(object)]="item" property="InvoiceAddress" [decorator]="{ label: '', readonly: true }"></editor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse_contact">
+                                                Thông tin liên hệ
+                                            </div>
+                                        </div>
+                                        <div id="collapse_contact" class="collapse show">
+                                            <div class="card-body">
+                                                <mcrm-customer-contact [id]="id" [viewer]="true"></mcrm-customer-contact>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_sale">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_sale">
+                            Thông tin chăm sóc
+                        </div>
+                    </div>
+                    <div id="collapse_sale" class="collapse show">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Sale</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="SaleId" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Chăm sóc gần nhất</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="LastTimeSupport" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">CSKH</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="SupportId" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Ngày tạo</label>
+                                        <div class="col-sm-9">
+                                            <editor [(object)]="item" property="CreatedDate" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_user">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_user">
+                            Thông tin MeeyID
+                        </div>
+                    </div>
+                    <div id="collapse_user" class="collapse show">
+                        <div class="card-body">
+                            <mcrm-customer-user [id]="id"></mcrm-customer-user>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_support">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_support">
+                            Lịch sử chăm sóc
+                        </div>
+                    </div>
+                    <div id="collapse_support" class="collapse show">
+                        <div class="card-body">
+                            <div *ngIf="moreActions && moreActions.Actions && moreActions.Actions.length > 0">
+                                <span *ngFor="let action of moreActions.Actions">
+                                    <button class="kt-margin-l-10" [ngClass]="action.className" (click)="action.click(item)" *ngIf="!action.processButton && (!action.hidden || !action.hidden())">
+                                        <i [ngClass]="action.icon"></i>
+                                        <span class="kt-hidden-mobile">{{ action.name }}</span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="kt-portlet kt-portlet--tabs">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-toolbar">
+                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                            <li class="nav-item">
+                                                <a class="nav-link" (click)="selectedTab('note')" [ngClass]="{'active':tab == 'note'}">
+                                                    <i class="la la-user"></i> Ghi chú
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" (click)="selectedTab('call')" [ngClass]="{'active':tab == 'call'}">
+                                                    <i class="la la-th-list"></i> Gọi điện
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" (click)="selectedTab('email')" [ngClass]="{'active':tab == 'email'}">
+                                                    <i class="la la la-shopping-cart"></i> Email
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane" [ngClass]="{'active':tab == 'note'}">
+                                            <mcrm-customer-note #note [id]="id" [customer]="item"></mcrm-customer-note>
+                                        </div>
+                                        <div class="tab-pane" [ngClass]="{'active':tab == 'call'}">
+                                            <mcrm-customer-call-log #noteCallLog [id]="id"></mcrm-customer-call-log>
+                                        </div>
+                                        <div class="tab-pane" [ngClass]="{'active':tab == 'email'}">
+                                            <mcrm-customer-note-email #noteEmail [id]="id"></mcrm-customer-note-email>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_transaction">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_transaction">
+                            Lịch sử giao dịch
+                        </div>
+                    </div>
+                    <div id="collapse_transaction" class="collapse show">
+                        <div class="card-body">
+                            <mcrm-customer-transaction [id]="id"></mcrm-customer-transaction>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_order">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_order">
+                            Lịch sử đơn hàng
+                        </div>
+                    </div>
+                    <div id="collapse_order" class="collapse show">
+                        <div class="card-body">
+                            <mcrm-customer-order [id]="id"></mcrm-customer-order>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_service">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_service">
+                            Dịch vụ sử dụng
+                        </div>
+                    </div>
+                    <div id="collapse_service" class="collapse show">
+                        <div class="card-body">
+                            <div class="kt-portlet kt-portlet--tabs">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-toolbar">
+                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                            <li class="nav-item">
+                                                <a class="nav-link" (click)="selectedServiceTab('article')" [ngClass]="{'active':serviceTab == 'article'}">
+                                                    <i class="la la-leaf"></i> Tin đăng
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" (click)="selectedServiceTab('map')" [ngClass]="{'active':serviceTab == 'map'}">
+                                                    <i class="la la-map"></i> Tra cứu quy hoạch
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane" [ngClass]="{'active':serviceTab == 'article'}">
+                                            <mcrm-customer-article [id]="id"></mcrm-customer-article>
+                                        </div>
+                                        <div class="tab-pane" [ngClass]="{'active':serviceTab == 'map'}">
+                                            <mcrm-customer-lookup-history [id]="id"></mcrm-customer-lookup-history>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-toggle-arrow">
+                <div class="card" id="card_history">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapse_history">
+                            Lịch sử tài khoản
+                        </div>
+                    </div>
+                    <div id="collapse_history" class="collapse show">
+                        <div class="card-body">
+                            <mcrm-customer-history #history [id]="id"></mcrm-customer-history>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-form" *ngIf="!item">
+                {{ message }}
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

@@ -1,0 +1,42 @@
+<div wrapper class="add-structure">
+    <div *ngIf="item && !loading">
+        <div class="row" *ngIf="item.Id">
+            <div class="col-sm-3">
+                <label class="col-form-label">ID cấu trúc: {{ item.StructureId }}</label>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Ngày tạo: {{ item.CreatedDate | dateminutex }}</label>
+            </div>
+            <div class="col-sm-5">
+                <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedDate | dateminutex }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group ng-star-inserted">
+                    <label class="col-form-label">Loại cấu trúc: Manual</label>
+                </div>
+            </div>
+            <div class="col-sm-3 apply-detail">
+                <editor [(object)]="item" property="ApplyDetail"></editor>
+            </div>
+            <div class="col-sm-5 priority" [ngClass]="{'hide':!item.ApplyDetail}">
+                <editor [(object)]="item" property="Priority" [labelInline]="true"></editor>
+            </div>
+        </div>
+        <div class="row overview">
+            <div class="col-sm-12">
+                <label class="col-form-label">Cấu trúc: {{overview}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" [ngClass]="{'update-structure':item.Id && item.HavingProperty}">
+                <editor [(object)]="item" property="Structure" (valueChange)="changeStructure()"
+                    [decorator]="{ label: '' }"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

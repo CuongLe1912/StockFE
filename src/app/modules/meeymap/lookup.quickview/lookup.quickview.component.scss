@@ -1,0 +1,36 @@
+.kt-portlet {
+    margin: 0;
+    padding: 0;
+    .kt-portlet__body {
+        margin: 0;
+        padding: 0;
+        min-height: 300px;
+        .kt-portlet-info {
+            overflow: auto;
+            max-height: 75vh;
+            .kt-portlet-land {
+                margin-top: 20px;
+                h6 {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .kt-portlet-lookup-view {
+    textarea {
+        padding: 0;
+        border: none;
+        background-color: transparent !important;
+    }
+    .form-group {
+        .col-sm-9,
+        .col-sm-10 {
+            color: #495057;
+        }
+    }
+    .kt-input-icon__icon {
+        display: none;
+    }
+}

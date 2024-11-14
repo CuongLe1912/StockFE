@@ -1,0 +1,105 @@
+<div wrapper *ngIf="item">
+    <div *ngIf="!viewLocation" class="infoBanner">
+        <h5>Thông Tin Chung</h5>
+        <div class="row">
+            <div class="col-sm-6">
+                <editor [(object)]="item" [decorator]="{ readonly: (viewer || item.Id) ? true : false }"
+                    [labelInline]="true" property="BannerType" (valueChange)="enabledSave(); zonesChange()">
+                </editor>
+                <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true" property="Name">
+                </editor>
+                <div *ngIf="item.BannerType == 1">
+                    <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true"
+                        property="SourceType"></editor>
+                    <div *ngIf="item.BannerType == 1 && item.SourceType != 2">
+                        <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true"
+                            property="CustomerId"></editor>
+                    </div>
+                </div>
+                <div *ngIf="item.BannerType == 3">
+                    <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true"
+                        property="Description"></editor>
+                </div>
+                <div *ngIf="viewer">
+                    <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true" property="Status">
+                    </editor>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true" property="Products">
+                </editor>
+                <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true" property="Code">
+                </editor>
+                <div *ngIf="item.BannerType">
+                    <div class="form-group ng-star-inserted label-inline">
+                        <label class="ng-star-inserted"> Thời gian treo <span style="color: red;"
+                                class="ng-star-inserted"> *</span></label>
+                        <div class="kt-input-icon hanging-time">
+                            <editor [(object)]="item" [labelInline]="true" property="StartDate"
+                                [decorator]="{ label:'', readonly: viewer }">
+                            </editor>
+                            <editor [(object)]="item" [labelInline]="true" property="EndDate"
+                                [decorator]="{ label:'', readonly: viewer }">
+                            </editor>
+                        </div>
+
+                    </div>
+                    <editor [(object)]="item" [decorator]="{ readonly: viewer }" [labelInline]="true"
+                        property="DisplayTime"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="zones && zones.length > 0">
+        <div class="col-sm-12">
+            <h5>{{viewLocation?'Meey Land':'Banner'}}</h5>
+            <div class="row">
+                <div class="col-sm-4 zone" *ngFor="let zone of zones; let i = index;">
+                    <div class="title">
+                        <p>{{zones[i].Name}}</p>
+                    </div>
+                    <div class="content" [ngClass]="{'hideContent':!item.BannerType}">
+                        <editor [(object)]="zones[i]" property="Link" [decorator]="{index: i, readonly: viewer}"
+                            (valueChange)="enabledSave()">
+                        </editor>
+                        <div class="d-flex images">
+                            <!-- <editor #uploadImages [(object)]="zones[i]" property="Image"
+                                *ngIf="zones[i].Platform == MBPlatformType.Web" (valueChange)="enabledSave()"
+                                [decorator]="{ label: 'Home (1044*180)' ,size:zones[i].Size, dimension: { width: 1044, height: 180, type: DimensionType.Equals }, index: i, readonly: viewer}">
+                            </editor> -->
+                            <editor #uploadImages [(object)]="zones[i]" [decorator]="{ readonly: viewer }"
+                                (valueChange)="enabledSave()" property="Image"
+                                [decorator]="{ label: 'Home ('+ zones[i].Width+'*'+zones[i].Height+')',size:zones[i].Size, dimension: { width: zones[i].Width, height: zones[i].Height, type: DimensionType.Equals }, index: i, readonly: viewer}">
+                            </editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="viewer && !viewLocation">
+        <div class="d-flex align-items-center" style="margin: 15px auto; margin-bottom: 0;">
+            <button class="btn btn-primary font-weight-bolder text-uppercase" (click)="approve(item)"
+                *ngIf="allowApprove && (item.Status == MBStatusType.Pending || item.Status == MBStatusType.Reject)">Duyệt</button>
+            <button class="btn btn-warning font-weight-bolder text-uppercase" (click)="rejectBanner(item)"
+                *ngIf="allowReject && (item.Status == MBStatusType.Pending || item.Status == MBStatusType.Approve)">Từ
+                chối</button>
+            <button class="btn btn-danger font-weight-bolder text-uppercase" (click)="deleteBanner(item)"
+                *ngIf="allowDelete && (item.Status == MBStatusType.Reject || item.Status == MBStatusType.Stop)">Xóa</button>
+            <button class="btn btn-success font-weight-bolder text-uppercase" (click)="running(item)"
+                *ngIf="allowPlay && (item.Status == MBStatusType.Approve || item.Status == MBStatusType.Pause || item.Status == MBStatusType.Stop)">Chạy
+                banner</button>
+            <button class="btn btn-warning font-weight-bolder text-uppercase" (click)="pause(item)"
+                *ngIf="allowPause && (item.Status == MBStatusType.Running)">Tạm dừng</button>
+            <button class="btn btn-danger font-weight-bolder text-uppercase" (click)="stop(item)"
+                *ngIf="allowStop && (item.Status == MBStatusType.Running || item.Status == MBStatusType.Pause)">Dừng
+                banner</button>
+            <button class="btn btn-secondary font-weight-bolder text-uppercase"
+                (click)="dialog.HideAllDialog()">Đóng</button>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

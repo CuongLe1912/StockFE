@@ -1,0 +1,65 @@
+::ng-deep .add-structure {
+  .kt-checkbox-inline {
+    .kt-checkbox {
+      min-width: 130px;
+      &:first-of-type {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+  }
+  .update-structure {
+    .kt-checkbox-inline {
+      .kt-checkbox {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+  }
+  .priority {
+    .form-group {
+      margin-top: 5px;
+      margin-bottom: 0;
+      label {
+        width: 55px;
+      }
+      .error {
+        margin-left: 55px;
+      }
+      .kt-input-icon {
+        width: 190px !important;
+      }
+    }
+  }
+  .apply-detail {
+    .form-group {
+      margin: 0;
+      margin-top: 10px;
+    }
+  }
+  .hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+.priority {
+  .form-group {
+    margin-top: 5px;
+    margin-bottom: 0;
+    label {
+      width: 55px;
+    }
+    .error {
+      margin-left: 55px;
+    }
+    .kt-input-icon {
+      max-width: 135px;
+      width: 190px !important;
+    }
+    .overview {
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.hide-drop {
+    display: none;
+}
+.input-info {
+    top: 43px;
+    position: absolute;
+}
+::ng-deep .is-invalid + .input-info {
+    top: 55px;
+}

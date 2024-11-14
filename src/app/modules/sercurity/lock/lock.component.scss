@@ -1,0 +1,25 @@
+.kt-login__fluid {
+    height: 100vh;
+    .kt-login__divider,
+    .kt-login__options {
+        display: none !important;
+    }
+
+    .kt-login__subtitle {
+        li {
+            opacity: 0.6;
+            margin: 5px 0;
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
+    a {
+        cursor: pointer;
+    }
+}
+
+::ng-deep .loginOtp button {
+    margin: auto;
+}

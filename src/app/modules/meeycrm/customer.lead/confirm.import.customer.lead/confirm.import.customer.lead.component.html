@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-sm-4 amount">Số bản ghi import: {{ total }}</div>
+            <div class="col-sm-4 amount">Số bản ghi hợp lệ: {{ valid }}</div>
+            <div class="col-sm-4 amount">Số bản ghi không hợp lệ: {{ error }}</div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <mcrm-list-import-lead [items]="items"></mcrm-list-import-lead>
+    </div>
+</div>

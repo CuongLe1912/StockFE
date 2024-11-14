@@ -1,0 +1,97 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+  <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="item">
+    <div class="kt-portlet kt-portlet--tabs">
+      <div class="kt-portlet__head">
+          <div class="kt-portlet__head-toolbar">
+              <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                  <li class="nav-item">
+                      <a class="nav-link" (click)="selectedPolicyTab('customer')" [ngClass]="{'active':policyTab == 'customer'}">
+                          <i class="la la-users"></i> Khách hàng cá nhân
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" (click)="selectedPolicyTab('publisher')" [ngClass]="{'active':policyTab == 'publisher'}">
+                          <i class="la la-globe"></i> Khách hàng doanh nghiệp
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="kt-portlet__body">
+          <div class="tab-content">
+              <div class="tab-pane active">
+                <fieldset class="p-2 fs-policy">
+                  <legend class="w-auto p-2">Chính sách chi trả hoa hồng</legend>                  
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label">Áp dụng từ ngày:</label>
+                        <div class="col-sm-6 col-form-label">{{ item?.ApplyDate | datex }}</div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label">File chính sách:</label>
+                        <div class="col-sm-6 col-form-label"><a *ngIf="item?.File" target="_blank" [href]="item?.File">chinh-sach-hoa-hong.pdf</a></div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label">Chu kỳ thanh toán:</label>
+                        <div class="col-sm-6 col-form-label"><div [innerHTML]="getPaymentCycleType()"></div></div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label">Tài khoản nhận tiền:</label>
+                        <div class="col-sm-6 col-form-label"><div [innerHTML]="getPaymentType()"></div></div>
+                      </div>
+                      <div class="row" style="padding-top: 30px;">
+                        <label class="col-sm-12 col-form-label"><h5>Doanh số được tính từ:</h5></label>
+                      </div>
+                      <div class="row">
+                        <ul>
+                          <li>Số tiền KH nạp (phải trừ {{ item?.VATDirect * 100 }}% VAT)</li>
+                          <li>Số tiền KH thanh toán các dịch vụ qua Cổng thanh toán VNpay (phải trừ {{ item?.VATVnPay * 100 }}% VAT)</li>
+                          <li>Số tiền KH thanh toán các dịch vụ qua TKKM1 (phải trừ {{ item?.VATPromotion1 * 100 }}% VAT)</li>
+                        </ul>
+                      </div>
+                      <div class="row" style="padding-top: 30px;" *ngIf="item?.Days <= 3">
+                        <label class="col-sm-12 col-form-label text-danger"><h6><i class="fa fa-info"></i> Sắp thay đổi chính sách, xem trong <a href="javascript:;">Xem lịch sử</a></h6></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="row">
+                        <label class="col-sm-10 col-form-label"><h5>Thông tin hoa hồng</h5></label>
+                        <!-- <div class="col-sm-1">
+                          <a [href]="'/admin/mafpolicy/view?id=' + item?.Id" target="_blank">Xem lịch sử</a>
+                        </div>
+                        <div class="col-sm-1">
+                          <a [href]="'/admin/mafpolicy/edit?id=' + item?.Id" target="_blank">Thay đổi</a>
+                        </div> -->
+                      </div>
+                      <div class="kt-portlet">
+                        <div class="kt-portlet__body" style="max-height: 350px; overflow: scroll;">
+                          <table class="table" >
+                            <thead>
+                              <tr>
+                                <th scope="col">Chính sách</th>
+                                <th scope="col">Vollumn doanh số F1 (đ)</th>
+                                <th scope="col">Hoa hồng</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let policy of item?.PolicyDetails">
+                                <td>{{ policy.Name }}</td>
+                                <td>{{ policy.VolumeFrom | numberx }} - {{ policy.VolumeTo | numberx }}</td>
+                                <td>{{ policy.Commission * 100 }}%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>                      
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+          </div>
+      </div>
+      <loading *ngIf="loading"></loading>
+    </div>
+  </div>
+</div>

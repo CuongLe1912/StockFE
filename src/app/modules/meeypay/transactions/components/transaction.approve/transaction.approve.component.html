@@ -1,0 +1,107 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-9">
+      <div class="row">
+        <label class="col-sm-3 col-form-label">Kiểm duyệt</label>
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="actionRadio" id="approve" [(ngModel)]="action" (ngModelChange)="actionChange()" value="approve">
+              <label class="form-check-label" for="approve"><h5 style="padding-top: 6px;cursor: pointer;">Duyệt</h5></label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="actionRadio" id="reject" [(ngModel)]="action" (ngModelChange)="actionChange()" value="reject">
+              <label class="form-check-label" for="reject"><h5 style="padding-top: 6px;cursor: pointer;">Từ chối</h5></label>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+    <ng-container *ngIf="item?.Transaction?.PaymentMethodId == MPPaymentMethodType.Transfer && action == 'approve'">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="row">
+              <label class="col-sm-5 col-form-label">Họ tên</label>
+              <label class="col-sm-7 col-form-label">{{ item?.UserInfo?.FirstName }} {{ item?.UserInfo?.LastName }}</label>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="row">
+              <label class="col-sm-4 col-form-label">Số tiền thanh toán</label>
+              <label class="col-sm-8 col-form-label">{{ mpRevenue?.Amount?.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="row">
+              <label class="col-sm-5 col-form-label">Số điện thoại</label>
+              <label class="col-sm-7 col-form-label">{{ item?.UserInfo?.PhoneNumber }}</label>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="row">
+              <label class="col-sm-4 col-form-label">Hình thức thanh toán</label>
+              <label class="col-sm-8 col-form-label"><div [innerHTML]="paymentMethod"></div></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="row">
+              <label class="col-sm-5 col-form-label">Email</label>
+              <label class="col-sm-7 col-form-label">{{ item?.UserInfo?.Email }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <label class="col-sm-2 col-form-label">Mã tiền thu<span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-9" *ngIf="!loadingPaymentCode">
+                <editor [(object)]="item" property="SearchPaymentCode" (keyPressEnter)="searchPaymentCode()"
+                  (valueChange)="changePaymentCode($event)" [decorator]="{ label: '', readonly: disabledPaymentCode, lookup: { url: '/MPRevenue/LookupRevenue/'+ PaymentCode } }">
+                </editor>
+              </div>
+              <div class="col-sm-3">
+                <editor-button label="Kiểm tra" [process]="processSearchPaymentCode" (click)="searchPaymentCode()" [disabled]="PaymentCode ? false : true"></editor-button>
+              </div>
+            </div>          
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="col-sm-12">
+      <div class="row" *ngIf="action == 'reject' && item?.Transaction?.PaymentMethodId != MPPaymentMethodType.MeeyPayAccount">
+          <label class="col-sm-2 col-form-label">Lý do từ chối <span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <editor [(object)]="item" property="MeeyResponseCode" [decorator]="{ label: '' }"></editor>
+            <em class="text-muted input-info">(Đây là lý do hiển thị cho KH)</em>
+          </div>
+      </div>
+      <div class="row">
+          <label class="col-sm-2 col-form-label">{{ labelNote }} <span class="text-danger" *ngIf="action == 'reject'">*</span></label>
+          <div class="col-sm-8">
+            <editor [(object)]="item" property="Note" [decorator]="{ label: '', placeholder: 'Nội dung' }" (valueChange)="valueChange()"></editor>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Tệp đính kèm </label>
+            <div class="col-sm-8">
+              <editor #uploadFile [(object)]="item" property="UrlFile" [decorator]="{ label: '', readonly: viewer }"></editor>
+            </div>
+        </div>                              
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMessage }}</em>
+    </div>
+</div>

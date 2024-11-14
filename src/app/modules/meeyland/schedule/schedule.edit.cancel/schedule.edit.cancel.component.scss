@@ -1,0 +1,25 @@
+::ng-deep .schedule-edit-cancel {
+    .kt-radio-inline {
+        .kt-radio {
+            display: block;
+        }
+    }
+    .form-radio {
+        .form-group {
+            margin-bottom: 1rem;
+            .col-form-label {
+                padding: 0;
+            }
+        }
+    }
+    .disable {
+        .form-group {
+            .form-control {
+                opacity: 1;
+                cursor: default;
+                pointer-events: none;
+                background-color: #f7f8fa;
+            }
+        }
+    }
+}

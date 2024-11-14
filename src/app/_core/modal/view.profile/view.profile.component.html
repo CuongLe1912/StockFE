@@ -1,0 +1,26 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12 row" *ngIf="!loading">
+        <div class="col-sm-3">
+            <div style="width: 120px; margin: 0 auto;">
+                <editor [(object)]="item" property="Avatar" [viewer]="true" [decorator]="{label:''}"></editor>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Email" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="FullName" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor *ngIf="item.Birthday" [(object)]="item" property="Birthday" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Phone" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="ExtPhoneNumber" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="RefCode" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Department" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Team" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="Position" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor *ngIf="item.LastLogin" [(object)]="item" property="LastLogin" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="ExtPhoneNumber" [labelInline]="true" [decorator]="{readonly: true}" [viewer]="true"></editor>
+            <editor [(object)]="item" property="RefCode" [labelInline]="true" [decorator]="{readonly: true}" [viewer]="true"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="loading" style="height: 200px;">
+        <loading></loading>
+    </div>
+</div>

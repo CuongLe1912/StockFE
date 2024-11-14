@@ -1,0 +1,78 @@
+::ng-deep .edit-syntax {
+  .disable {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .absolute {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    .inner {
+      min-width: 200px;
+      position: relative;
+      .close-item {
+        top: 7px;
+        right: 7px;
+        color: #000;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+        position: absolute;
+        &:hover {
+          color: #444;
+        }
+      }
+      .form-group {
+        margin: 0;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        > label {
+          width: 100%;
+          margin-bottom: 20px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid #ccc;
+        }
+        .kt-radio-inline {
+          max-height: 200px;
+          overflow: auto;
+          .kt-radio {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .overview-items {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    align-items: center;
+    li {
+      margin: 0;
+      margin-top: 5px;
+      div {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+      }
+      input {
+        max-width: 100px;
+      }
+      span {
+        margin: 0 5px;
+        font-weight: bold;
+      }
+    }
+  }
+}

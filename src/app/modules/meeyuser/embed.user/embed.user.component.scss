@@ -1,0 +1,26 @@
+.embed {
+    position: relative;
+    margin-bottom: 15px;
+    .col-sm-2 {
+        display: flex;
+        margin-top: 10px;
+        align-items: center;
+    }
+    .item {
+        display: flex;
+        margin-top: 12px;
+        min-width: 300px;
+        padding: 8px 10px;
+        align-items: center;
+        justify-content: center;
+        label {
+            cursor: pointer;
+            margin-bottom: 0;
+            margin-right: 5px;
+            width: fit-content;
+        }
+        span {
+            font-weight: bold;
+        }
+    }
+}

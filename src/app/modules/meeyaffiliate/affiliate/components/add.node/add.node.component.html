@@ -1,0 +1,43 @@
+<div class="row edit-employee">
+    <div class="col-sm-12">
+        <div style="border: 1px solid #ccc; border-radius: 4px; padding: 10px;">
+            <h5>Tài khoản cha</h5>
+            <div class="input-group align-items-end">
+                <editor [(object)]="item" property="Search" [decorator]="{label:'Số điện thoại/Email', placeholder:'Nhập Số điện thoại hoặc email'}"></editor>
+                <editor-button label="Tìm kiếm" [process]="processSearchItem" (click)="searchItem()" [disabled]="item.Search ? false : true"></editor-button>
+            </div>
+            <div style="min-height: 104px;" *ngIf="item && item.MeeyId">
+                <div class="employee-info">
+                    <editor *ngIf="item.Name" [(object)]="item" property="Name" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="item.Phone" [(object)]="item" property="Phone" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="item.Email" [(object)]="item" property="Email" [viewer]="true" [labelInline]="true"></editor>
+                </div>
+                <div class="error" *ngIf="messageItem">
+                    {{ messageItem }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div style="border: 1px solid #ccc; border-radius: 4px; padding: 10px;">
+            <h5>Tài khoản con</h5>
+            <div class="input-group align-items-end">
+                <editor [(object)]="child" property="Search" [decorator]="{label:'Số điện thoại/Email', placeholder:'Nhập Số điện thoại hoặc email'}"></editor>
+                <editor-button label="Tìm kiếm" [process]="processSearchChild" (click)="searchChild()" [disabled]="child.Search ? false : true"></editor-button>
+            </div>
+            <div style="min-height: 104px;" *ngIf="child && child.MeeyId">
+                <div class="employee-info">
+                    <editor *ngIf="child.Name" [(object)]="child" property="Name" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="child.Phone" [(object)]="child" property="Phone" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="child.Email" [(object)]="child" property="Email" [viewer]="true" [labelInline]="true"></editor>
+                </div>
+                <div class="error" *ngIf="messageChild">
+                    {{ messageChild }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

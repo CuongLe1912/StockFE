@@ -1,0 +1,244 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                  Thông Tin Hóa Đơn Xuất
+                </h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Mã tiền thu <span class="text-danger">*</span></label>
+                    <div class="col-sm-7" *ngIf="!addInvoice">
+                      <editor [(object)]="item" property="RevenueCode" [decorator]="{ label: '' }"></editor>
+                    </div>
+                    <div class="col-sm-7" *ngIf="addInvoice">
+                      <editor [(object)]="item" property="RevenueCode" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Doanh thu trước thuế <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="Amount" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Thuế GTGT <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="VATMoney" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Tiền thanh toán <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="Payment" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Hình thức thanh toán <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="PaymentMethod" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Khách hàng <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="CustomerName" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Mã số thuế</label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="TaxCode" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="CustomerAddress" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Mail nhận hóa đơn <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="CustomerEmail" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Nội dung <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="Content" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Ngày thanh toán <span class="text-danger">*</span></label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="PaymentDate" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Ngày xuất hóa đơn</label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="InvoiceDate" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Ngân hàng thanh toán</label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="BankName" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Số hóa đơn</label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="Code" [decorator]="{ label: '', readonly: true }"></editor>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Ghi chú</label>
+                    <div class="col-sm-7">
+                      <editor [(object)]="item" property="Note" [decorator]="{ label: '' }"></editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="this.items.length > 0">
+        <div class="kt-portlet__head">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Thông Tin Các Hóa Đơn Gộp
+            </h3>
+          </div>
+        </div>
+        <div class="row" *ngFor="let invoice of items; index as i">
+          <div class="col-sm-12">
+            <div class="kt-portlet kt-portlet--tabs">
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">
+                    Hóa đơn {{ i + 1 }}
+                  </h3>
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Mã tiền thu</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="RevenueCode" [viewer]="true" [decorator]="{ label: '', index: i, readonly: true }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Doanh thu trước thuế</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="Amount" [viewer]="true" [decorator]="{ label: '', index: i, max: item.Amount }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Thuế GTGT</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="VATMoney" [viewer]="true" [decorator]="{ label: '', index: i, max: item.VATMoney }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Tiền thanh toán</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="Payment" [viewer]="true" [decorator]="{ label: '', index: i, max: item.Payment }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Hình thức thanh toán</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="PaymentMethod" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Khách hàng</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="CustomerName" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Mã số thuế</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="TaxCode" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="CustomerAddress" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Mail nhận hóa đơn</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="CustomerEmail" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Nội dung</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="Content" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Ngày thanh toán</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="PaymentDate" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Ngày xuất hóa đơn</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="InvoiceDate" [viewer]="true" [decorator]="{ label: '', index: i, readonly: true }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Ngân hàng thanh toán</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="BankName" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Số hóa đơn</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="Code" [viewer]="true" [decorator]="{ label: '', index: i, readonly: true }"></editor>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-3 col-form-label">Ghi chú</label>
+                      <div class="col-sm-7 col-form-label">
+                        <editor [(object)]="items[i]" property="Note" [viewer]="true" [decorator]="{ label: '', index: i }"></editor>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>

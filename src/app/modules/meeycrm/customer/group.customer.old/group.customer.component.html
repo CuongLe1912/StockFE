@@ -1,0 +1,130 @@
+<div class="group-customer" *ngIf="item">
+    <div class="wizard wizard-6">
+        <div class="wizard-content">
+            <div class="d-flex flex-column-auto flex-column px-10">
+                <!--begin: Wizard Nav-->
+                <div class="wizard-nav pb-lg-10 pb-3 d-flex flex-column align-items-center">
+                    <!--begin::Wizard Steps-->
+                    <div class="wizard-steps d-flex flex-column flex-md-row">
+                        <!--begin::Wizard Step 1 Nav-->
+                        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step" [attr.data-wizard-state]="step == 1 ? 'current' : 'done'" (click)="gotoStep(1)">
+                            <div class="wizard-wrapper pr-lg-7 pr-5">
+                                <div class="wizard-icon">
+                                    <i class="wizard-check la la-check"></i>
+                                    <span class="wizard-number">1</span>
+                                </div>
+                                <div class="wizard-label mr-3">
+                                    <h3 class="wizard-title">
+                                        Tạo yêu cầu
+                                    </h3>
+                                    <div class="wizard-desc">
+                                        Yêu cầu gộp khách hàng
+                                    </div>
+                                </div>
+                                <span class="svg-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                            <rect fill="#000000" opacity="0.3" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000) " x="7.5" y="7.5" width="2" height="9" rx="1"></rect>
+                                            <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <!--end::Wizard Step 1 Nav-->
+                        <!--begin::Wizard Step 2 Nav-->
+                        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step" [attr.data-wizard-state]="step == 2 ? 'current' : 'pending'" (click)="gotoStep(2)">
+                            <div class="wizard-wrapper pr-lg-7 pr-5">
+                                <div class="wizard-icon">
+                                    <i class="wizard-check la la-check"></i>
+                                    <span class="wizard-number">2</span>
+                                </div>
+                                <div class="wizard-label mr-3">
+                                    <h3 class="wizard-title">
+                                        Xác nhận
+                                    </h3>
+                                    <div class="wizard-desc">
+                                        Xác nhận yêu cầu
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Wizard Step 2 Nav-->
+                    </div>
+                    <!--end::Wizard Steps-->
+                </div>
+                <!--end: Wizard Nav-->
+            </div>
+            <form class="px-10 fv-plugins-bootstrap fv-plugins-framework" id="kt_wizard_form">
+                <!--begin: Wizard Step 1-->
+                <div data-wizard-type="step-content" [attr.data-wizard-state]="step == 1 ? 'current' : 'done'">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <editor [(object)]="item" property="CustomerId" (valueChange)="customerChange()"></editor>                            
+                        </div>
+                        <div class="col-sm-2">
+                            <div *ngIf="processing" class="kt-spinner kt-spinner--v2 kt-spinner--primary mt-5"></div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="items" style="margin-bottom: 20px;">
+                            <label>Danh sách khách hàng muốn gộp: {{ items && items.length }}</label>
+                            <mcrm-customer-list #customerList [customers]="items" [rootId]="item.RootId" (removed)="removedItems($event)" [action]="action" (selected)="selectedCustomer($event)"></mcrm-customer-list>
+                        </div>
+                        <div class="col-sm-6" *ngIf="SaleOption && SaleOption.length > 0 && !processing">
+                            <editor [(object)]="item" property="SaleId" (valueChange)="toggleDisableButton()" [decorator]="{ lookup: { items: SaleOption } }"></editor>
+                        </div>
+                        <div class="col-sm-6" *ngIf="!(SaleOption && SaleOption.length > 0) && !processing">
+                            <editor [(object)]="item" property="SaleId" (valueChange)="toggleDisableButton()"></editor>
+                        </div>
+                        <div class="col-sm-6" *ngIf="SupportOption && SupportOption.length > 0 && !processing">
+                            <editor [(object)]="item" property="SupportId" (valueChange)="toggleDisableButton()" [decorator]="{ lookup: { items: SupportOption } }"></editor>
+                        </div>
+                        <div class="col-sm-6" *ngIf="!(SupportOption && SupportOption.length > 0) && !processing">
+                            <editor [(object)]="item" property="SupportId" (valueChange)="toggleDisableButton()"></editor>
+                        </div>
+                        <div class="col-sm-12">
+                            <editor [(object)]="item" property="Reason" (valueChange)="toggleDisableButton()"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div data-wizard-type="step-content" [attr.data-wizard-state]="step == 2 ? 'current' : 'pending'">
+                    <div class="row" *ngIf="step == 2">
+                        <div class="col-sm-6">
+                            <div class="kt-portlet kt-portlet--mobile">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+                                        <h3 class="kt-portlet__head-title">
+                                            Thông tin khách hàng
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <editor [(object)]="item" property="Name" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="CustomerStatusType" [viewer]="true" [html]="true"></editor>
+                                    <editor [(object)]="item" property="Phone" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="Email" [viewer]="true"></editor>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="kt-portlet kt-portlet--mobile kt-portlet-right">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+                                        <h3 class="kt-portlet__head-title">
+                                            Yêu cầu
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <editor [(object)]="item" property="SaleId" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="SupportId" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="Reason" [viewer]="true"></editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

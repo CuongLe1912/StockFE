@@ -1,0 +1,20 @@
+<div class="row edit-employee" *ngIf="item && !loading">
+    <div class="col-sm-3">
+        <div style="width: 120px; margin: 0 auto;">
+            <editor [(object)]="item" property="Avatar" [viewer]="true" [decorator]="{label:''}"></editor>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <editor [(object)]="item" property="Name" [viewer]="true"></editor>
+        <editor [(object)]="item" property="MeeyId" [viewer]="true"></editor>
+        <editor *ngIf="item.UserName" [(object)]="item" property="UserName" [viewer]="true"></editor>
+        <editor *ngIf="item.Phone" [(object)]="item" property="Phone" [viewer]="true"></editor> 
+        <editor *ngIf="item.Email" [(object)]="item" property="Email" [viewer]="true"></editor>
+        <editor *ngIf="item.Birthday" [(object)]="item" property="Birthday" [viewer]="true"></editor>
+        <editor *ngIf="item.Balance" [(object)]="item" property="Balance" [viewer]="true"></editor>
+        <editor *ngIf="item.DiscountBalance2" [(object)]="item" property="DiscountBalance2" [viewer]="true"></editor>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

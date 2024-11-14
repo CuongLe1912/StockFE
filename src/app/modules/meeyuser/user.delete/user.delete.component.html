@@ -1,0 +1,26 @@
+<div class="row schedule-edit-status" *ngIf="item">
+    <div class="col-sm-12">
+        <div>
+            <p>Xác nhận thực hiện xóa tài khoản của khách hàng?</p>
+        </div>
+        <div *ngIf="haveService">
+            <p style="margin: 0;">Tài khoản vẫn còn dịch vụ đang chạy</p>
+            <p>Vui lòng kiểm tra trước khi xóa, việc xóa tài khoản không làm ảnh hưởng tới các dịch vụ đang chạy (Bài đăng của khách hàng vẫn chạy bình thường)</p>
+            <br />
+        </div>
+        <div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Lý do *</label>
+                <div class="col-sm-10">
+                    <editor [(object)]="item" property="Reason" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label">&nbsp;</label>
+            <div class="col-sm-10">
+                <p>Tài khoản sau khi xóa sẽ không được khôi phục</p>
+            </div>
+        </div>
+    </div>
+</div>

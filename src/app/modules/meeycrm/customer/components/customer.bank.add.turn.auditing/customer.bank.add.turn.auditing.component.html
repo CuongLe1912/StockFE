@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Tên Công ty <span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <editor [(object)]="company" property="Name" [decorator]="{ label: '', readonly: true }"></editor>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Gói tra cứu cấp thêm <span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <editor *ngIf="serviceOption" [(object)]="item" property="ServiceId" [decorator]="{ label: '', lookup: { items: serviceOption } }"></editor>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Ghi chú <span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <editor [(object)]="item" property="Note" [decorator]="{ label: '' }"></editor>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="row schedule-edit-status" *ngIf="item">
+    <div class="col-sm-12">
+        <div>
+            <p>Xác nhận thực hiện khóa tài khoản của khách hàng?</p>
+            <br />
+        </div>
+        <div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Lý do *</label>
+                <div class="col-sm-10">
+                    <editor [(object)]="item" property="Type" [decorator]="{ label: ''}" (valueChange)="typeChange()"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">&nbsp;</label>
+                <div class="col-sm-10">
+                    <editor [(object)]="item" property="Reason" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label">&nbsp;</label>
+            <div class="col-sm-10">
+                <p style="color: red;" *ngIf="item.Email">Lý do này sẽ được gửi tới khách hàng qua email?</p>
+                <p style="color: red;" *ngIf="!item.Email">Khách hàng không có email nên sẽ không nhận được thông báo này</p>
+                <p>Tài khoản sau khi khóa không đăng nhập được vào hệ thống</p>
+            </div>
+        </div>
+    </div>
+</div>

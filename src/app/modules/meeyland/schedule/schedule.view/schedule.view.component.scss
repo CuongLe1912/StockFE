@@ -1,0 +1,19 @@
+.kt-popup {
+    .kt-portlet__body {
+        height: unset;
+        overflow: hidden;
+    }
+    .kt-portlet {
+        height: 100%;
+        padding: 0 20px;
+    }
+}
+
+ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+a {
+    cursor: pointer;
+}

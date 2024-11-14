@@ -1,0 +1,388 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile view-aff" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Khách hàng thực hiện</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">MeeyId:</label>
+                                    <div class="col-sm-8 col-form-label">
+                                        <a (click)="viewUser(item.MeeyId)" href="javascript:;" tooltip="Xem chi tiết"> {{ item.MeeyId }}</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Mã Ref:</label>
+                                    <div class="col-sm-8 col-form-label">
+                                        <a [href]="'/admin/mafaffiliate/view?id=' + item.Ref" target="_blank">{{ item.Ref }}</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Tên khách hàng:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Name }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Số điện thoại:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Phone }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Email:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Email }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Trạng thái yêu cầu</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Thời gian tạo:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.CreatedDate | datetimex }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Trạng thái:</label>
+                                    <div class="col-sm-8 col-form-label">
+                                        <div [innerHtml]="statusText"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Người duyệt:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.SaleOrSupport }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Thời gian duyệt:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.DateOfApprove | datetimex }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3 col-form-label">Ghi chú:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Reason }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Thông tin hợp đồng</h3>
+                            <div class="text-success ml-5" *ngIf="isSignStatus && !isBusinesses">
+                                <span>Đã ký hợp đồng online (Không bắt buộc)</span>
+                                <p *ngIf="isApproveContract" style="margin: 0; padding: 0;">
+                                    Đã duyệt hợp đồng
+                                </p>
+                            </div>
+                            <div class="text-success ml-5" *ngIf="isApproveContract && isBusinesses">
+                                <span>Đã duyệt hợp đồng</span>
+                            </div>
+                            <div class="text-danger ml-5" *ngIf="!isSignStatus && !isBusinesses">
+                                <span>Chưa ký hợp đồng online (Không bắt buộc)</span>
+                                <p *ngIf="isApproveContract" style="margin: 0; padding: 0;">
+                                    Đã duyệt hợp đồng
+                                </p>
+                            </div>
+                            <div class="text-danger ml-5" *ngIf="!isApproveContract && isBusinesses">
+                                <span>Chưa duyệt hợp đồng</span>
+                            </div>
+                            <span class="ml-5" *ngIf="isBusinesses && item?.DateOfApprove && isApproveContract">vào lúc: {{ item.DateOfApprove | datetimex }}</span>
+                            <span class="ml-5" *ngIf="!isBusinesses && item?.DateOfSign">vào lúc: {{ item.DateOfSign | datetimex }}</span>
+                            <span class="ml-5" *ngIf="item?.File">
+                                Hợp đồng:
+                                <a class="ml-5" [href]="item.File" target="_blank"> {{ getFileName(item.File) }}</a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label">Loại hợp đồng:</label>
+                                    <div class="col-sm-5 col-form-label">
+                                        <editor [(object)]="item" property="Type" (valueChange)="changeType()" [decorator]="{ label: '', readonly: isView }"></editor>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="!isBusinesses">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Họ và tên: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="Name" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Địa chỉ thường trú: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="Address" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Số điện thoại: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="Phone" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Email: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="Email" [decorator]="{ label: '', readonly: true }"></editor>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="isBusinesses">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Tên doanh nghiệp: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="BusinessName" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Địa chỉ ĐKKD: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="Address" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Số điện thoại: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="BusinessPhone" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Mã số thuế kinh doanh: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                        <div class="col-sm-5">
+                                            <editor [(object)]="item" property="TaxCode" [decorator]="{ label: '', readonly: isView }"></editor>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="!isBusinesses">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">Thông tin xác thực</h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Mã số thuế cá nhân: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="TaxCode" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Số CCCD: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="IdCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Ngày cấp: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="DateOfIssue" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Nơi cấp: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="PlaceOfIssue" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">CCCD mặt trước: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor #uploadFontCard [(object)]="item" property="FontCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">CCCD mặt sau: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor #uploadBackCard [(object)]="item" property="BackCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!isView && isUploadContract">
+                                <label class="col-sm-2 col-form-label">
+                                    Hợp đồng:
+                                    <p><em class="text-muted input-info">Upload hợp đồng mới (nếu có sự thay đổi)</em></p>
+                                    <p><em class="text-muted input-info">Hợp đồng cũ sẽ không được lưu lại</em></p>
+                                </label>
+                                <div class="col-sm-5">
+                                    <editor #uploadEditFile [(object)]="item" property="FileEdit" [decorator]="{ label: '', url: 'upload/MAFUploadContract?fileName=' + item.MeeyId + '_HĐNT_Meeyland-DN.pdf'  }"></editor>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="isBusinesses">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">Người đại diện</h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label">Họ và tên: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                    <div class="col-sm-5">
+                                        <editor [(object)]="item" property="Name" [decorator]="{ label: '', readonly: isView }"></editor>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label">Số điện thoại: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                    <div class="col-sm-5">
+                                        <editor [(object)]="item" property="Phone" [decorator]="{ label: '', readonly: true }"></editor>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label">Email: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                    <div class="col-sm-5">
+                                        <editor [(object)]="item" property="Email" [decorator]="{ label: '', readonly: true }"></editor>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label">Chức vụ nắm giữ: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                    <div class="col-sm-5">
+                                        <editor [(object)]="item" property="Position" [decorator]="{ label: '', readonly: isView }"></editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">Chứng từ tùy thân người đại diện</h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Số CCCD: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="IdCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Ngày cấp: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="DateOfIssue" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">CCCD mặt trước: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor #uploadFontCard [(object)]="item" property="FontCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">CCCD mặt sau: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor #uploadBackCard [(object)]="item" property="BackCard" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">Giấy phép kinh doanh</h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Ngày ký: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="DateOfSign" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Giấy ủy quyền số:</label>
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="AuthorizationNumber" [decorator]="{ label: '', readonly: isView }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Giấy ĐKKD: <span class="text-danger" *ngIf="!isView">*</span></label>
+                                <div class="col-sm-5 col-form-label">
+                                    <a [href]="item.CertificateLetter" target="_blank" *ngIf="isView">{{ item.CertificateLetter }}</a>
+                                    <editor #uploadCertificateLetter [(object)]="item" property="CertificateLetter" [decorator]="{ label: '' }" *ngIf="!isView"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Giấy ủy quyền:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <a [href]="item.AuthorizationLetter" target="_blank" *ngIf="isView">{{ item.AuthorizationLetter }}</a>
+                                    <editor #uploadAuthorizationLetter [(object)]="item" property="AuthorizationLetter" [decorator]="{ label: '' }" *ngIf="!isView"></editor>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!isView && isUploadContract">
+                                <label class="col-sm-2 col-form-label">
+                                    Hợp đồng:
+                                    <p><em class="text-muted input-info">Upload hợp đồng mới (nếu có sự thay đổi)</em></p>
+                                    <p><em class="text-muted input-info">Hợp đồng cũ sẽ không được lưu lại</em></p>
+                                </label>
+                                <div class="col-sm-5">
+                                    <editor #uploadEditFile [(object)]="item" property="FileEdit" [decorator]="{ label: '', url: 'upload/MAFUploadContract?fileName=' + item.MeeyId + '_HĐNT_Meeyland-DN.pdf'  }"></editor>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="isApprove && isView && allowApprove">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Thông tin kiểm duyệt</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row" *ngIf="isBusinesses">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-3 col-form-label">
+                                <editor [(object)]="item" property="ContractSigned" (valueChange)="signedChange()" [decorator]="{ label: '' }"></editor>
+                            </div>
+                            <div class="col-sm-2 file-contract">
+                                <editor #uploadFileContract [(object)]="item" property="File" [decorator]="{ url: 'upload/MAFUploadContract?fileName=' + item.MeeyId + '_HĐNT_Meeyland-DN.pdf'  }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Ghi chú/ lý do:</label>
+                            <div class="col-sm-5">
+                                <editor [(object)]="item" property="Reason" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="m-auto row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-danger" (click)="reject()">Từ chối</button>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-success" (click)="approve()" [disabled]="checkApprove">Xác nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="row" *ngIf="item">
+  <div class="col-sm-12">
+    <h6>Thông tin đối tượng</h6>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Họ tên</label>
+      <label class="col-sm-9 col-form-label">{{ item.Name }}</label>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">SĐT</label>
+      <label class="col-sm-9 col-form-label">{{ item.Phone }}</label>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Email</label>
+      <label class="col-sm-9 col-form-label">{{ item.Email }}</label>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 col-form-label">Cấp bậc</label>
+      <label class="col-sm-9 col-form-label" [innerHtml]="item.RankCumulative"></label>
+    </div>
+    <h6>Doanh số lũy kế (F1..Fn) được tính đến hiện tại: <b>{{ item.CumulativeAmount | numberx }} đ</b></h6>
+    <div class="lines"></div>
+    <h6 *ngIf="isApprove; else notApprove">Xác nhận duyệt chuyển cấp thành: <b>{{ item.RankCumulativeNext }}</b></h6>
+    <ng-template #notApprove>
+      <h6 class="text-danger">Chưa đủ điều kiện để nâng cấp</h6>
+    </ng-template>    
+  </div>
+</div>

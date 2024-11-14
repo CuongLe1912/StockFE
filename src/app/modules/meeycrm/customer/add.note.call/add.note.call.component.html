@@ -1,0 +1,87 @@
+<div>
+    <div class="row" style="margin-bottom: 20px;" *ngIf="entity">
+        <label class="col-sm-2">Khách hàng</label>
+        <div class="col-sm-4 d-flex align-items-center">
+            <editor [(object)]="entity" property="Name" [viewer]="true" [decorator]="{ label: '' }"></editor>
+            <div style="margin-left: 20px;">
+                <editor [(object)]="entity" property="CustomerStatusType" [viewer]="true" [decorator]="{ label: '' }"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;" *ngIf="entityLead">
+        <label class="col-sm-2">Khách hàng</label>
+        <div class="col-sm-4 d-flex align-items-center">
+            <editor [(object)]="entityLead" property="Name" [viewer]="true" [decorator]="{ label: '' }"></editor>
+            <div style="margin-left: 20px;">
+                <editor [(object)]="entityLead" property="CustomerStatusType" [viewer]="true" [decorator]="{ label: '' }"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2">Số điện thoại</label>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-6" style="position: relative;">
+                    <editor [(object)]="item" property="PrefixNumber" [decorator]="{ label: '' }"></editor>
+                    <span class="prefix text-danger">(Đầu số gọi điện)</span>
+                </div>
+                <div class="col-sm-6" *ngIf="!lead">
+                    <editor [(object)]="item" property="Phone" [decorator]="{ label: '', lookup: { url: '/MCRMCustomerContact/LookupItems/' + item.CustomerId } }" (valueChange)="phoneChange()"></editor>
+                </div>
+                <div class="col-sm-6" *ngIf="lead">
+                    <editor [(object)]="item" property="PhoneText" [decorator]="{ label: '', readonly: true }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 d-flex" *ngIf="!itemOpen && (item.Phone || item.PhoneText)">
+            <div *ngIf="!connected" style="margin-right: 15px;">
+                <editor-button [type]="ButtonType.Success" [label]="connecting ? 'Đang kết nối...' : 'Gọi điện'" [(process)]="connecting" (click)="makeCall()"></editor-button>
+            </div>
+            <p class="text-success" *ngIf="item.Message" style="padding-top: 10px;">
+                {{ item.Message }}
+            </p>
+        </div>
+        <div class="col-sm-6 d-flex" *ngIf="itemOpen">
+            <p class="text-success" *ngIf="itemOpen.Message" style="padding-top: 10px;">
+                {{ itemOpen.Message }} <span *ngIf="itemOpen.Time">[{{ itemOpen.Time | numberx }} giây]</span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2">Kết quả <span class="text-danger">*</span></label>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="Status" [decorator]="{ label: '' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2">Ghi chú</label>
+        <div class="col-sm-10">
+            <editor [(object)]="item" property="Note" [decorator]="{ label: '' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+    </div>
+    <div class="card" id="card_popup_note_call" *ngIf="item.CustomerId || item.CustomerLeadId">
+        <div class="card-header">
+            <div class="card-title" data-toggle="collapse" data-target="#collapse_popup_note_call">
+                Lịch sử ghi chú cuộc gọi
+            </div>
+        </div>
+        <div id="collapse_popup_note_call" class="collapse show">
+            <div class="card-body">
+                <mcrm-customer-call-log #noteCallLog [id]="item.CustomerId" [leadId]="item.CustomerLeadId"></mcrm-customer-call-log>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="card" id="card_popup_note" *ngIf="item.CustomerId || item.CustomerLeadId">
+        <div class="card-header">
+            <div class="card-title" data-toggle="collapse" data-target="#collapse_popup_note">
+                Lịch sử ghi chú
+            </div>
+        </div>
+        <div id="collapse_popup_note" class="collapse show">
+            <div class="card-body">
+                <mcrm-customer-note #note [id]="item.CustomerId" [leadId]="item.CustomerLeadId" [hideAction]="true"></mcrm-customer-note>
+            </div>
+        </div>
+    </div>
+</div>

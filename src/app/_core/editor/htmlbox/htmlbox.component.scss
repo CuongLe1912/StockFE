@@ -1,0 +1,60 @@
+::ng-deep .tox-statusbar__branding {
+    display: none;
+}
+
+::ng-deep .tox-dialog__body-nav {
+    padding-right: 0;
+
+    .tox-dialog__body-nav-item {
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #eee;
+    }
+}
+
+::ng-deep .tox-tinymce {
+    border: 1px solid #ccc !important;
+
+    &:focus {
+        border-color: #9aabff !important;
+    }
+}
+
+::ng-deep .focused {
+    .tox-tinymce {
+        border-color: #9aabff !important;
+    }
+
+    .kt-maxlength {
+        opacity: 1 !important;
+    }
+}
+
+::ng-deep .readonly {
+    .tox-edit-area__iframe {
+        opacity: 0.6;
+
+        * {
+            pointer-events: none;
+        }
+    }
+}
+
+::ng-deep .is-invalid {
+    .tox-tinymce {
+        border-color: #fd397a !important;
+    }
+}
+
+.kt-maxlength {
+    top: 0;
+    opacity: 0;
+    right: 10px;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: smaller;
+    position: absolute;
+    border-radius: 4px;
+    transition: all 0.5s;
+    background-color: rgba($color: #0abb87, $alpha: 0.8);
+}

@@ -1,0 +1,134 @@
+<div class="row payment-article">
+    <div class="col-sm-6">
+        <div class="row" *ngIf="user">
+            <div class="col-sm-12">
+                <div class="box-item">
+                    <h6>Thông tin khách hàng</h6>
+                    <div style="margin-left: 10px;">
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label">Họ và tên</label>
+                            <div class="col-sm-8">
+                                <editor [(object)]="user" property="Name" [viewer]="true" [decorator]="{ label: '', readonly: true }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label">Số điện thoại</label>
+                            <div class="col-sm-8">
+                                <editor [(object)]="user" property="Phone" [viewer]="true" [decorator]="{ label: '', readonly: true }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label">Email</label>
+                            <div class="col-sm-8">
+                                <editor [(object)]="user" property="Email" [viewer]="true" [decorator]="{ label: '', readonly: true }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label">MeeyId</label>
+                            <div class="col-sm-8">
+                                <editor [(object)]="user" property="MeeyId" [viewer]="true" [decorator]="{ label: '', readonly: true }"></editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="box-item">
+                    <h6>Thông tin ví</h6>
+                    <ul *ngIf="user.MPConnected">
+                        <li>Tài khoản: {{ user.MPPhone }}</li>
+                        <li style="color: #5867dd;"><i class="la la-caret-right"></i> TK Chính: {{ user.Balance | currencyx }}</li>
+                        <li><i class="la la-caret-right"></i> TK KM1: {{ user.DiscountBalance1 | currencyx }}</li>
+                        <li><i class="la la-caret-right"></i> TK KM2: {{ user.DiscountBalance2 | currencyx }}</li>
+                    </ul>
+                    <ul *ngIf="!user.MPConnected">
+                        <li><i class="la la-info"></i> Chưa liên kết ví</li>
+                    </ul>
+                    <p style="margin-left: 10px;" *ngIf="user.MPConnected">* Thứ tự thanh toán: TKKM2, TKKM1, TK Chính</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="box-item" *ngIf="price">
+            <h6>Gói đăng tin</h6>
+            <div class="viptypes-info">
+                <div class="name">
+                    <div class="name">
+                        <h6>{{ article.VipTypeName }} - Thời gian {{ article.PublishDayNumber || article.PublishDayChoice }} ngày</h6>
+                        <div>Từ ngày {{ article.PublishTime | datex }}</div>
+                    </div>
+                </div>
+                <div class="price">
+                    <h6 *ngIf="!price.TotalPrice">Miễn phí</h6>
+                    <h6 *ngIf="price.TotalPrice">{{ price.TotalPrice | numberx }} đ</h6>
+                    <div *ngIf="article.BundlePostAmount">{{ article.BundlePostAmount | numberx }} đ <span *ngIf="price.Percent">(-{{ price.Percent }}%)</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="box-item" *ngIf="article.AutoPost && totalTime">
+            <h6 style="margin-top: 10px;">Đẩy tin</h6>
+            <div class="grid-content grid-popup">
+                <table class="table table-striped table-bordered dataTable no-footer table-resizable">
+                    <thead>
+                        <tr class="heading">
+                            <th>Số ngày</th>
+                            <th *ngIf="totalHour">Số khung giờ</th>
+                            <th>Số lần đẩy</th>
+                            <th>Số tiền/lần</th>
+                            <th>Tổng số tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ totalDay | numberx }} ngày</td>
+                            <td *ngIf="totalHour">{{ totalHour | numberx }} khung giờ</td>
+                            <td>{{ totalTime | numberx }} lần</td>
+                            <td>{{ pricePush | numberx }} đ/lần</td>
+                            <td>{{ totalTime * pricePush | numberx }} đ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box-item" *ngIf="price" style="background-color: #F5F5F5;">
+            <h5>Thanh toán</h5>
+            <div class="viptypes-info">
+                <div class="name">
+                    <div class="name">
+                        <h6>Tổng tiền</h6>
+                    </div>
+                </div>
+                <div class="price">
+                    <h6>{{ article.ChargeAmount | numberx }} đ</h6>
+                </div>
+            </div>
+        </div>
+        <p *ngIf="price">* Giao dịch được xử lý trong vòng 24 giờ</p>
+    </div>
+    <div class="col-sm-12" *ngIf="user && item && balance && balance >= item.Amount">
+        <div class="otp" *ngIf="disabled">
+            <div style="margin-bottom: 30px;">
+                <p>Nhập mã xác thực bao gồm 6 số được gửi tới SĐT: <b>{{ user.Phone }}</b></p>
+                <p *ngIf="countdownText">Thời gian hiệu lực: <b>{{ countdownText }}</b></p>
+            </div>
+            <div>
+                <editor [(object)]="item" property="Otp" [decorator]="{ label: '' }" (valueChange)="otpChange()"></editor>
+            </div>
+            <p>
+                <i class="la la-clock"></i>
+                <span>Khách hàng không nhận được mã OTP? <b *ngIf="countdownResendText">{{ countdownResendText }}</b></span>
+                <a *ngIf="countdownResend <= 0" (click)="resendOtp()">Gửi lại mã</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="errorMesssageUser">
+        <p class="error">{{ errorMesssageUser }}</p>
+    </div>
+    <div class="col-sm-12" *ngIf="errorMessage">
+        <p class="error">{{ errorMessage }}</p>
+    </div>
+    <div class="row row-loading" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

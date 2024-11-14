@@ -1,0 +1,35 @@
+.dropdown {
+    &.top {
+        .dropdown-menu-right {
+            top: unset;
+            bottom: 100%;
+        }
+    }
+    .dropdown-menu-right {
+        right: 0;
+        left: unset;
+    }
+    .dropdown-menu {
+        margin: 0;
+        padding: 0;
+        z-index: 99;
+        width: fit-content;
+        height: fit-content;
+        ul {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: fit-content;
+            li {
+                padding: 10px 0;
+                &:empty {
+                    display: none;
+                }
+                a {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}

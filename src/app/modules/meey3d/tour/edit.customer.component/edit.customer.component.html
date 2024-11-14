@@ -1,0 +1,7 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <div *ngIf="item.Id">
+            <editor [(object)]="item" property="Status" ></editor>
+        </div>     
+    </div>
+</div>

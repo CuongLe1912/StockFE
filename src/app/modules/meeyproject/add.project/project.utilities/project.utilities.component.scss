@@ -1,0 +1,63 @@
+h4 {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  &.small {
+    text-transform: none;
+  }
+}
+
+.accordion {
+  margin-bottom: 20px;
+  .card-title {
+    color: #fff !important;
+    text-transform: uppercase;
+    background-color: #d9071b;
+    &:after {
+      color: #fff !important;
+    }
+  }
+}
+
+::ng-deep .edit-project-utilities {
+  &.readonly {
+    .form-group {
+      .form-control,
+      .input-group .image-inner {
+        pointer-events: none;
+        background-color: #f7f8fa;
+      }
+      .non-readonly {
+        background-color: #fff;
+        pointer-events: unset !important;
+      }
+    }
+  }
+  .imageWapper {
+    width: 100%;
+    overflow: auto;
+    max-height: 400px;
+  }
+  .tagify {
+    min-height: 100px;
+  }
+}
+
+.tab-link-error {
+  color: #fd397a !important;
+  position: relative;
+  padding-right: 4px !important;
+}
+
+.tab-link-error.active,
+.tab-link-error:hover {
+  border-bottom-color: #ff1764 !important;
+}
+
+.tab-link-error i {
+  color: #fd397a !important;
+  position: absolute;
+  right: -17px;
+  top: 10px;
+}

@@ -1,0 +1,288 @@
+.stepper [data-kt-stepper-element="info"],
+.stepper [data-kt-stepper-element="content"] {
+    display: none;
+}
+
+.stepper [data-kt-stepper-element="info"].current,
+.stepper [data-kt-stepper-element="content"].current {
+    display: flex;
+}
+
+.stepper .stepper-item[data-kt-stepper-action="step"] {
+    cursor: pointer;
+}
+
+.stepper [data-kt-stepper-action="final"] {
+    display: none;
+}
+
+.stepper [data-kt-stepper-action="previous"] {
+    display: none;
+}
+
+.stepper [data-kt-stepper-action="next"] {
+    display: inline-block;
+}
+
+.stepper [data-kt-stepper-action="submit"] {
+    display: none;
+}
+
+.stepper.first [data-kt-stepper-action="previous"] {
+    display: none;
+}
+
+.stepper.first [data-kt-stepper-action="next"] {
+    display: inline-block;
+}
+
+.stepper.first [data-kt-stepper-action="submit"] {
+    display: none;
+}
+
+.stepper.between [data-kt-stepper-action="previous"] {
+    display: inline-block;
+}
+
+.stepper.between [data-kt-stepper-action="next"] {
+    display: inline-block;
+}
+
+.stepper.between [data-kt-stepper-action="submit"] {
+    display: none;
+}
+
+.stepper.last [data-kt-stepper-action="final"] {
+    display: inline-block;
+}
+
+.stepper.last [data-kt-stepper-action="final"].btn-flex {
+    display: flex;
+}
+
+.stepper.last [data-kt-stepper-action="previous"] {
+    display: inline-block;
+}
+
+.stepper.last [data-kt-stepper-action="previous"].btn-flex {
+    display: flex;
+}
+
+.stepper.last [data-kt-stepper-action="next"] {
+    display: none;
+}
+
+.stepper.last [data-kt-stepper-action="next"].btn-flex {
+    display: flex;
+}
+
+.stepper.last [data-kt-stepper-action="submit"] {
+    display: inline-block;
+}
+
+.stepper.last [data-kt-stepper-action="submit"].btn-flex {
+    display: flex;
+}
+
+.stepper.stepper-pills .stepper-nav {
+    display: flex;
+}
+
+.stepper.stepper-pills .stepper-item {
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    margin-right: 1.5rem;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon .stepper-check {
+    display: none;
+    font-size: 1rem;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon .stepper-number {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-label .stepper-title {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-label .stepper-desc {
+    opacity: 1;
+    color: #a1a5b7;
+}
+
+.stepper.stepper-pills .stepper-item.current {
+    transition: color 0.2s ease;
+}
+
+.stepper.stepper-pills .stepper-item.current .stepper-icon {
+    transition: color 0.2s ease;
+    background-color: #009ef7;
+    border: 0;
+}
+
+.stepper.stepper-pills .stepper-item.current .stepper-icon .stepper-check {
+    display: none;
+}
+
+.stepper.stepper-pills .stepper-item.current .stepper-icon .stepper-number {
+    color: #ffffff;
+    font-size: 1.35rem;
+}
+
+.stepper.stepper-pills .stepper-item.current .stepper-label .stepper-title {
+    opacity: 1;
+    color: #fff;
+}
+
+.stepper.stepper-pills .stepper-item.current .stepper-label .stepper-desc {
+    opacity: 1;
+    color: #eee;
+}
+
+.stepper.stepper-pills .stepper-item.current.mark-completed:last-child .stepper-icon,
+.stepper.stepper-pills .stepper-item.completed .stepper-icon {
+    transition: color 0.2s ease;
+    background-color: #f1faff;
+    border: 0;
+}
+
+.stepper.stepper-pills .stepper-item.current.mark-completed:last-child .stepper-icon .stepper-check,
+.stepper.stepper-pills .stepper-item.completed .stepper-icon .stepper-check {
+    color: #009ef7;
+    display: inline-block;
+}
+
+.stepper.stepper-pills .stepper-item.current.mark-completed:last-child .stepper-icon .stepper-number,
+.stepper.stepper-pills .stepper-item.completed .stepper-icon .stepper-number {
+    display: none;
+}
+
+.stepper.stepper-pills .stepper-item.current.mark-completed:last-child .stepper-label .stepper-title,
+.stepper.stepper-pills .stepper-item.completed .stepper-label .stepper-title {
+    opacity: 1;
+    color: A1A5B7;
+}
+
+.stepper.stepper-pills .stepper-item.current.mark-completed:last-child .stepper-label .stepper-desc,
+.stepper.stepper-pills .stepper-item.completed .stepper-label .stepper-desc {
+    opacity: 1;
+    color: #b5b5c3;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-nav {
+    flex-direction: column;
+    align-items: start;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-item {
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-icon {
+    z-index: 1;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-line {
+    display: block;
+    flex-grow: 1;
+    margin-left: calc(40px / 2);
+    border-left: 1px dashed rgba(255, 255, 255, 0.3);
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.stepper.stepper-links .stepper-nav {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item {
+    position: relative;
+    flex-shrink: 0;
+    margin: 1rem 1.5rem;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item:after {
+    content: " ";
+    position: absolute;
+    top: 2.3rem;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: transparent;
+    transition: color 0.2s ease;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item .stepper-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item.current {
+    transition: color 0.2s ease;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item.current .stepper-title {
+    color: #fff;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item.current:after {
+    background-color: #009ef7;
+}
+
+.stepper.stepper-links .stepper-nav .stepper-item.current.mark-completed:last-child .stepper-title,
+.stepper.stepper-links .stepper-nav .stepper-item.completed .stepper-title {
+    color: #b5b5c3;
+}
+
+.h-40px {
+    height: 40px !important;
+}
+
+.h-10px {
+    height: 10px !important;
+}
+
+h5 {
+    color: #fff;
+    margin-bottom: 20px;
+}

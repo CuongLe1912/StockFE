@@ -1,0 +1,17 @@
+.kt-portlet__head {
+    top: 0;
+    z-index: 1;
+    position: sticky;
+    &.fixed {
+        top: 65px;
+        z-index: 98;
+        position: fixed;
+        width: calc(100% - 60px);
+        background-color: #fff;
+        padding: 8px 25px !important;
+    }
+}
+
+.btn-group {
+    border-radius: 0.25rem;
+}

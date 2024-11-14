@@ -1,0 +1,22 @@
+<div class="row" *ngIf="report">
+    <div class="col-sm-6">
+        <div class="box-item">
+            <editor [(object)]="report" property="Status" [viewer]="true"></editor>
+            <editor [(object)]="report" property="Actor" [viewer]="true"></editor>
+            <editor [(object)]="report" property="CreatedDate" [viewer]="true"></editor>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="box-item">
+            <editor *ngIf="report.Name" [(object)]="report" property="Name" [viewer]="true"></editor>
+            <editor *ngIf="report.Phone" [(object)]="report" property="Phone" [viewer]="true"></editor>
+            <editor *ngIf="report.Email" [(object)]="report" property="Email" [viewer]="true"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="box-item">
+            <editor *ngIf="report.Description" [(object)]="report" property="Description" [viewer]="true"></editor>
+            <editor *ngIf="report.Reason" [(object)]="report" property="Reason" [viewer]="true"></editor>
+        </div>
+    </div>
+</div>

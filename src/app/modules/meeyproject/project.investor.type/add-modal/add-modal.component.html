@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Name" [decorator]="{ placeholder: 'Nhập loại đơn vị. Vd: Đơn vị thi công', label: 'Loại đơn vị', readonly: viewer }"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Description" [decorator]="{ placeholder: 'Nhập mô tả', readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12" [ngStyle]="{'pointer-events': viewer ? 'none' : ''}">
+        <editor [(object)]="item" property="Active" [labelInline]="true"></editor>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+ul {
+    list-style: none;
+    &.social {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        li {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            opacity: 0.25;
+            margin-right: 10px;
+            border-radius: 100%;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 1px solid #5867dd;
+            &.active {
+                opacity: 1;
+                border-color: #5867dd;
+                background-color: #5867dd;
+                i {
+                    color: white !important;
+                }
+            }
+            i {
+                font-size: x-large;
+                &.la-google-plus {
+                    color: red;
+                }
+                &.socicon-facebook {
+                    color: blue;
+                    padding-top: 6px;
+                }
+                &.la-apple {
+                    color: gray;
+                }
+            }
+        }
+    }
+}
+
+.switch {
+    cursor: pointer;
+    margin-right: 5px;
+    &.switch-disable {
+        cursor: default;
+    }
+    label {
+        pointer-events: none;
+    }
+}
+
+.company-info {
+    .btn {
+        padding: 5px 12px;
+        pointer-events: none;
+    }
+    a {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+}
+
+::ng-deep .edit-meey-user {
+    .readonly{
+        .file-content {
+            .name {
+                a {
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<div class="popup-view-image" *ngIf="items">
+  <div id="mainCarousel" class="carousel mb-4 w-10/12 max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of items">
+      <div class="panzoom">
+        <img class="panzoom__content" [src]="item.Data || item.Path" />
+      </div>
+      <div class="note" *ngIf="item.Note">
+        {{ item.Note }}
+      </div>
+    </div>
+  </div>
+
+  <div id="thumbCarousel" class="carousel max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of items">
+      <img class="panzoom__content" [src]="item.Data || item.Path" />
+      <p>{{ item.Name }}</p>
+    </div>
+  </div>
+</div>
+<div class="popup-view-image" *ngIf="images">
+  <div id="mainCarousel" class="carousel mb-4 w-10/12 max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of images">
+      <div class="panzoom">
+        <img class="panzoom__content" [src]="item" />
+      </div>
+    </div>
+  </div>
+
+  <div id="thumbCarousel" class="carousel max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of images">
+      <img class="panzoom__content" [src]="item" />
+    </div>
+  </div>
+</div>

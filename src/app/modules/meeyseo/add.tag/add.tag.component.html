@@ -1,0 +1,213 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions"
+        [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row" *ngIf="item && !loading">
+                                <div class="col-sm-12">
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">THÊM MỚI TAGS</h3>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Type"
+                                                        (valueChange)="changeTagType()"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="isSearchTag">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Demand"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6" *ngIf="isManual">
+                                                    <editor [(object)]="item" property="Name"
+                                                        [decorator]="{label: 'Tag (Tối đa 500 tag, mỗi tag tối đa 100 ký tự)', maxTags: 500}">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-6" *ngIf="isSearchTag">
+                                                    <editor [(object)]="item" property="Name"
+                                                        [decorator]="{label: 'Tag (Tối đa 100 tag, mỗi tag tối đa 100 ký tự)', maxTags: 100}">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-6" *ngIf="isAutoTag">
+                                                    <editor [(object)]="item" property="Name"
+                                                        [decorator]="{label: 'Tag (Tối đa 1000 tag, mỗi tag tối đa 100 ký tự)', maxTags: 1000}"
+                                                        (valueChange)="clearProperty($event);addTag()">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-6" style="padding-top: 22px;">
+                                                    <editor [(object)]="item" property="Prioritized"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="isAutoTag">
+                                                <div class="col-sm-12">
+                                                    <editor-button label="Xem thuộc tính"
+                                                        className="btn btn-primary font-weight-bolder text-uppercase"
+                                                        (click)="splitProperty()" [process]="processingAddTag">
+                                                    </editor-button>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="isManual">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Demand"
+                                                            (optionChange)="changePropertyOption($event, 'Nhu cầu', 1)"
+                                                            (clearValue)="clearValue('Nhu cầu')"></editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="TypeOfHouse"
+                                                            (optionChange)="changePropertyOption($event, 'Loại nhà đất', 2)"
+                                                            (valueChange)="typeOfHouseChange()"
+                                                            (clearValue)="clearValue('Loại nhà đất')"></editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Price"
+                                                            (optionChange)="changePropertyOption($event, 'Giá', 3)"
+                                                            (clearValue)="clearValue('Giá')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Area"
+                                                            (optionChange)="changePropertyOption($event, 'Diện tích', 4)"
+                                                            (clearValue)="clearValue('Diện tích')">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="City"
+                                                            (optionChange)="changePropertyOption($event, 'Tỉnh/thành phố', 5)"
+                                                            (clearValue)="clearValue('Tỉnh/thành phố')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="District"
+                                                            (optionChange)="changePropertyOption($event, 'Quận/huyện', 6)"
+                                                            (clearValue)="clearValue('Quận/huyện')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Ward"
+                                                            (optionChange)="changePropertyOption($event, 'Phường/xã', 7)"
+                                                            (clearValue)="clearValue('Phường/xã')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Street"
+                                                            (optionChange)="changePropertyOption($event, 'Đường, phố', 8)"
+                                                            (clearValue)="clearValue('Đường, phố')">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="LegalPaper"
+                                                            (optionChange)="changePropertyOption($event, 'Giấy tờ pháp lý', 9)"
+                                                            (clearValue)="clearValue('Giấy tờ pháp lý')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="WideRoad"
+                                                            (optionChange)="changePropertyOption($event, 'Đường rộng', 10)"
+                                                            (clearValue)="clearValue('Đường rộng')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Direction"
+                                                            (optionChange)="changePropertyOption($event, 'Hướng nhà/đất', 11)"
+                                                            (clearValue)="clearValue('Hướng nhà/đất')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Facade"
+                                                            (optionChange)="changePropertyOption($event, 'Mặt tiền', 12)"
+                                                            (clearValue)="clearValue('Mặt tiền')">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Advantage"
+                                                            (optionChange)="changePropertyOption($event, 'Ưu điểm BĐS', 13)"
+                                                            (clearValue)="clearValue('Ưu điểm BĐS')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Floor"
+                                                            (optionChange)="changePropertyOption($event, 'Số tầng', 14)"
+                                                            (clearValue)="clearValue('Số tầng')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Bedroom"
+                                                            (optionChange)="changePropertyOption($event, 'Số phòng ngủ', 15)"
+                                                            (clearValue)="clearValue('Số phòng ngủ')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3" *ngIf="isTypeOfRealEstate">
+                                                        <editor [(object)]="item" property="TypeOfRealEstate"
+                                                            (optionChange)="changePropertyOption($event, 'Loại hình BĐS', 16)"
+                                                            (clearValue)="clearValue('Loại hình BĐS')">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <editor [(object)]="item" property="Furniture"
+                                                            (optionChange)="changePropertyOption($event, 'Nội thất, thiết bị', 17)"
+                                                            (clearValue)="clearValue('Nội thất, thiết bị')">
+                                                        </editor>
+                                                    </div>
+                                                    <div class="col-sm-3" *ngIf="fields && fields.indexOf('utilities') >= 0 && options && options['utilities']">
+                                                        <editor [(object)]="item" property="Utility"
+                                                            [decorator]="{ lookup: { items: options && options['utilities'] } }"
+                                                            (optionChange)="changePropertyOption($event, 'Tiện ích', 18)"
+                                                            (clearValue)="clearValue('Tiện ích')">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="overview && !isAutoTag">
+                                                <div class="col-sm-12">
+                                                    <div class="Overview">
+                                                        <h6>Tổng quan</h6>
+                                                        <div>{{overview}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="overviewAuto.length > 0 && isAutoTag"
+                                                style="margin-top: 25px;">
+                                                <div class="col-sm-12">
+                                                    <div class="Overview">
+                                                        <h6>Tổng quan thuộc tính</h6>
+                                                        <div class="row" *ngFor="let item of overviewAuto"
+                                                            style="margin-bottom: 10px;">
+                                                            <div class="col-sm-4">{{item.value}}</div>
+                                                            <div class="col-sm-8">{{item.label}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

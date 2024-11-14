@@ -1,0 +1,51 @@
+.box-item {
+    padding: 10px;
+    padding-bottom: 0;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    .form-group {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+    }
+    .title {
+        font-weight: bold;
+    }
+    .content {
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        background-color: #efefef;
+    }
+}
+
+::ng-deep .edit-report-component {
+    .d-flex-status {
+        align-items: center;
+        .form-group {
+            flex-grow: 1;
+            .select2-selection {
+                border-radius: 4px 0 0 4px;
+            }
+        }
+        .btn {
+            width: 100px;
+            height: 35px;
+            margin-top: -3px;
+            border-radius: 0 4px 4px 0;
+        }
+    }
+    .box-item {
+        .content {
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+}

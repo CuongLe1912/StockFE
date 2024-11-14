@@ -1,0 +1,171 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+      <div class="kt-form kt-form--label-right">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="kt-portlet kt-portlet--tabs">
+                      <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Chọn nhóm dịch vụ
+                            </h3>
+                        </div>
+                      </div>
+                      <div class="kt-portlet__body">
+                          <div class="row">
+                              <div class="col-sm-1"></div>
+                              <div class="col-sm-7">
+                                  <div class="row">
+                                      <!-- <label class="col-sm-2 col-form-label"></label> -->
+                                      <div class="col-sm-4">
+                                        <editor [(object)]="item" property="ProviderId" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <editor [(object)]="item" property="ParentGroupId" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                      <div class="col-sm-4" [ngClass]="{'hide-drop': !showGroup}">
+                                        <editor [(object)]="item" (loaded)="groupLoaded($event)" property="GroupId" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>                                  
+                              </div>
+                              
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                      <div class="kt-portlet__head-label">
+                          <h3 class="kt-portlet__head-title">
+                              Thông tin cơ bản
+                          </h3>
+                      </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <label class="col-sm-1 col-form-label">Tên định danh <span class="text-danger">*</span></label>
+                                  <div class="col-sm-6">
+                                      <editor [(object)]="item" property="Name" [decorator]="{ label: '' }"></editor>
+                                      <em class="text-muted input-info">(Tên đầy đủ ý nghĩa phục vụ quản lý, không được trùng)</em>
+                                  </div>
+                              </div>                                
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <label class="col-sm-1 col-form-label">Tên hiển thị <span class="text-danger">*</span></label>
+                                  <div class="col-sm-6">
+                                      <editor [(object)]="item" property="NameShow" [decorator]="{ label: '' }"></editor>
+                                      <em class="text-muted input-info">(Tên hiển thị trên website cho KH mua)</em>
+                                  </div>
+                              </div>                                
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <label class="col-sm-1 col-form-label">Mã combo <span class="text-danger">*</span></label>
+                                  <div class="col-sm-6">
+                                      <editor [(object)]="item" property="Code" [decorator]="{ label: '' }"></editor>
+                                  </div>
+                              </div>                              
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <label class="col-sm-1 col-form-label">Mô tả</label>
+                              <div class="col-sm-6">
+                                <editor [(object)]="item" property="Description" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="kt-portlet kt-portlet--tabs">
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Chọn dịch vụ <span class="text-danger">*</span>
+                        </h3>
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <p><em class="text-info">Chọn dịch vụ để tạo thành combo</em></p>
+                            <button class="btn btn-primary" (click)="popupChoiceService()">Chọn dịch vụ</button>
+                        </div>                        
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-hover dataTable no-footer" *ngIf="item.ProductCombo && item.ProductCombo.length > 0" style="margin-top: 15px !important">
+                                <thead>
+                                  <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Tên dịch vụ</th>
+                                    <th scope="col">Mã dịch vụ</th>
+                                    <th scope="col" style="width: 15%">Số lượng</th>
+                                    <th scope="col">Thời hạn sử dụng</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let product of item.ProductCombo; let i=index;">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ product.Name }}</td>
+                                    <td>{{ product.Code }}</td>
+                                    <td>
+                                      <div class="row">
+                                        <div class="col-sm-8">
+                                          <editor [(object)]="item.ProductCombo[i]" property="Amount" [decorator]="{ label: '' }"></editor>
+                                        </div>
+                                        <div class="col-sm-4" style="margin-top: 10px;">{{ getUnitName(product.Unit) }}</div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <editor [(object)]="item.ProductCombo[i]" property="Duration" [decorator]="{ label: '' }"></editor>
+                                            </div>
+                                            <div class="col-sm-3" *ngIf="product.Duration == -1">
+                                                <editor [(object)]="item.ProductCombo[i]" property="CustomUseTime" [decorator]="{ label: '' }"></editor>
+                                            </div>
+                                            <div class="col-sm-4" *ngIf="product.Duration == -1">
+                                                <editor [(object)]="item.ProductCombo[i]" property="UnitDuration" [decorator]="{ label: '' }"></editor>
+                                            </div>
+                                        </div>
+                                    </td>                                    
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="kt-form" *ngIf="!item">
+          {{ message }}
+      </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+      <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

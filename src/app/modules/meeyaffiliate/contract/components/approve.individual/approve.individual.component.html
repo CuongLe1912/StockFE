@@ -1,0 +1,15 @@
+<div class="row" *ngIf="item">
+  <div class="col-sm-12">
+    <div class="row">
+      <label class="col-sm-12 col-form-label">
+        Bạn xác nhận đã nhận được hợp đồng đúng với thông tin khách hàng đã đăng ký trên hệ thống?
+      </label>
+    </div>
+    <div class="row">
+      <label class="col-sm-12 col-form-label">Hãy upload bản scan để lưu trữ:</label>
+      <div class="col-sm-5">
+        <editor #uploadFileContract [(object)]="item" property="File" [decorator]="{ label: '', url: 'upload/MAFUploadContract?fileName=' + item.MeeyId + '_HĐNT_Meeyland-CTV.pdf'  }"></editor>
+      </div>
+    </div>
+  </div>
+</div>

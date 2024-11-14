@@ -1,0 +1,80 @@
+<div class="embed">
+    <loading *ngIf="loading"></loading>
+    <div *ngIf="item">
+        <div class="row">
+            <div class="col-sm-2">Hôm nay</div>
+            <div class="col-sm-10">
+                <div class="row" *ngIf="item.Today">
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Today_New' ? 'btn-success' : 'btn-outline-success'" (click)="filterToDay('New')">
+                            <label>Số tài khoản tạo mới:</label>
+                            <span>{{ item.Today.New }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Today_NotSale' ? 'btn-success' : 'btn-outline-success'" (click)="filterToDay('NotSale')">
+                            <label>Số tài khoản chưa có sale chăm sóc:</label>
+                            <span>{{ item.Today.NotSale }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Today_HaveArticle' ? 'btn-success' : 'btn-outline-success'" (click)="filterToDay('HaveArticle')">
+                            <label>Số tài khoản có đăng tin:</label>
+                            <span>{{ item.Today.HaveArticle }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">7 ngày trước</div>
+            <div class="col-sm-10">
+                <div class="row" *ngIf="item.Weekend">
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Weekend_New' ? 'btn-success' : 'btn-outline-success'" (click)="filterWeekend('New')">
+                            <label>Số tài khoản tạo mới:</label>
+                            <span>{{ item.Weekend.New }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Weekend_NotSale' ? 'btn-success' : 'btn-outline-success'" (click)="filterWeekend('NotSale')">
+                            <label>Số tài khoản chưa có sale chăm sóc:</label>
+                            <span>{{ item.Weekend.NotSale }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Weekend_HaveArticle' ? 'btn-success' : 'btn-outline-success'" (click)="filterWeekend('HaveArticle')">
+                            <label>Số tài khoản có đăng tin:</label>
+                            <span>{{ item.Weekend.HaveArticle }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">Ngày tìm kiếm</div>
+            <div class="col-sm-10">
+                <div class="row" *ngIf="item.Custom">
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Custom_New' ? 'btn-success' : 'btn-outline-success'" (click)="filterCustom('New')">
+                            <label>Số tài khoản tạo mới:</label>
+                            <span>{{ item.Custom.New }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Custom_NotSale' ? 'btn-success' : 'btn-outline-success'" (click)="filterCustom('NotSale')">
+                            <label>Số tài khoản chưa có sale chăm sóc:</label>
+                            <span>{{ item.Custom.NotSale }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="item btn" [ngClass]="active == 'Custom_HaveArticle' ? 'btn-success' : 'btn-outline-success'" (click)="filterCustom('HaveArticle')">
+                            <label>Số tài khoản có đăng tin:</label>
+                            <span>{{ item.Custom.HaveArticle }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

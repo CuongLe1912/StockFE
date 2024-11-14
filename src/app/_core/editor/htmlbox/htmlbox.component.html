@@ -1,0 +1,9 @@
+<div wrapper [ngClass]="{'kt-input-icon kt-input-icon--left':decorator.icon,'focused':focused,'readonly':decorator.readonly}">
+    <textarea [name]="decorator.id" class="form-control" [rows]="decorator.rows" [attr.maxLength]="decorator.max" [readonly]="decorator.readonly"
+        [ngClass]="{'is-invalid':decorator.error}" [placeholder]="decorator.placeholder" [id]="decorator.id"
+        [(ngModel)]="value" [ngModelOptions]="{standalone: true}"></textarea>
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-maxlength" *ngIf="length">{{ length + '/' + decorator.max }}</span>
+</div>

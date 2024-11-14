@@ -1,0 +1,7 @@
+.message-success {
+    padding: 0;
+    color: #0abb87;
+    &.error {
+        color: red;
+    }
+}

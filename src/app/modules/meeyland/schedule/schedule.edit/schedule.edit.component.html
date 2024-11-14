@@ -1,0 +1,170 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item" [ngClass]="{'kt-popup' : popup}">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Mã đặt lịch</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Code" [viewer]="true" [decorator]="{ label: '', readonly: true}"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Trạng thái</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Status" [viewer]="true" [decorator]="{ label: '', readonly: true}"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Thời gian đặt lịch</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="CreatedTime" [viewer]="true" [decorator]="{ label: '', readonly: true}"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Số lần hỗ trợ</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="SupportCount" [viewer]="true" [decorator]="{ label: '', readonly: true}"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Mã tin</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group form-group-viewer row">
+                                                <div class="col-12">
+                                                    <a (click)="quickViewInfo()"><span>{{ item.ArticleCode }}</span></a>
+                                                    <span> - </span>
+                                                    <a (click)="quickViewMap()" style="color: red;"><i class="la la-map-marker"></i>Xem bản đồ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-viewer">
+                                        <label class="col-sm-3 col-form-label">Tiêu đề tin</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group form-group-viewer row">
+                                                <div class="col-12">
+                                                    <a (click)="quickViewArticle()"><span>{{ item.ArticleTitle }}</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row editable">
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Loại xem</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Type" [decorator]="{ label: '', readonly: readonlyType }"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Thời gian xem nhà</label>
+                                        <div class="col-sm-8">
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <editor [(object)]="item" property="ScheduleLookupDate" [decorator]="{label: '', allowClear: false, lookup: { url: '/MLSchedule/LookupDate/' + item.Id }, text: item.ScheduleLookupDateText}"></editor>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <editor [(object)]="item" property="ScheduleLookupTime" [decorator]="{label: '', allowClear: false, lookup: { url: '/MLSchedule/LookupTime/' + item.Id }, text: item.ScheduleLookupTimeText}"></editor>
+                                                </div>
+                                                <div class="col-sm-12" *ngIf="!item.ScheduleLookupDate || !item.ScheduleLookupTime">
+                                                    <span class="schedule-warning">
+                                                        Lịch hẹn có thể đã bị xóa
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Ghi chú</label>
+                                        <div class="col-sm-8">
+                                            <editor [(object)]="item" property="Notes" [decorator]="{ label: ''}"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h6>Người đặt lịch</h6>
+                                    <ul>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Họ và tên</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserSheduleName" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserSheduleEmail" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserShedulePhone" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h6>Người đăng tin</h6>
+                                    <ul>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Họ và tên</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserArticleName" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserArticleEmail" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="UserArticlePhone" [decorator]="{label:''}"></editor>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" *ngIf="item.Id && allowViewScheduleHistory">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Lịch sử hỗ trợ
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;">
+                            <mp-schedule-history [params]="{id: item.Id}" (countChange)="updateSupportCount($event)"></mp-schedule-history>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

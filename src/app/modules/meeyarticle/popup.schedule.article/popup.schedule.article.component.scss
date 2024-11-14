@@ -1,0 +1,156 @@
+.box-item {
+    padding: 0;
+    display: flex;
+    margin: 0 -5px;
+    overflow: auto;
+    flex-wrap: wrap;
+    list-style: none;
+    max-height: 360px;
+    overflow-x: hidden;
+    align-items: center;
+    li {
+        margin: 5px;
+        display: flex;
+        padding: 10px 0;
+        cursor: pointer;
+        min-width: 114px;
+        border-radius: 4px;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        &:hover {
+            border: 1px solid #9aabff;
+        }
+        &.active {
+            color: #fff;
+            border: 1px solid #5d78ff;
+            background-color: #5d78ff;
+        }
+        &:last-of-type,
+        &:nth-last-of-type(2) {
+            margin-bottom: 0;
+        }
+        .close {
+            top: -1px;
+            opacity: 1;
+            right: -1px;
+            float: none;
+            color: #888;
+            display: flex;
+            border-radius: 4px;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            &:hover {
+                color: #333;
+                border: 1px solid #333;
+            }
+            i {
+                padding: 3px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.schedule-notes {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    padding-top: 10px;
+    align-items: center;
+    li {
+        display: flex;
+        margin-right: 20px;
+        align-items: center;
+        span {
+            &.accept {
+                width: 26px;
+                height: 26px;
+                color: #5867dd;
+                margin-right: 5px;
+                border-radius: 4px;
+                border: 2px solid #5867dd;
+            }
+            &.reject {
+                width: 26px;
+                height: 26px;
+                margin-right: 5px;
+                border-radius: 4px;
+                border: 2px solid #e2e5ec;
+            }
+        }
+    }
+}
+
+.kt-portlet--tabs {
+    margin: 0;
+    padding: 0;
+    .kt-portlet__head {
+        padding: 0;
+    }
+    .kt-portlet__body {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+}
+
+::ng-deep {
+    .popup-schedule-article {
+        margin-top: -15px;
+        .form-group {
+            margin-top: 5px;
+            margin-bottom: 0;
+            .kt-checkbox {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+        }
+        .kt-portlet__head {
+            border: none;
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: unset !important;
+            .kt-portlet__head-toolbar {
+                width: 100%;
+                .nav {
+                    width: 100%;
+                    display: flex;
+                    overflow: hidden;
+                    overflow-x: auto;
+                    flex-wrap: nowrap;
+                    white-space: nowrap;
+                    border-bottom: 1px solid #ccc !important;
+                    li {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .datepicker-inline .datepicker {
+            border-color: #e2e5ec;
+        }
+        .datepicker--cell.-selected- {
+            color: #5867dd;
+            font-weight: bold;
+            border: 1px solid #5867dd;
+            background-color: transparent;
+        }
+    }
+}
+
+::ng-deep {
+    @media screen and (max-width: 768px) {
+        .popup-schedule-article {
+           .kt-portlet__body {
+               padding: 10px 0px !important;
+           }
+        }
+    }
+}

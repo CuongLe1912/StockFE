@@ -1,0 +1,329 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile view-article">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading && item">
+        <div class="row">
+            <div class="col-sm-6">                
+                <div class="box-item" *ngIf="report">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Nội dung báo cáo</h5>
+                            <editor [(object)]="report" property="Status"></editor>
+                            <editor *ngIf="report.Actor" [(object)]="report" property="Actor"></editor>
+                            <editor *ngIf="report.CreatedDate" [(object)]="report" property="CreatedDate"></editor>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5>Thông tin người báo cáo</h5>
+                            <editor *ngIf="report.Name" [(object)]="report" property="Name"></editor>
+                            <editor *ngIf="report.Phone" [(object)]="report" property="Phone"></editor>
+                            <editor *ngIf="report.Email" [(object)]="report" property="Email"></editor>
+                        </div>
+                        <div class="col-sm-12">
+                            <editor *ngIf="report.Description" [(object)]="report" property="Description" [viewer]="true"></editor>
+                            <editor *ngIf="report.Reason" [(object)]="report" property="Reason" [viewer]="true"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Thông tin chung</h5>
+                            <editor [(object)]="item" property="Code"></editor>
+                            <editor [(object)]="item" property="CreatedTime"></editor>
+                            <editor [(object)]="item" property="PublishedDate"></editor>
+                            <editor [(object)]="item" property="AppointmentDate"></editor>
+                            <editor [(object)]="item" property="ExpireTime"></editor>
+                            <editor [(object)]="item" property="SaleNameId"></editor>
+                            <editor [(object)]="item" property="SupportNameId"></editor>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5>&nbsp;</h5>
+                            <editor [(object)]="item" property="TypeArticle"></editor>
+                            <editor [(object)]="item" property="GroupArticleName"></editor>
+                            <div *ngIf="item.Reason" class="box-status">
+                                <editor [(object)]="item" property="Status"></editor>
+                                <div class="status" *ngIf="item.StatusType == MLArticleStatusType.Down">
+                                    {{ item.IsDownByAdmin ? '(Admin hạ)' : ' (KH hạ)' }}
+                                </div>
+                            </div>
+                            <div *ngIf="item.Reason && item.StatusType == MLArticleStatusType.Down" class="box-reason">
+                                <editor [(object)]="item" property="Reason"></editor>
+                            </div>
+                            <div *ngIf="item.ApprovalContent" class="box-reason">
+                                <editor [(object)]="item" property="ApprovalContent"></editor>
+                            </div>
+                            <editor [(object)]="item" property="StatusSync"></editor>
+                            <editor [(object)]="item" property="VerificationName"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Thông tin khách hàng</h5>
+                            <div class="form-group">
+                                <label> Meey Id </label>
+                                <a (click)="viewUser(item.UserMeeyId)">{{ item.UserMeeyId }}</a>
+                            </div>
+                            <editor [(object)]="item" property="CustomerPhone"></editor>
+                            <editor [(object)]="item" property="CustomerName"></editor>
+                            <editor [(object)]="item" property="CustomerEmail"></editor>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5>Thông tin liên hệ</h5>
+                            <editor [(object)]="item" property="ObjectType"></editor>
+                            <editor [(object)]="item" property="ContactPhone"></editor>
+                            <editor [(object)]="item" property="ContactName"></editor>
+                            <editor [(object)]="item" property="ContactEmail"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item" *ngIf="!report" [ngClass]="{'hidden':!fields || fields.indexOf('perCommission') == -1}">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>Dành cho môi giới</h5>
+                            <editor [(object)]="item" property="MediateType"></editor>
+                        </div>
+                        <div class="col-sm-7" *ngIf="item.MediateType == MLArtilceMediateType.Yes">
+                            <editor [(object)]="item" property="PerCommission"></editor>
+                            <editor *ngIf="item.Commission" [(object)]="item" property="Commission"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>Gói tin đăng</h5>
+                            <editor [(object)]="item" property="VipType" [decorator]="{ label: '', readonly: true}"></editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="box-item" *ngIf="item.OrderInfos && item.OrderInfos.length > 0">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>Chi tiết dịch vụ</h5>
+                            <ml-list-article-service [items]="item.OrderInfos"></ml-list-article-service>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Thông tin bất động sản</h5>
+                            <div *ngIf="needType == MLArticleNeedType.Sell">
+                                <editor [(object)]="item" property="ProjectMeeyId" [decorator]="{ lookup: { selected: item.ProjectOptionItem } }"></editor>
+                                <editor [(object)]="item" property="CityMeeyId"></editor>
+                                <editor [(object)]="item" property="DistrictMeeyId"></editor>
+                                <editor [(object)]="item" property="WardMeeyId"></editor>
+                                <editor *ngIf="item.StreetMeeyId" [(object)]="item" property="StreetMeeyId"></editor>
+                            </div>
+                            <div *ngIf="needType == MLArticleNeedType.Buy">
+                                <editor [(object)]="item" property="ProjectMeeyIds" [decorator]="{ lookup: { selected: item.ProjectOptionItem } }"></editor>
+                                <editor [(object)]="item" property="CityMeeyId"></editor>
+                                <editor [(object)]="item" property="DistrictMeeyIds"></editor>
+                                <editor [(object)]="item" property="WardMeeyIds"></editor>
+                                <editor *ngIf="item.StreetMeeyIds" [(object)]="item" property="StreetMeeyIds"></editor>
+                            </div>
+                            <editor [(object)]="item" property="Address" [viewer]="true"></editor>
+                            <editor [(object)]="item" property="NeedMeeyId"></editor>
+                            <editor [(object)]="item" property="TypeHouse"></editor>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('typeOfRealEstate') == -1}">
+                                <editor [(object)]="item" property="TypeRealEstate"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('directions') == -1}">
+                                <editor [(object)]="item" property="Direction"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('balconyDirection') == -1}">
+                                <editor [(object)]="item" property="BalconyDirection"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('wideRoads') == -1}">
+                                <editor [(object)]="item" property="WideRoad"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('legalPaper') == -1}">
+                                <editor [(object)]="item" property="LegalPaper"></editor>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5>&nbsp;</h5>
+                            <div *ngIf="needType == MLArticleNeedType.Sell" class="subfix">
+                                <editor [(object)]="item" property="Area" [decorator]="{ subfix: item.Area ? '(' + item.UnitArea + ')' : '' }"></editor>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('areaUse') == -1}">
+                                    <editor [(object)]="item" property="UseArea" [decorator]="{ subfix: item.UseArea ? '(' + item.UnitUseArea + ')' : '' }"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('facade') == -1}">
+                                    <editor [(object)]="item" property="Facade" [decorator]="{ subfix: item.Facade ? '(' + item.UnitFacade + ')' : '' }"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('depth') == -1}">
+                                    <editor [(object)]="item" property="Depth" [decorator]="{ subfix: item.Depth ? '(' + item.UnitDepth + ')' : '' }"></editor>
+                                </div>
+                                <div class="d-flex group-flex group-price">
+                                    <editor [(object)]="item" property="Price" [label]="priceLabel" [decorator]="{ labeL: priceLabel }"></editor>
+                                    <editor [(object)]="item" property="UnitPrice" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div class="d-flex group-flex group-price" *ngIf="item.RentPrice && item.NeedMeeyId && item.NeedMeeyId.indexOf('sang_nhuong') >= 0">
+                                    <editor [(object)]="item" property="RentPrice"></editor>
+                                    <editor [(object)]="item" property="UnitRentPrice" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || (fields.indexOf('floor') == -1 && fields.indexOf('numberFloor') == -1)}">
+                                    <editor *ngIf="fields && fields.indexOf('floor') >= 0" [(object)]="item" property="Floor"></editor>
+                                    <editor *ngIf="fields && fields.indexOf('numberFloor') >= 0" [(object)]="item" property="NumberFloor"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('balcony') == -1}">
+                                    <editor [(object)]="item" property="Balcony"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('bathroom') == -1}">
+                                    <editor [(object)]="item" property="Bathroom"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('bedroom') == -1}">
+                                    <editor [(object)]="item" property="Bedroom"></editor>
+                                </div>
+                            </div>
+                            <div *ngIf="needType == MLArticleNeedType.Buy">
+                                <editor [(object)]="item" property="AreaFromTo"></editor>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('areaUse') == -1}">
+                                    <editor [(object)]="item" property="UseArea" [decorator]="{ subfix: item.UseArea ? '(' + item.UnitUseArea + ')' : '' }"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('facade') == -1}">
+                                    <editor [(object)]="item" property="FacadeFromTo" [viewer]="true"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('depth') == -1}">
+                                    <editor [(object)]="item" property="DepthFromTo" [viewer]="true"></editor>
+                                </div>
+                                <editor [(object)]="item" property="PriceFromTo" [label]="priceLabel" [decorator]="{ labeL: priceLabel }"></editor>
+                                <div class="d-flex group-flex group-price" *ngIf="item.RentPrice && item.NeedMeeyId && item.NeedMeeyId.indexOf('sang_nhuong') >= 0">
+                                    <editor [(object)]="item" property="RentPrice"></editor>
+                                    <editor [(object)]="item" property="UnitRentPrice" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || (fields.indexOf('floor') == -1 && fields.indexOf('numberFloor') == -1)}">
+                                    <editor [(object)]="item" property="FloorFromTo"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('balcony') == -1}">
+                                    <editor [(object)]="item" property="BalconyFromTo"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('bathroom') == -1}">
+                                    <editor [(object)]="item" property="BathroomFromTo"></editor>
+                                </div>
+                                <div [ngClass]="{'hidden':!fields || fields.indexOf('bedroom') == -1}">
+                                    <editor [(object)]="item" property="BedroomFromTo"></editor>
+                                </div>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('utilities') == -1}">
+                                <editor [(object)]="item" property="Utilities"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || (fields.indexOf('advantages') == -1 && fields.indexOf('feature') == -1)}">
+                                <editor [(object)]="item" property="Feature"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('furniture') == -1}">
+                                <editor [(object)]="item" property="Furniture"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('equipment') == -1}">
+                                <editor [(object)]="item" property="Equipment"></editor>
+                            </div>
+                            <div class="d-flex group-flex group-price subfix" [ngClass]="{'hidden':!fields || fields.indexOf('energyRate') == -1}">
+                                <editor *ngIf="!item.EnergyRateNormal" [(object)]="item" property="EnergyRate"></editor>
+                                <editor *ngIf="!item.EnergyRateNormal" [(object)]="item" property="EnergyUnit" [decorator]="{ label: '' }"></editor>
+                                <label *ngIf="item.EnergyRateNormal">Giá điện</label>
+                                <editor *ngIf="item.EnergyRateNormal" [(object)]="item" property="EnergyRateNormal"></editor>
+                            </div>
+                            <div class="d-flex group-flex group-price subfix" [ngClass]="{'hidden':!fields || fields.indexOf('waterRate') == -1}">
+                                <editor *ngIf="!item.WaterRateNormal" [(object)]="item" property="WaterRate"></editor>
+                                <editor *ngIf="!item.WaterRateNormal" [(object)]="item" property="WaterUnit" [decorator]="{ label: '' }"></editor>
+                                <label *ngIf="item.WaterRateNormal">Giá nước</label>
+                                <editor *ngIf="item.WaterRateNormal" [(object)]="item" property="WaterRateNormal"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('minimumRentalPeriod') == -1}">
+                                <editor [(object)]="item" property="MinimumRentalPeriod"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('paymentPeriod') == -1}">
+                                <editor [(object)]="item" property="PaymentPriod"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('deposit') == -1}">
+                                <editor [(object)]="item" property="DepositPriod"></editor>
+                            </div>
+                            <div [ngClass]="{'hidden':!fields || fields.indexOf('levelTransaction') == -1}">
+                                <editor [(object)]="item" property="LevelTransaction"></editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item" *ngIf="report" [ngClass]="{'hidden':!fields || fields.indexOf('perCommission') == -1}">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>Dành cho môi giới</h5>
+                            <editor [(object)]="item" property="MediateType"></editor>
+                        </div>
+                        <div class="col-sm-7" *ngIf="item.MediateType == MLArtilceMediateType.Yes">
+                            <editor [(object)]="item" property="PerCommission"></editor>
+                            <editor *ngIf="item.Commission" [(object)]="item" property="Commission"></editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-item">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5>Nội dung tin đăng</h5>
+                    <div>
+                        <label>Tiêu đề</label>
+                        <editor [(object)]="item" property="Title" [decorator]="{label: '', readonly: false}"></editor>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <label>Nội dung</label>
+                        <editor [(object)]="item" property="Content" [viewer]="true" [html]="true" [decorator]="{label: '' }"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-item box-image" *ngIf="item.Images && item.Images.length > 0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--tabs" style="padding-bottom: 0;">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-toolbar">
+                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('image')" [ngClass]="{'active':!tab || tab == 'image'}">
+                                            <i class="la la-user"></i> Ảnh
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" style="display: none;">
+                                        <a class="nav-link" (click)="selectedTab('video')" [ngClass]="{'active':tab == 'video'}">
+                                            <i class="la la-th-list"></i> Video
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" *ngIf="needType == MLArticleNeedType.Sell">
+                                        <a class="nav-link" (click)="selectedTab('youtube')" [ngClass]="{'active':tab == 'youtube'}">
+                                            <i class="la la-th-list"></i> Youtube
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 0;">
+                            <div class="tab-content group-image">
+                                <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'image'}">
+                                    <editor #uploadImage [(object)]="item" property="Images" [decorator]="{label: '', readonly: true}"></editor>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'video'}">
+                                    <editor #uploadVideo [(object)]="item" property="Videos" [decorator]="{label: '', readonly: true}"></editor>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'youtube'}">
+                                    <div class="row">
+                                        <div class="col-sm-4" *ngFor="let itm of [].constructor(numberVideo); let i = index" style="margin-bottom: 10px;">
+                                            <editor *ngIf="item.VideoYoutubes[i]?.Url" [(object)]="item.VideoYoutubes[i]" property="Url" [decorator]="{readonly: true}"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

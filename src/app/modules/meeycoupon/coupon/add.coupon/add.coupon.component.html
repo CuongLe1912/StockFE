@@ -1,0 +1,424 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-coupon" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs"
+        [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_information">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_information">
+                                    Thông tin chung
+                                </div>
+                            </div>
+                            <div id="collapse_information" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tên Coupon <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Name"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false}">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mô tả</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Description"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mã Coupon <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Code"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tổng số lượng coupon khả
+                                                    dụng</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Limit"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Số lượng coupon mỗi khách hàng
+                                                    được dùng</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="NumberCouponType"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.NumberCouponType && item.NumberCouponType == 2">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="LimitUser"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_condition">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_condition">
+                                    Điều kiện kích hoạt
+                                </div>
+                            </div>
+                            <div id="collapse_condition" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tự động kích hoạt mã</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="ActiveType"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2" style="flex-wrap: nowrap;" *ngIf="item.ActiveType && 
+                                            (item.ActiveType == MCCouponActiveType.BuyServiceX)">
+                                                <label class="col-sm-2 col-form-label">Mua dịch vụ</label>
+                                                <div class="col-sm-6" style="flex-grow: 1;" [ngClass]="{'disabled':id && item.Status != MCCouponStatusType.Created}">
+                                                    <button class="btn btn-success d-block"
+                                                        (click)="openPopupActivatedService()">Chọn dịch vụ</button>
+                                                    <div
+                                                        *ngIf="itemActivatedServices && itemActivatedServices.length > 0">
+                                                        <mc-grid-activatedservice [items]="itemActivatedServices"
+                                                            (deleted)="itemActivatedServicesChanged($event)">
+                                                        </mc-grid-activatedservice>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mb-2" style="flex-wrap: nowrap;" *ngIf="item.ActiveType && 
+                                            (item.ActiveType == MCCouponActiveType.UseServiceXLimit ||
+                                            item.ActiveType == MCCouponActiveType.ServiceXToExpire)">
+                                                <label class="col-sm-2 col-form-label">Sử dụng dịch vụ</label>
+                                                <div class="col-sm-6" style="flex-grow: 1; " [ngClass]="{'disabled':id && item.Status != MCCouponStatusType.Created}">
+                                                    <button class="btn btn-success d-block"
+                                                        (click)="openPopupActivatedService()">Chọn dịch vụ</button>
+                                                    <div
+                                                        *ngIf="itemActivatedServices && itemActivatedServices.length > 0">
+                                                        <mc-grid-activatedservice [items]="itemActivatedServices"
+                                                            (deleted)="itemActivatedServicesChanged($event)">
+                                                        </mc-grid-activatedservice>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" 
+                                                *ngIf="item.ActiveType && (item.ActiveType == MCCouponActiveType.UseServiceXLimit)">
+                                                <label class="col-sm-2 col-form-label">Định mức sử dụng</label>
+                                                <div class="col-sm-4">
+                                                    <editor [(object)]="item" property="Day"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="col-sm-3 col-form-label"><em>ngày liên tiếp</em></label>                                
+                                                  </div>
+                                            </div>
+                                            <div class="row" 
+                                                *ngIf="item.ActiveType && (item.ActiveType == MCCouponActiveType.ServiceXToExpire)">
+                                                <label class="col-sm-2 col-form-label">Sắp hết hạn dùng</label>
+                                                <div class="col-sm-4">
+                                                    <editor [(object)]="item" property="Day"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="col-sm-3 col-form-label"><em>ngày nữa hết hạn dùng</em></label>                                
+                                                  </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.ActiveType && (item.ActiveType == MCCouponActiveType.AccountBalanceRemain)">
+                                                <label class="col-sm-2 col-form-label">Tài khoản chính còn</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="RemainingMainAccount"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-sm-3 col-form-label"><em>VND</em></label>                                
+                                                  </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.ActiveType && (item.ActiveType == MCCouponActiveType.AccountSpendingLimit)">
+                                                <label class="col-sm-2 col-form-label">Tổng chi tiêu tài khoản
+                                                    đạt</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TotalSpending"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-sm-3 col-form-label"><em>VND</em></label>                                
+                                                  </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="DateStart"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="DateEnd"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_usecondition">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_usecondition">
+                                    Điều kiện sử dụng
+                                </div>
+                            </div>
+                            <div id="collapse_usecondition" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Loại coupon <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Type"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.Type && (item.Type == MCCouponType.DiscountPercent)">
+                                                <label class="col-sm-2 col-form-label">Mức giảm (%)<span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="AmountPercent"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.Type && (item.Type == MCCouponType.DiscountCurrency)">
+                                                <label class="col-sm-2 col-form-label">Mức giảm (VND)<span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Amount"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.Type && (item.Type == MCCouponType.AddMoneyAccount)">
+                                                <label class="col-sm-2 col-form-label">Mức tiền cộng (VND)<span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Amount"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.Type && (item.Type == MCCouponType.DiscountPercent)">
+                                                <label class="col-sm-2 col-form-label">Mức giảm tối đa</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="AmountLimit"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row" *ngIf="item.Type && (item.Type == MCCouponType.DiscountPercent 
+                                            || item.Type == MCCouponType.DiscountCurrency
+                                            || item.Type == MCCouponType.AddMoneyAccount)">
+                                                <label class="col-sm-2 col-form-label">Hạn sử dụng</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="ExpireDateType"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="row" *ngIf="item.ExpireDateType && (item.ExpireDateType == MCCouponExpireDateType.DayNumber)">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="ExpireDate"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-sm-3 col-form-label"><em>ngày</em></label>                                
+                                                  </div>
+                                            </div> -->
+                                            <div class="row" *ngIf="item.Type && (item.Type == MCCouponType.DiscountPercent 
+                                            || item.Type == MCCouponType.DiscountCurrency
+                                            || item.Type == MCCouponType.AddMoneyAccount)">
+                                                <label class="col-sm-2 col-form-label">Hạn sử dụng</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="DateEndUse"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row flex-column-coupon">
+                                                <label class="col-sm-2 col-form-label">Nơi áp dụng <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="ApplicableType"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row flex-column-coupon">
+                                                <label class="col-sm-2 col-form-label">Chọn khách hàng áp dụng <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="CustomerType"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.CustomerType && (item.CustomerType == MCCouponCustomerType.Group)">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="CustomerGroupType"
+                                                        [decorator]="{ label: '', readonly: id && item.Status != MCCouponStatusType.Created ? true : false }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2" style="flex-wrap: nowrap;"
+                                                *ngIf="item.CustomerType && (item.CustomerType == MCCouponCustomerType.List)">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-6" style="flex-grow: 1;" [ngClass]="{'disabled':id && item.Status != MCCouponStatusType.Created}">
+                                                    <button class="btn btn-success d-block"
+                                                        (click)="openPopupCustomerListService()"
+                                                        (deleted)="itemUseServicesChanged($event)">Chọn khách
+                                                        hàng</button>
+                                                    <div
+                                                        *ngIf="itemCustomerServices && itemCustomerServices.length > 0">
+                                                        <mc-grid-customerlistservice [items]="itemCustomerServices"
+                                                            (deleted)="itemCustomerListServicesChanged($event)">
+                                                        </mc-grid-customerlistservice>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="item.CustomerType && (item.CustomerType == MCCouponCustomerType.Upload)">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-6" style="flex-grow: 1;">
+                                                    <div class="row" style="flex-direction: column;">
+                                                        <div class="col-sm-6 d-flex">
+                                                            <a class="btn btn-warning font-weight-bolder text-uppercase"
+                                                                href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/template-meeyid-import_export.xlsx">
+                                                                Tải file mẫu</a>
+                                                        </div>
+                                                        <div class="col-sm-6 col-form-label file-import"
+                                                            [ngClass]="{'disable':item.FileImport}">
+                                                            <editor #import [(object)]="item" property="FileImport"
+                                                                (valueChange)="uploadFileImport()"
+                                                                [decorator]="{ label: 'Import danh sách MeeyId' }">
+                                                            </editor>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"
+                                                        *ngIf="itemCustomerServices && itemCustomerServices.length > 0">
+                                                        <div class="col-sm-12">
+                                                            <mc-grid-customerlistservice [items]="itemCustomerServices"
+                                                                (deleted)="itemCustomerListServicesChanged($event)">
+                                                            </mc-grid-customerlistservice>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" style="flex-wrap: nowrap;">
+                                                <label class="col-sm-2 col-form-label">Chọn dịch vụ áp dụng <span class="text-danger">*</span></label>
+                                                <div class="col-sm-6" style="flex-grow: 1;" [ngClass]="{'disabled':id && item.Status != MCCouponStatusType.Created}">
+                                                    <button class="btn btn-success d-block"
+                                                        (click)="openPopupUseService()">Chọn dịch vụ</button>
+                                                    <div *ngIf="itemUseServices && itemUseServices.length > 0">
+                                                        <mc-grid-useservice [items]="itemUseServices"
+                                                            (deleted)="itemUseServicesChanged($event)">
+                                                        </mc-grid-useservice>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="accordion accordion-toggle-arrow">
+                        <div class="card" id="card_setupdisplay">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapse_setupdisplay">
+                                    Cài đặt hiển thị
+                                </div>
+                            </div>
+                            <div id="collapse_setupdisplay" class="collapse show">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Thông báo áp dụng coupon thành
+                                                    công</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MessageSuccess"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Thông báo áp dụng coupon không
+                                                    thành công</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MessageError"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Tên coupon hiển thị khi áp
+                                                    dụng</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="NameShow"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label">Mô tả ngắn gọn coupon (*)</label>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="ShowDescription"
+                                                        [decorator]="{ label: '' }"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

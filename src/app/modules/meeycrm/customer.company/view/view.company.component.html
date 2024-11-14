@@ -1,0 +1,63 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-6">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Khách hàng thực hiện
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="form-group form-group-viewer row">
+                    <label class="col-3">Meey Id </label>
+                    <div class="col-9">
+                        <a (click)="navigateMeeyId(item.CreatorId)"><span>{{ item.CreatorId }}</span></a>
+                    </div>
+                </div>
+                <editor [(object)]="item" property="CreatorName" [viewer]="true"></editor>
+                <editor [(object)]="item" property="CreatorPhone" [viewer]="true"></editor>
+                <editor [(object)]="item" property="CreatorEmail" [viewer]="true"></editor>
+            </div>
+        </div>
+        <div class="kt-portlet kt-portlet--mobile kt-portlet-bottom">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Trạng thái yêu cầu
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <editor [(object)]="item" property="StartDate" [viewer]="true" [decorator]="{label: 'Thời gian tạo'}"></editor>
+                <editor [(object)]="item" property="Status" [viewer]="true"></editor>
+                <editor [(object)]="item" property="User" [viewer]="true" [decorator]="{label: 'Người duyệt'}"></editor>
+                <editor *ngIf="item.ApproveDate || (!item.ApproveDate && !item.RejectDate)" [(object)]="item" property="ApproveDate" [viewer]="true" [decorator]="{label: 'Thời gian duyệt'}"></editor>
+                <editor *ngIf="item.RejectDate" [(object)]="item" property="RejectDate" [viewer]="true" [decorator]="{label: 'Thời gian từ chối'}"></editor>
+                <editor [(object)]="item" property="Notes" [viewer]="true" [decorator]="{label: 'Ghi chú'}"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="kt-portlet kt-portlet--mobile kt-portlet-right kt-portlet-bottom">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Thông tin đề xuất
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <editor [(object)]="item" property="RecommendName" [viewer]="true" [decorator]="{label: 'Tên công ty'}"></editor>
+                <editor [(object)]="item" property="RecommendShortName" [viewer]="true" [decorator]="{label: 'Tên viết tắt'}"></editor>
+                <editor [(object)]="item" property="RecommendPhone" [viewer]="true" [decorator]="{label: 'Số điện thoại'}"></editor>
+                <editor [(object)]="item" property="RecommendEmail" [viewer]="true" [decorator]="{label: 'Email'}"></editor>
+                <editor [(object)]="item" property="RecommendAddress" [viewer]="true" [decorator]="{label: 'Địa chỉ'}"></editor>
+                <editor [(object)]="item" property="RecommendRegisterNumber" [viewer]="true" [decorator]="{label: 'Số ĐKKD'}"></editor>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

@@ -1,0 +1,113 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+  <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+  <div class="kt-portlet__body">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body" style="min-height: calc(100vh - 230px);">
+              <div class="navi navi-bold navi-hover navi-active navi-link-rounded">                
+                <div class="navi-item">
+                    <a href="javascript:;" class="navi-link active">
+                        <span class="navi-icon mr-2">
+                            <span class="svg-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                  <rect x="0" y="0" width="24" height="24"/>
+                                  <path d="M11,20 L11,17 C11,16.4477153 11.4477153,16 12,16 C12.5522847,16 13,16.4477153 13,17 L13,20 L15.5,20 C15.7761424,20 16,20.2238576 16,20.5 C16,20.7761424 15.7761424,21 15.5,21 L8.5,21 C8.22385763,21 8,20.7761424 8,20.5 C8,20.2238576 8.22385763,20 8.5,20 L11,20 Z" fill="#000000" opacity="0.3"/>
+                                  <path d="M3,5 L21,5 C21.5522847,5 22,5.44771525 22,6 L22,16 C22,16.5522847 21.5522847,17 21,17 L3,17 C2.44771525,17 2,16.5522847 2,16 L2,6 C2,5.44771525 2.44771525,5 3,5 Z M4.5,8 C4.22385763,8 4,8.22385763 4,8.5 C4,8.77614237 4.22385763,9 4.5,9 L13.5,9 C13.7761424,9 14,8.77614237 14,8.5 C14,8.22385763 13.7761424,8 13.5,8 L4.5,8 Z M4.5,10 C4.22385763,10 4,10.2238576 4,10.5 C4,10.7761424 4.22385763,11 4.5,11 L7.5,11 C7.77614237,11 8,10.7761424 8,10.5 C8,10.2238576 7.77614237,10 7.5,10 L4.5,10 Z" fill="#000000"/>
+                                </g>
+                              </svg>
+                            </span>
+                        </span>
+                        <span class="navi-text font-size-lg">
+                            Báo cáo dự án - video
+                        </span>
+                    </a>
+                </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body" style="min-height: calc(100vh - 230px);">
+              <div class="row">
+                <div class="col-sm-4">
+                  <editor [(object)]="item" property="Date"></editor>
+                </div>
+                <div class="col-sm-6">
+                  <editor-button className="btn btn-primary btn-search" label="Xem báo cáo" [process]="loading" (click)="loadItem()"></editor-button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3 class="text-center">Báo cáo số liệu dự án - video</h3>
+                  <p class="text-center">{{ reportDate }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive-sm">
+                    <table class="table table-bordered statistic-table">
+                      <thead>
+                        <tr>
+                          <th rowspan="2" colspan="2" class="colEmpty"></th>
+                          <th colspan="3" class="text-center">Video người dùng đóng góp</th>
+                          <th colspan="3" class="text-center">Video tải lên từ hệ thống</th>
+                        </tr>
+                        <tr>
+                          <th class="text-center">Tổng</th>
+                          <th class="text-center">Công khai</th>
+                          <th class="text-center">Không công khai</th>
+                          <th class="text-center">Tổng</th>
+                          <th class="text-center">Công khai</th>
+                          <th class="text-center">Không công khai</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-left">Dự án công khai</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.project?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.all?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.publish?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.draft?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.all?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.publish?.publish }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.draft?.publish }}</td>
+                        </tr>
+                        <tr>
+                          <td class="text-left">Dự án không công khai</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.project?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.all?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.publish?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyId?.draft?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.all?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.publish?.draft }}</td>
+                          <td class="text-center">{{ statistic?.videoByMeeyAdmin?.draft?.draft }}</td>
+                        </tr>
+                        <tr>
+                          <td class="text-left font-weight-bold">Tổng</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.project?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyId?.all?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyId?.publish?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyId?.draft?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyAdmin?.all?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyAdmin?.publish?.all }}</td>
+                          <td class="text-center font-weight-bold">{{ statistic?.videoByMeeyAdmin?.draft?.all }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>

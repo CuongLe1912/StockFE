@@ -1,0 +1,19 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <div class="row">
+            <label class="col-3">Số lượng bản ghi:</label>
+            <div class="col-9">
+                <b>{{ item.Ids && item.Ids.length }}</b>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <label class="col-3" style="padding-top: 8px;">Nhân viên</label>
+            <div class="col-9">
+                <editor [(object)]="item" property="UserId" [decorator]="{label: '', lookup: { url: '/user/LookupForMeeyMap?emptyItem=0' }}"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

@@ -1,0 +1,17 @@
+::ng-deep .view-aff {
+    .image-container {
+        .image-inner {
+            .hrefImageList {
+                height: 150px !important;
+                min-width: 500px !important;
+            }
+        }
+        .file-contract {
+            display: flex;
+            justify-content: flex-end;
+            .file-inner {
+                margin: 0 !important;
+            }
+        }
+    }
+}

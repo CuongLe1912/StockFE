@@ -1,0 +1,17 @@
+<div wrapper class="import-text-link">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>Định dạng hỗ trợ: .xls, .xlsx. Dung lượng tối đa 2MB</p>
+            <p>
+                <a class="" href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/meeyadmin_template_import-file.xlsx">
+                    <i class="la la-download"></i> Tải file import mẫu
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 d-flex align-items-center import-service-agency-sale">
+            <editor #importAuto [(object)]="item" property="FileImport" [decorator]="{ label: '', url: 'MLEmployee/UploadParserExcelFile'  }"></editor>
+        </div>
+    </div>
+</div>

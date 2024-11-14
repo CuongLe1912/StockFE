@@ -1,0 +1,10 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <div style="margin-top: 5px;">
+            <editor [(object)]="item" property="Note"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

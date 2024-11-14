@@ -1,0 +1,8 @@
+<div class="row reject-article" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Type" [decorator]="{ label: 'Nhập lý do từ chối' }" (valueChange)="typeChange()"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.Type == MLArticleReasonType.Other">
+        <editor [(object)]="item" property="Reason" [decorator]="{ label: 'Mô tả' }" (valueChange)="toggleDisableButton()"></editor>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+  <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [moreActions]="moreActions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">Khách hàng:</label>
+                    <div class="col-sm-6">
+                      <editor [(object)]="item" property="Customer" [decorator]="{label: ''}" (keyPressEnter)="searchNodes()" (valueChange)="clearCustomer()"></editor>
+                    </div>
+                    <div class="col-sm-3">
+                      <editor-button label="Tìm kiếm" [process]="processSearch" (click)="searchNodes()" [disabled]="item.Customer ? false : true"></editor-button>
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="kt-portlet kt-portlet--tabs tabs-treeview">
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">                  
+                  <ejs-treeview #treeview id='treeelement' [fields]='field' (nodeClicked)="nodeClicked($event)" (nodeExpanding)="nodeExpanding($event)" loadOnDemand="false" expandOn="Click">
+                    <!-- Template to render tree node -->
+                    <ng-template #nodeTemplate="" let-data="">
+                      <div>
+                        <div class="treeviewdiv">
+                          <div class="nodetext">
+                            <span class="treeName" *ngIf="data.RankId" style="padding-right: 5px;">
+                              <span [innerHTML]="getRankType(data)" ></span>
+                            </span>
+                            <span class="treeName">                              
+                              <span *ngIf="data.Name" [ngStyle]="{'color': data.isLoadMore ? '#366feb': null}">{{ shortcutString(data, 12) }}</span>
+                              <span *ngIf="data.refcount" style="padding-left: 10px;">({{ data.refcount | numberx }} liên kết)</span>
+                            </span> 
+                            <!-- <span class="treeName" *ngIf="data.UserName">{{ data.UserName }}</span> -->
+                            <span class="treeName" *ngIf="data.Phone"> - <a href="javascript:;">{{ data.Phone }}</a></span>
+                          </div>
+                          <div class="nodebadge">
+                            <span class="treeCount e-badge e-badge-primary" *ngIf="data.F1Count" >{{ data.F1Count }} F1/ Tổng {{ data.FnCount }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ejs-treeview>
+                  <label *ngIf="emptyMessageTree">
+                    <em *ngIf="!emptyMeeyIdTree"><div [innerHtml]="emptyMessageTree"></div></em>
+                    <em *ngIf="emptyMeeyIdTree">Khách hàng này chưa tham gia cây hoa hồng. Xem thêm ở khách hàng MeeyId <a (click)="viewUser(emptyMessageTree)" href="javascript:;">Tại đây</a></em>
+                  </label>
+                </div>                
+              </div>
+            </div>
+          </div>                   
+        </div>
+        <div class="col-sm-8">
+          <div class="kt-portlet kt-portlet--tabs" style="min-height: calc(100vh - 300px);">
+            <div class="kt-portlet__body">
+              <div id="showNoteBranch" *ngIf="showNoteBranch">
+                <fieldset class="p-2 fs-policy">
+                  <legend class="w-auto p-2">Thông tin</legend>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <div class="row" *ngIf="!showChangeMeeyId">
+                        <label class="col-sm-2 col-form-label">Họ tên:</label>
+                        <div class="col-sm-8 col-form-label">{{ currentNode.Name }}</div>
+                      </div>
+                      <div *ngIf="showChangeMeeyId">
+                        <div class="row">
+                          <label class="col-sm-2 col-form-label">Họ tên:</label>
+                          <div class="col-sm-8 col-form-label">{{ currentNode.Rank }}</div>
+                        </div>
+                        <div class="row">
+                          <label class="col-sm-2 col-form-label">Đại diện:</label>
+                          <div class="col-sm-8 col-form-label">{{ currentNode.Name }} - <a (click)="viewUser(currentNode.MeeyId)" href="javascript:;">{{ currentNode.Phone }}</a></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="nodeBranch">
+                      <div class="row" *ngIf="!showChangeMeeyId">
+                        <div class="col-sm-6"></div>
+                        <label class="col-sm-3 col-form-label"><a *ngIf="allowViewDetail" [href]="allowViewDetail ? '/admin/mafaffiliate/viewBranch?id=' + nodeBranch?.Id + '&type=' + nodeBranch?.Type : 'javascript:;'" target="_blank">Xem chi tiết</a></label>
+                      </div>
+                      <div class="row" *ngIf="showChangeMeeyId">
+                        <label class="col-sm-3 col-form-label"><a *ngIf="allowViewDetail" (click)="viewAffiliate(currentNode.Id)" href="javascript:;">Xem chi tiết</a></label>
+                        <label class="col-sm-4 col-form-label"><a *ngIf="allowViewDetail" [href]="'/admin/mafaffiliate/viewBranch?id=' + nodeBranch?.Id + '&type=' + nodeBranch?.Type" target="_blank">Xem chi tiết TTKD</a></label>
+                        <label class="col-sm-5 col-form-label"><a *ngIf="allowChangeMeeyId" href="javascript:;" (click)="changeMeeyId()">Thay đổi người đại diện</a></label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="p-2 fs-policy" style="margin-top: 15px;">
+                  <legend class="w-auto p-2" *ngIf="!showChangeMeeyId">Doanh số tháng hiện tại của toàn {{ currentNode.Name }} (đ)</legend>
+                  <legend class="w-auto p-2" *ngIf="showChangeMeeyId">Doanh số tháng hiện tại của toàn {{ currentNode.Rank }} (đ)</legend>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table class="table" >
+                        <thead>
+                          <tr>
+                            <th scope="col">Tổng User</th>
+                            <th scope="col">Tổng doanh số</th>
+                            <th scope="col">Hoa hồng tạm tính</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ nodeBranch?.UserCount | numberx }}</td>
+                            <td>{{ nodeBranch?.F1Amount | numberx }}</td>
+                            <td>{{ nodeBranch?.Commission | numberx }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div id="showInfoNote" *ngIf="showInfoNote">
+                <fieldset class="p-2 fs-policy">
+                  <legend class="w-auto p-2">Thông tin</legend>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label">Họ tên:</label>
+                        <div class="col-sm-8 col-form-label">{{ currentNode.Name }}</div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label">SĐT:</label>
+                        <div class="col-sm-8 col-form-label">
+                          <a (click)="viewUser(currentNode.MeeyId)" href="javascript:;">{{ currentNode.Phone }}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label">Cấp bậc:</label>
+                        <div class="col-sm-8 col-form-label">{{ currentNode.Rank }}</div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label">Ngày tham gia:</label>
+                        <div class="col-sm-8 col-form-label">{{ currentNode.JoinDate | datetimex }}</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="row">
+                        <div class="col-sm-6"></div>
+                        <label class="col-sm-3 col-form-label" *ngIf="allowViewDetail"><a (click)="viewAffiliate(currentNode.Id)" href="javascript:;">Xem chi tiết</a></label>
+                        <label class="col-sm-3 col-form-label" *ngIf="allowChangeTree"><a href="javascript:;" (click)="changeTree()">Chuyển cây</a></label>                        
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label">Loại đối tượng:</label>
+                        <div class="col-sm-8 col-form-label"><div [innerHTML]="getObjectType()"></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="p-2 fs-policy" style="margin-top: 15px;">
+                  <legend class="w-auto p-2">Doanh số tháng hiện tại</legend>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer table-resizable" >
+                        <thead>
+                          <tr class="heading">
+                            <th scope="col">Doanh số tiêu dùng</th>
+                            <th scope="col">Doanh số F1</th>
+                            <th scope="col">Doanh số quản lý nhóm</th>
+                            <th scope="col">Hoa hồng tạm tính</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="text-right">{{ memberCommission?.Amount | numberx }}</td>
+                            <td class="text-right">{{ memberCommission?.F1Amount | numberx }}</td>
+                            <td class="text-right">{{ memberCommission?.ManageAmount | numberx }}</td>
+                            <td class="text-right">{{ memberCommission?.Commission | numberx }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="p-2 fs-policy" style="margin-top: 15px;">
+                  <legend class="w-auto p-2">Mạng lưới liên kết hiện tại (Có {{ currentNode.F1Count }} F1/ {{ currentNode.FnCount }} thành viên)</legend>
+                  <div class="row">
+                    <div class="col-sm-12 view-aff">
+                      <maf-view-users *ngIf="currentNode" [item]="currentNode"></maf-view-users>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <loading *ngIf="loading"></loading>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+::ng-deep .edit-project-video {
+    .form-group.label-inline {
+        &>label {
+            width: 150px;
+        }
+        .error {
+            margin-left: 150px;
+        }
+    }
+}
+
+::ng-deep .modal-body-project {
+    .modal-body {
+        overflow: visible;
+    }
+}
+
+::ng-deep .edit-project-video {
+    .box-item {
+        .image {
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+            &.active {
+                height: auto;
+                overflow: visible;
+                pointer-events: all;
+            }
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            &.full {
+                margin-bottom: 5px;
+                .video-container {
+                    .video-inner {
+                        margin-right: 0px !important;
+                    }
+                }
+            }
+            &.no-margin {
+                margin-bottom: 0;
+            }
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+            .kt-radio-inline {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .video-container {
+            width: 100%;
+            min-height: 220px;
+            .video-inner {
+                width: 100%;
+                align-items: center;
+                flex-direction: column;
+                height: 100% !important;
+                margin-right: 5px !important;
+                label {
+                    position: relative !important;
+                }
+                .la-plus-circle {
+                    line-height: 40px !important;
+                }
+            }
+        }
+        .image-container {
+            .image-inner {
+                margin: 0 !important;
+            }
+        }
+        #txtDescription {
+            min-height: 100px;
+            max-height: 100px;
+            overflow: scroll;            
+        }
+        .kt-maxlength {
+            right: 0;
+            opacity: 0;
+            top: -26px;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: smaller;
+            position: absolute;
+            border-radius: 4px;
+            transition: all 0.5s;
+            background-color: rgba($color: #0abb87, $alpha: 0.8);
+        }
+        .form-control:focus ~ .kt-maxlength {
+            opacity: 1 !important;
+        }
+
+        .backdrop {
+            position: absolute;
+            z-index: 1;
+            overflow: auto;
+            pointer-events: none;
+            transition: transform 1s;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            height: 100px;
+            width: 100%;
+        }
+        
+        .highlights {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            word-break: break-word;
+            color: transparent;
+            padding: 0.65rem 1rem;
+        }
+
+        #txtHashtag {
+            display: block;
+            z-index: 2;
+            margin: 0;
+            background-color: transparent;
+            overflow: auto;
+            resize: none;
+            transition: transform 1s;
+            height: 100px;
+        }
+        .hngfxw3 {
+            color: #0043ffc7;
+        }
+    }
+}

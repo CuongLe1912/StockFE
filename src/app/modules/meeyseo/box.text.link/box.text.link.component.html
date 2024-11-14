@@ -1,0 +1,128 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="kt-portlet box-left">
+                    <h4 class="navi-title">Nơi hiển thị</h4>
+                    <div class="navi-nav kt-portlet__body portlet-body-left" *ngIf="types && types.length > 0">
+                        <div class="navi navi-hover navi-active navi-link-rounded navi-bold navi-icon-center navi-light-icon">
+                            <div class="navi-item my-2" *ngFor="let item of types; let i = index;">
+                                <a class="navi-link" [ngClass]="{'active':item.Id == activeType}" (click)="loadItem(item.Id)">
+                                    <span class="navi-icon" *ngIf="item.Id != activeType">
+                                        <span class="navi-number">{{ i + 1 }}</span>
+                                    </span>
+                                    <span class="navi-icon" *ngIf="item.Id == activeType">
+                                        <span class="svg-icon svg-icon-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                    <path d="M8,13.1668961 L20.4470385,11.9999863 L8,10.8330764 L8,5.77181995 C8,5.70108058 8.01501031,5.63114635 8.04403925,5.56663761 C8.15735832,5.31481744 8.45336217,5.20254012 8.70518234,5.31585919 L22.545552,11.5440255 C22.6569791,11.5941677 22.7461882,11.6833768 22.7963304,11.794804 C22.9096495,12.0466241 22.7973722,12.342628 22.545552,12.455947 L8.70518234,18.6841134 C8.64067359,18.7131423 8.57073936,18.7281526 8.5,18.7281526 C8.22385763,18.7281526 8,18.504295 8,18.2281526 L8,13.1668961 Z" fill="currentColor"></path>
+                                                    <path d="M4,16 L5,16 C5.55228475,16 6,16.4477153 6,17 C6,17.5522847 5.55228475,18 5,18 L4,18 C3.44771525,18 3,17.5522847 3,17 C3,16.4477153 3.44771525,16 4,16 Z M1,11 L5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 L1,13 C0.44771525,13 6.76353751e-17,12.5522847 0,12 C-6.76353751e-17,11.4477153 0.44771525,11 1,11 Z M4,6 L5,6 C5.55228475,6 6,6.44771525 6,7 C6,7.55228475 5.55228475,8 5,8 L4,8 C3.44771525,8 3,7.55228475 3,7 C3,6.44771525 3.44771525,6 4,6 Z" fill="currentColor" opacity="0.8"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <span class="navi-text">{{ item.Name }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body" *ngIf="items">
+                        <fieldset class="p-2 fs-config" *ngFor="let item of items; let i=index;">
+                            <legend class="w-auto p-2">Box {{ i+1 }}</legend>
+                            <div class="btn-tabs-right">
+                                <button class="btn text-danger btn-sm" *ngIf="items.length > minBox" (click)="removeBox(items[i], i)"><i class="la la-times"></i></button>
+                            </div>
+                            <div class="row" *ngIf="!reloadBox">
+                                <div class="col-sm-6">
+                                    <editor [(object)]="items[i]" property="Name" [decorator]="{ index: i }" [labelInline]="true"></editor>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col-sm-4 col-btn-copy">
+                                        <button class="btn btn-small btn-success" *ngIf="detailClipboard && detailClipboard.length > 0" (click)="paste(items[i])"><i class="la la-floppy-o"></i> Paste</button>
+                                        <button class="btn btn-small btn-info" *ngIf="showCopy(items[i])" (click)="copy(items[i])"><i class="la la-bookmark"></i> Copy</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!reloadBox">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-hover dataTable no-footer" style="margin-top: 15px !important">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20px;">
+                                                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid kt-checkbox--brand">
+                                                        <input type="checkbox" class="kt-checkable" [id]="items[i].Id" [checked]="items[i].CheckAll" [(ngModel)]="items[i].CheckAll" (change)="checkAllChange(items[i])"> <span></span>
+                                                    </label>
+                                                </th>
+                                                <th style="width: 20px;">STT</th>
+                                                <th>Text link</th>
+                                                <th>Url</th>
+                                                <th style="width: 120px;">Thao tác</th>
+                                                <th style="width: 80px;">Vị trí</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let textlink of item.Details; let j=index;">
+                                                <td style="text-align: center;">
+                                                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid kt-checkbox--brand">
+                                                        <input type="checkbox" class="kt-checkable" [id]="'tbox_' + i + '_tlink_' + j" [(ngModel)]="items[i].Details[j].Checked" (change)="checkChange(items[i])"> <span></span>
+                                                    </label>
+                                                </td>
+                                                <td class="number">
+                                                    <span>{{ j+1 }}</span>
+                                                </td>
+                                                <td class="td-input" *ngIf="!item.reloadGroup">
+                                                    <editor [(object)]="items[i].Details[j]" property="Name" [decorator]="{ label: '', index: j }"></editor>
+                                                </td>
+                                                <td class="td-input" *ngIf="!item.reloadGroup">
+                                                    <editor [(object)]="items[i].Details[j]" property="Url" [decorator]="{ label: '', index: j }"></editor>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <div class="d-flex">
+                                                        <button title="Target" tooltip="Target" class="btn btn-sm btn-icon btn-icon-md" [ngClass]="{'btn-primary': items[i].Details[j].Target && items[i].Details[j].Target == '_blank'}" (click)="updateTarget(items[i], j)">
+                                                            <i class="la la-link"></i>
+                                                        </button>
+                                                        <button title="Follow" tooltip="Follow" class="btn btn-sm btn-icon btn-icon-md" [ngClass]="{'btn-primary': (!items[i].Details[j].Rel || items[i].Details[j].Rel == 'dofollow')}" (click)="updateRel(items[i], j)">
+                                                            <i class="la la-flag"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-icon btn-icon-md btn-danger" *ngIf="items[i].Details.length > minTextLink" (click)="removeTextLink(items[i], j)"><i class="la la-trash"></i></button>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <div class="d-flex" style="justify-content: center;">
+                                                        <button title="Đẩy lên" tooltip="Đẩy lên" class="btn btn-sm btn-icon btn-icon-md" [ngClass]="{'btn-danger': j > 0}" (click)="up(items[i], j)">
+                                                            <i class="la la-arrow-up"></i>
+                                                        </button>
+                                                        <button title="Đẩy xuống" tooltip="Đẩy xuống" class="btn btn-sm btn-icon btn-icon-md" [ngClass]="{'btn-danger': j < items[i].Details.length - 1}" (click)="down(items[i], j)">
+                                                            <i class="la la-arrow-down"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row add-text-link">
+                                <div class="col-sm-12">
+                                    <a href="javascript:;" *ngIf="items[i].Details.length < maxTextLink" (click)="addTextLink(items[i])"><i class="la la-plus-circle"></i> Thêm mới text link</a>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="row add-text-link">
+                            <div class="col-sm-12">
+                                <a href="javascript:;" *ngIf="items.length < maxBox" (click)="addBox()"><i class="la la-plus-circle"></i> Thêm mới box</a>
+                            </div>
+                        </div>
+                    </div>
+                    <loading *ngIf="loading"></loading>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

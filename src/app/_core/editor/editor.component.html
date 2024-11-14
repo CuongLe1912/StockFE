@@ -1,0 +1,197 @@
+<div wrapper class="form-group" [ngClass]="[decorator.error ? 'is-invalid' : '', labelInline ? 'label-inline' : '', hide ? 'hide' : '', className ? className : '']" *ngIf="!viewer">
+    <ng-container [ngSwitch]="decorator.dataType">
+        <ng-container *ngSwitchCase="DataType.Image">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-upload-image #uploadImage [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+            </editor-upload-image>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.Video">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-upload-video #uploadVideo [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (captureChange)="captureChanged($event)">
+            </editor-upload-video>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.File">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-upload-file #uploadFile [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+            </editor-upload-file>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.String">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <ng-container [ngSwitch]="textType">
+                <ng-container *ngSwitchCase="StringType.MultiText">
+                    <editor-textarea [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-textarea>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Html">
+                    <editor-htmlbox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-htmlbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Json">
+                    <editor-jsonbox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-jsonbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Phone">
+                    <editor-phonebox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-phonebox>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Password">
+                    <editor-password [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-password>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Address">
+                    <editor-address [(value)]="address" [decorator]="decorator" (valueChange)="addressChange($event)">
+                    </editor-address>
+                </ng-container>
+                <ng-container *ngSwitchCase="StringType.Otp">
+                    <editor-otp [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-otp>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    <editor-textbox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (keyPressEnter)="onKeyPressEnter()" (onBlur)="blur($event)" (clearValue)="clear()">
+                    </editor-textbox>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.Number">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-numberic [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (onBlur)="blur($event)">
+            </editor-numberic>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.Boolean">
+            <ng-container [ngSwitch]="boolType">
+                <ng-container *ngSwitchCase="BooleanType.Toggle">
+                    <label *ngIf="label">
+                        {{ label }}
+                        <span style="color: red;" *ngIf="decorator.required"> *</span>
+                    </label>
+                    <editor-checkbox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-checkbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="BooleanType.Checkbox">
+                    <editor-checkbox *ngIf="!decorator.lookup" [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+                    </editor-checkbox>
+                    <label *ngIf="label && decorator.lookup">
+                        {{ label }}
+                        <span style="color: red;" *ngIf="decorator.required"> *</span>
+                    </label>
+                    <editor-checkbox-list *ngIf="decorator.lookup" [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (loaded)="loadCompleted($event)">
+                    </editor-checkbox-list>
+                </ng-container>
+                <ng-container *ngSwitchCase="BooleanType.RadioButton">
+                    <label *ngIf="label">
+                        {{ label }}
+                        <span style="color: red;" *ngIf="decorator.required"> *</span>
+                    </label>
+                    <editor-radio-button [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (loaded)="loadCompleted($event)">
+                    </editor-radio-button>
+                </ng-container>
+                <ng-container *ngSwitchCase="BooleanType.Star">
+                    <label *ngIf="label">
+                        {{ label }}
+                        <span style="color: red;" *ngIf="decorator.required"> *</span>
+                    </label>
+                    <editor-radio-button [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (loaded)="loadCompleted($event)">
+                    </editor-radio-button>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.DateTime">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-datetime [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)">
+            </editor-datetime>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataType.DropDown">
+            <label *ngIf="label">
+                {{ label }}
+                <span style="color: red;" *ngIf="decorator.required"> *</span>
+            </label>
+            <editor-combobox #combobox [(value)]="object[property]" [decorator]="decorator" (valueChange)="valueChanged($event)" (optionChange)="optionChanged($event)" (loaded)="loadCompleted($event)" (clearValue)="clear()">
+            </editor-combobox>
+        </ng-container>
+    </ng-container>
+    <div class="error invalid-feedback" *ngIf="decorator.error">{{ decorator.error }}</div>
+</div>
+<div wrapper class="form-group form-group-viewer row" *ngIf="viewer" [ngClass]="className">
+    <label class="col-3" *ngIf="label">
+        {{ label }}
+    </label>
+    <div [ngClass]="label ? 'col-9' : 'col-12'">
+        <ng-container [ngSwitch]="decorator.dataType">
+            <ng-container *ngSwitchCase="DataType.String">
+                <span [ngClass]="object[decorator.property + '_Color']" *ngIf="!html">
+                    {{ object[property] }}
+                </span>
+                <span [ngClass]="object[decorator.property + '_Color']" *ngIf="html" [innerHtml]="object[property] | sanitizeHtml">
+                </span>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.DropDown">
+                <span class="kt-input-icon__icon kt-input-icon__icon--right kt-input-loading" *ngIf="changing">
+                    <span>
+                        <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+                    </span>
+                </span>
+                <span *ngIf="!changing">
+                    <span [ngClass]="object[decorator.property + '_Color']" *ngIf="!html">
+                        {{ object[property + '_Text'] }}
+                    </span>
+                    <span [ngClass]="object[decorator.property + '_Color']" *ngIf="html" [innerHtml]="object[property + '_Text'] | sanitizeHtml">
+                    </span>
+                </span>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.Number">
+                <div *ngIf="decorator.type != NumberType.Between; else numberOtherContent">
+                    {{ object[property] | numberx }}
+                </div>
+                <ng-template #numberOtherContent>
+                    {{ object[property] | betweenx }}
+                </ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.DateTime">
+                <span *ngIf="dateType == DateTimeType.DateTime">{{ object[property] | datetimex }}</span>
+                <span *ngIf="dateType == DateTimeType.Date">{{ object[property] | datex }}</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.Boolean">
+                <editor-checkbox *ngIf="!decorator.lookup" [(value)]="object[property]" [decorator]="{'readonly':true}">
+                </editor-checkbox>
+                <span *ngIf="decorator.lookup">{{ object[property] }}</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.Image">
+                <editor-upload-image [(value)]="object[property]" [decorator]="{ readonly: true }">
+                </editor-upload-image>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.File">
+                <editor-upload-file [(value)]="object[property]" [decorator]="{ readonly: true }">
+                </editor-upload-file>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataType.Video">
+                <editor-upload-video [(value)]="object[property]" [decorator]="{ readonly: true }">
+                </editor-upload-video>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <span [ngClass]="object[decorator.property + '_Color']" *ngIf="!html">
+                    {{ object[property] }}
+                </span>
+                <span [ngClass]="object[decorator.property + '_Color']" *ngIf="html" [innerHtml]="object[property] | sanitizeHtml">
+                </span>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

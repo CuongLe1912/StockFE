@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.statisLayout{
+    margin: 5px 10px;
+    font-size: 13px;
+}
+.table-container, .table-detail {
+    margin: 20px;
+    width: 100%;
+    overflow-x: auto;
+}
+.fixButton{
+    margin-top: 20px;
+}
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}

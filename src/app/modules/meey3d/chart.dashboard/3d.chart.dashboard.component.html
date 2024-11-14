@@ -1,0 +1,21 @@
+
+<div class="form-group select-filter-dashboard">
+  <select class="form-control select-day" [(ngModel)]="dayStatistic" (change)="onChangeDay($event.target.value)">
+    <option value="10">10 ngày trước</option>
+    <option value="30">30 ngày trước</option>
+    <option value="60">60 ngày trước</option>
+    <option value="90">90 ngày trước</option>
+  </select>
+  <select class="form-control select-category" [(ngModel)]="categoryStatistic" (change)="onChangeCategory($event.target.value)">
+    <option value="">Tất cả danh mục</option>
+    <option value="643f4dec682af3c1bae490b5">Du lịch</option>
+    <option value="643f4dd5682af3c1bae490b2">Dự án</option>
+    <option value="643f4dfd682af3c1bae490b8">Nhà ở</option>
+    <option value="643f4e07682af3c1bae490be">Quy hoạch</option>
+    <option value="643f4e01682af3c1bae490bb">Triển lãm</option>
+  </select>
+</div>
+<div class="statistical">   
+    <loading *ngIf="loading"></loading>
+    <apx-chart *ngIf="chartOptions" [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
+</div> 

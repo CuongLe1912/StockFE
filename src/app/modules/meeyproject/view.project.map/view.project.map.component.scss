@@ -1,0 +1,25 @@
+.map-container {
+    z-index: 0;
+    padding: 0;
+    border: none;
+    height: 405px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    .project-map {
+        z-index: 0;
+    }
+}
+
+.project-map {
+    height: 400px;
+}
+
+::ng-deep {
+    .leaflet-pane {
+        .leaflet-layer {
+            &:nth-of-type(2) {
+                display: none;
+            }
+        }
+    }
+}

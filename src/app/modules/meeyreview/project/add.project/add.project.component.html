@@ -1,0 +1,29 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-8">
+        <editor #uploadImage [(object)]="item" property="Banner" [decorator]="{readonly: viewer}">
+        </editor>
+    </div>
+    <div class="col-sm-4">
+        <editor #uploadImage [(object)]="item" property="Logo" [decorator]="{readonly: viewer}">
+        </editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Title" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="City" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="District" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-4">
+        <editor [(object)]="item" property="Ward" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Street" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Description" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <editor [(object)]="item" property="IsPublish" [decorator]="{ readonly: viewer }"></editor>
+</div>

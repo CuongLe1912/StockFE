@@ -1,0 +1,15 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Name"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Phone"></editor>
+    </div>
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Email"></editor>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage" [innerHtml]="errorMessage"></div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

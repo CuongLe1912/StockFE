@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Dịch vụ:</label>
+            <label class="col-sm-3 col-form-label">{{ orderItem.Name }}</label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Số lượng mua:</label>
+            <label class="col-sm-3 col-form-label">{{ orderItem.Amount }} {{ orderItem.Unit }}</label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Tình trạng sử dụng:</label>
+            <label class="col-sm-3 col-form-label">
+                <div [innerHTML]="statusUse"></div>
+            </label>
+            <div class="col-sm-2"></div>
+            <label class="col-sm-2 col-form-label" *ngIf="useDate">Thời hạn sử dụng:</label>
+            <label class="col-sm-3 col-form-label" *ngIf="useDate">
+                {{ useDate | datetimex }}
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <mo-order-processing-grid [productingId]="orderItem.Id" [productId]="orderItem.ProductId" [orderId]="orderId" [providerId]="providerId" (expireDateChange)="expireDateChange($event)"></mo-order-processing-grid>
+    </div>
+</div>

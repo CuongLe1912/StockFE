@@ -1,0 +1,106 @@
+.tabs-treeview {
+    height: calc(100vh - 300px);
+    overflow: scroll;
+}
+
+::ng-deep .badge-rank {
+    height: 20px !important;
+}
+
+fieldset.fs-policy {
+    background: #ffffff;
+    padding-left: 15px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 5px;
+}
+
+.e-treeview {
+    .e-list-text {
+        width: 100%;
+    }
+    .e-list-parent:first-child {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.treeCount.e-badge {
+    padding: 0.4em;
+    vertical-align: text-bottom;
+}
+
+.bootstrap5.e-bigger .treeCount.e-badge,
+.bootstrap5-dark.e-bigger .treeCount.e-badge,
+.tailwind.e-bigger .treeCount.e-badge,
+.tailwind-dark.e-bigger .treeCount.e-badge {
+    line-height: 10px;
+}
+
+.bootstrap4 .treeviewdiv .treeCount.e-badge,
+.bootstrap5 .treeviewdiv .treeCount.e-badge,
+.bootstrap5-dark .treeviewdiv .treeCount.e-badge,
+.bootstrap .treeviewdiv .treeCount.e-badge,
+.bootstrap-dark .treeviewdiv .treeCount.e-badge,
+.highcontrast .treeviewdiv .treeCount.e-badge {
+    background-color: #008800;
+}
+
+.highcontrast .treeviewdiv .treeCount.e-badge {
+    color: white;
+}
+
+.material .treeCount.e-badge {
+    vertical-align: middle;
+}
+
+.nodetext {
+    float: left;
+}
+
+.e-rtl .nodetext {
+    float: right;
+}
+
+.nodebadge {
+    float: right;
+    margin-right: 5px
+}
+
+.e-rtl .nodebadge {
+    float: left;
+    margin-left: 5px
+}
+
+.e-treeview.e-interaction.e-fullrow-wrap .e-text-content {
+    pointer-events: none;
+}
+
+::ng-deep .view-aff {
+    .button_custom_filters {
+        .btn-success {
+            display: none;
+        }
+    }
+
+    .kt-portlet-grid {
+        box-shadow: none;
+        margin: 0 !important;
+
+        .kt-portlet__head {
+            min-height: unset;
+            padding: 0 !important;
+            padding-bottom: 10px !important;
+        }
+
+        .kt-portlet__body {
+            padding: 0 !important;
+        }
+    }
+}
+
+::ng-deep thead tr.heading th {
+    top: 0;
+    z-index: 96;
+    position: sticky;
+    background: #efefef;
+}

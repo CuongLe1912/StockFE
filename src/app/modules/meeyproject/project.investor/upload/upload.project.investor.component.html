@@ -1,0 +1,11 @@
+<div wrapper>
+    <div class="row">
+        <div class="d-flex" style="margin: 15px auto;">
+            <a class="btn btn-warning btn-icon font-weight-bolder text-uppercase" [href]="file">
+                <i class="la la-download"></i> Tải file mẫu
+            </a>
+            <editor #uploadFile [(object)]="item" (valueChange)="toggleDisableButton()" property="File">
+            </editor>
+        </div>
+    </div>
+</div>

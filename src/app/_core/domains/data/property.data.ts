@@ -1,0 +1,42 @@
+import { OptionItem } from "./option.item";
+import { DataType } from "../enums/data.type";
+import { PipeType } from "../enums/pipe.type";
+import { OrderType } from "../enums/order.type";
+import { AlignType } from "../enums/align.type";
+import { TabFilterType } from "../enums/tab.filter.type";
+import { ObjectEx } from "../../decorators/object.decorator";
+
+export class PropertyData {
+    public Title?: string;
+    public Type?: DataType;
+    public Tooltip?: string;
+    public Property: string;
+    public Active?: boolean;
+    public ColSpan?: number;
+    public Order?: OrderType;
+    public PageSize?: number;
+    public ClassName?: string;
+    public PageIndex?: number;
+    public Readonly?: boolean;
+    public PipeType?: PipeType;
+    public ColumnWidth?: number;
+    public AllowFilter?: boolean;
+    public EditProperty?: string;
+    public ColSpanTitle?: string;
+    public DisableOrder?: boolean;
+    public ActiveFilter?: boolean;
+    public SumOrCount?: () => any;
+    public LoadingFilter?: boolean;
+    public AllowLoadMore?: boolean;
+    public ColumnFilter?: ObjectEx;
+    public ItemFilters?: OptionItem[];
+    public ItemFiltersSearch?: string;
+    public Click?: (obj?: any) => any;
+    public Align?: string | AlignType;
+    public Format?: (obj?: any) => any;
+    public AllowFilterInline?: boolean;
+    public ValueChange?: (obj?: any) => void;
+    public HideCheckbox?: (obj?: any) => boolean;
+    public FormatAsync?: (obj?: any) => Promise<any>;
+    public TabFilterType?: TabFilterType = TabFilterType.Basic;
+}

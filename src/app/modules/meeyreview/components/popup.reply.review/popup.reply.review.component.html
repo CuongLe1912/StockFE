@@ -1,0 +1,76 @@
+<div class="row box-popup-edit-review" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <div class="box-item">
+            <div class="index">Nội dung cần phản hồi</div>
+            <div class="row" *ngIf="type != MRVReviewType.Reply">
+                <div class="col-sm-6">
+                    <editor [(object)]="item" property="ProjectId" [decorator]="{ readonly: true }"></editor>
+                </div>
+                <div class="col-sm-6"> 
+                    <editor [(object)]="item" property="PublishedAt" [decorator]="{ readonly: true }"></editor>
+                </div>
+                <div class="col-sm-6">
+                    <editor [(object)]="item" property="UserId" [decorator]="{ label: 'Tài khoản', readonly: true }"></editor>
+                </div>
+                <div class="col-sm-6">
+                    <editor [(object)]="item" property="NickName" [decorator]="{ label: 'Biệt danh', readonly: true }"></editor>
+                </div>
+            </div>
+            <div class="row mb-4" *ngIf="type == MRVReviewType.Review">
+                <div class="col-sm-12">
+                    <label>Cho điểm dự án</label>
+                    <div class="box-score">
+                        <editor [(object)]="item" property="VoteScore" [decorator]="{ label: '', readonly: true }"></editor>
+                        <a (click)="activeScoreDetail = !activeScoreDetail">Đánh giá chi tiết <i class="la la-angle-down ml-2"></i></a>
+                    </div>
+                    <div class="box-score-detail" *ngIf="activeScoreDetail">
+                        <editor [(object)]="item" property="Vote1" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote2" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote4" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote3" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote5" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote8" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote7" [decorator]="{ readonly: true }"></editor>
+                        <editor [(object)]="item" property="Vote6" [decorator]="{ readonly: true }"></editor>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label *ngIf="type == MRVReviewType.Review">Review về dự án <span style="color: red;">*</span></label>
+                    <label *ngIf="type == MRVReviewType.Question">Câu hỏi về dự án <span style="color: red;">*</span></label>
+                    <div class="box-editor">
+                        <editor [(object)]="item" property="Comment" [decorator]="{ label: '', readonly: true }"></editor>
+                        <div *ngIf="item.Files && item.Files.length > 0">
+                            <editor #uploadFiles [(object)]="item" property="Files" [decorator]="{ label: '', readonly: true }"></editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="arrayReplies && arrayReplies.length > 0 && id">
+        <div *ngFor="let item of arrayReplies; let i = index;" class="box-item">
+            <div class="index">Phản hồi {{ i + 1 }}</div>
+            <div *ngIf="type == MRVReviewType.Review">
+                <mrv-edit-reply #editorReply [index]="i" [reviewId]="id"></mrv-edit-reply>
+            </div>
+            <div *ngIf="type == MRVReviewType.Question">
+                <mrv-edit-reply #editorReply [index]="i" [questionId]="id"></mrv-edit-reply>
+            </div>
+            <div *ngIf="type == MRVReviewType.Reply">
+                <mrv-edit-reply #editorReply [index]="i" [replyId]="id"></mrv-edit-reply>
+            </div>
+            <button class="btn btn-danger" *ngIf="item.allowDelete" (click)="removeMoreReply(i)"><i class="la la-times"></i></button>
+        </div>
+        <div class="buttons" *ngIf="arrayReplies.length < 10 && type != MRVReviewType.Reply">
+            <button class="btn btn-success" (click)="addMoreReply()">
+                <i class="la la-plus mr-2"></i>
+                Thêm phản hồi
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

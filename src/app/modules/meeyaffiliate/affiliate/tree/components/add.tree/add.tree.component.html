@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-sm-12">
+        <ng-container *ngIf="addType == 'addBranch'">
+            <div class="row" style="margin-top: 13px;">
+                <label class="col-sm-2 col-form-label">Tên Nhánh <span class="text-danger">*</span></label>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="BranchName" [decorator]="{ label: '' }" (valueChange)="disabledSave()"></editor>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="addType == 'addRank'">
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Chọn Nhánh <span class="text-danger">*</span></label>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="BranchId" [decorator]="{ label: '' }" (valueChange)="disabledSave()"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Tên TTKD <span class="text-danger">*</span></label>
+                <div class="col-sm-8">
+                    <editor [(object)]="item" property="RankName" [decorator]="{ label: '' }" (valueChange)="disabledSave()"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Gán MeeyId <span class="text-danger">*</span></label>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <editor [(object)]="item" property="Search" (keyPressEnter)="searchMeeyId()" (valueChange)="clearMeeyId()" [decorator]="{ label: '' }"></editor>
+                        </div>
+                        <div class="col-sm-3">
+                            <editor-button label="Kiểm tra" [process]="processSearch" (click)="searchMeeyId()" [disabled]="item.Search ? false : true"></editor-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="user">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <label class="col-sm-3">Họ tên</label>
+                        <label class="col-sm-6">{{ user.Name }}</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3">SĐT</label>
+                        <label class="col-sm-6">{{ user.Phone }}</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3">Email</label>
+                        <label class="col-sm-6">{{ user.Email }}</label>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col-sm-12" *ngIf="errorMesssage">
+        <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMesssage }}</em>
+    </div>
+</div>

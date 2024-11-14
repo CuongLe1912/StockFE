@@ -1,0 +1,59 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+  <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+  <div class="kt-portlet__body">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">
+                      Cấu hình
+                  </h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive-sm">
+                    <table class="table">
+                      <thead>
+                        <th></th>
+                        <th>Doanh số lũy kế (F1..Fn) để được nâng cấp</th>
+                        <th>Mức hoa hồng max được nhận theo cấp bậc (F1..Fn)</th>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of items; let i = index">
+                          <td>{{ item.Name }}</td>
+                          <td>
+                            <div class="row">
+                              <div class="col-sm-9">
+                                <editor [(object)]="items[i]" property="Volume" [decorator]="{ label: '', index: i, readonly: !isEdit }"></editor>
+                              </div>
+                              <label class="col-sm-3 col-form-label">đ</label>
+                            </div>                            
+                          </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-sm-5">
+                                <editor [(object)]="items[i]" property="Commission" [decorator]="{ label: '', index: i, readonly: !isEdit }"></editor>
+                              </div>
+                              <label class="col-sm-3 col-form-label">%</label>
+                            </div>                            
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>

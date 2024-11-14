@@ -1,0 +1,55 @@
+<div class="video-item" *ngIf="item">
+    <div class="video" [style.background-image]="'url(&quot;' + item?.avatar?.url + '&quot;)'">
+        <a>
+            <img class="rounded" [src]="item?.avatar?.url" style="opacity: 0;" />
+        </a>
+    </div>
+    <div class="item-content" style="padding-bottom: 5px;">
+        <div class="content-title" *ngIf="item?.title">
+            <span class="text-info" [title]="item.title">{{ item.title }}</span>
+        </div>
+        <div class="content-text" *ngIf="item?.project">
+            <label class="content-info" style="min-width: 90px;">Dự án:</label>
+            <label class="content-info">{{ item?.project?.tradeName ? item.project.tradeName : '--' }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Loại video:</label>
+            <label class="content-info" [ngClass]="item.typeUploadColor">{{ item?.typeUploadLabel ? item.typeUploadLabel
+                : '--' }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Dung lượng:</label>
+            <label class="content-info">{{ item?.size ? ((item.size / 1024) | numberx) + ' KB' : '--' }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Người tạo:</label>
+            <label class="content-info">{{ item?.createdBy?.data?.fullname ? item.createdBy.data.fullname : '--'
+                }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Ngày tạo:</label>
+            <label class="content-info">{{ item.createdAt ? (item.createdAt | datetimex) : '--' }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">AI kiểm tra:</label>
+            <label class="content-info" [ngClass]="item.censoredColor?item.censoredColor:'text-info'">{{
+                item.censoredLabel ? item.censoredLabel : 'AI đang kiểm tra' }}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Kiểm duyệt:</label>
+            <label class="content-info" [ngClass]="item.censoredTypeColor">{{ item.censoredTypeLabel ?
+                item.censoredTypeLabel : '--'}}</label>
+        </div>
+        <div class="content-text">
+            <label class="content-info">Trạng thái:</label>
+            <label class="content-info" [ngClass]="item.isPublished?'text-success':'text-danger'">{{ item.censoredType
+                == 2 ? '--' : item.isPublished ? 'Công khai' : 'Không công khai'}}</label>
+            <!-- <span [ngClass]="'switch switch-primary switch-sm ' + (item.isPublished ? '' : 'switch-outline')" *ngIf="item.censoredType !== 2; else elseContent">
+                <label>
+                    <input type="checkbox" [checked]="item.isPublished"><span></span>
+            </label>
+            </span>
+            <ng-template #elseContent><label class="content-info">--</label></ng-template> -->
+        </div>
+    </div>
+</div>

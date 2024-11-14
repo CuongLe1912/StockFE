@@ -1,0 +1,158 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile view-aff" *ngIf="item">
+    <edit-header
+            *ngIf="breadcrumbs && actions && actions.length > 0"
+            [breadcrumbs]="breadcrumbs"
+            [actions]="actions"
+            [processing]="processing"
+    ></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs" style="height: 94%;">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Thông tin cá nhân</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Họ tên:</label>
+                                    <div class="col-sm-8 col-form-label">
+                                        <a (click)="viewUser(item.MeeyId)" href="javascript:;" tooltip="Xem chi tiết"> {{ item.Name }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Cấp bậc:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.RankCumulative }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Người giới thiệu:</label>
+                                    <div class="col-sm-8 col-form-label">
+                                        <a (click)="viewUser(item?.Parent?.MeeyId)" href="javascript:;" tooltip="Xem chi tiết">{{ item?.Parent?.Name}}</a> - {{ item?.Parent?.Phone }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Loại đối tượng:</label>
+                                    <div class="col-sm-8 col-form-label"><div [innerHTML]="getObjectType()"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >SĐT:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Phone }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Ngày tham gia:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.JoinDate | datetimex }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" >Mã ref:</label>
+                                    <div class="col-sm-8 col-form-label">{{ item.Ref }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="kt-portlet kt-portlet--tabs">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-toolbar">
+                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="selectedTab('users')" [ngClass]="{'active':tab == 'users'}">
+                                        <i class="la la-th-list"></i> Mạng lưới thành viên
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="selectedTab('commission')" [ngClass]="{'active':tab == 'commission'}">
+                                        <i class="la la-dollar"></i> Hoa hồng
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="selectedTab('transaction')" [ngClass]="{'active':tab == 'transaction'}">
+                                        <i class="la la-shopping-cart"></i> Giao dịch được hưởng hoa hồng
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="selectedTab('history')" [ngClass]="{'active':tab == 'history'}">
+                                        <i class="la la-history"></i> Lịch sử
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="selectedTab('contract')" [ngClass]="{'active':tab == 'contract'}">
+                                        <i class="fa fa-address-card"></i> Thông tin đăng ký
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="tab-content">
+                            <div class="tab-pane" [ngClass]="{'active':tab == 'users'}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <maf-view-users *ngIf="item" [item]="item"></maf-view-users>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" [ngClass]="{'active':tab == 'commission'}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <maf-view-commission *ngIf="item" [item]="item"></maf-view-commission>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" [ngClass]="{'active':tab == 'transaction'}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <maf-view-transaction *ngIf="item" [item]="item"></maf-view-transaction>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" [ngClass]="{'active':tab == 'history'}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <maf-view-history *ngIf="item" [item]="item"></maf-view-history>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" [ngClass]="{'active':tab == 'contract'}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <maf-view-contract *ngIf="item" [item]="item"></maf-view-contract>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px">
+        Hiện tại không có dữ liệu nào phù hợp
+    </td>
+</ng-template>

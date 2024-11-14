@@ -1,0 +1,38 @@
+.la-close {
+    font-weight: bold;
+    font-size: 1rem !important;
+}
+
+.kt-maxlength {
+    right: 0;
+    opacity: 0;
+    top: -26px;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: smaller;
+    position: absolute;
+    border-radius: 4px;
+    transition: all 0.5s;
+    background-color: rgba($color: #0abb87, $alpha: 0.8);
+}
+.form-control:focus ~ .kt-maxlength {
+    opacity: 1 !important;
+}
+
+.latlng {
+    top: 0;
+    right: 40px;
+    height: 100%;
+    display: flex;
+    padding: 0 10px;
+    position: absolute;
+    align-items: center;
+    background-color: rgba($color: #e2e5ec, $alpha: 0.8);
+    &.readonly {
+        right: 0;
+    }
+}
+
+::ng-deep .pac-container {
+    z-index: 1100;
+}

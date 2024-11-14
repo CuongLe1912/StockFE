@@ -1,0 +1,11 @@
+.error {
+    color: #fd397a;
+    margin-top: 10px;
+}
+
+::ng-deep .remove-balance {
+    max-width: 220px;
+    p {
+        margin-bottom: 0;
+    }
+}

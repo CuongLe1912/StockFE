@@ -1,0 +1,44 @@
+h6 {
+    margin-top: 10px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    margin-bottom: 10px;
+    flex-direction: column;
+
+    li {
+        gap: 10px;
+        display: flex;
+        width: fit-content;
+        align-items: center;
+
+        .item {
+            height: 25px;
+            width: 120px;
+        }
+
+        div.red {
+            background-color: #F6B26B;
+        }
+
+        div.pink {
+            background-color: #B6D7A8;
+        }
+
+        div.gray {
+            background-color: #B7B7B7;
+        }
+
+        div.yellow {
+            background-color: #FFFF00;
+        }
+
+        div.yellowgreen {
+            background-color: yellowgreen;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+::ng-deep #tui-image-editor {
+    .tui-image-editor-header-logo {
+        display: none;
+    }
+    .tui-image-editor-header-buttons {
+        display: none;
+        div {
+            border-radius: 4px;
+        }
+    }
+    .tui-image-editor-help-menu {
+        height: 390px;
+        .tie-btn-zoomIn,
+        .tie-btn-zoomOut {
+            display: none;
+        }
+    }
+}

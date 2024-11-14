@@ -1,0 +1,66 @@
+.kt-portlet-view-form {
+    .card {
+        margin-bottom: 2rem;
+    }
+    .card-header {
+        background-color: #E1F0FF;
+    }
+    .card-title {
+        margin: 0;
+        font-weight: bold;
+    }
+    .col-form-label {
+        max-width: 180px;
+        &.w-150 {
+            max-width: 150px;
+        }
+    }
+    >.kt-portlet__body {
+        >.nav-light-success {
+            margin: 0;
+            top: 120px;
+            left: 70px;
+            z-index: 97;
+            position: fixed;
+            padding: 10px 20px;
+            border-radius: 4px;
+            width: calc(100% - 70px);
+            border: 1px solid #eee;
+            background-color: #fff;
+            &.popup {
+                left: 0;
+                top: 58px;
+                width: 100%;
+            }
+        }
+        .kt-portlet-card__body {
+            padding-top: 70px;
+            &.popup {
+                padding-top: 0;
+            }
+        }
+    }
+}
+
+::ng-deep .no-padding {
+    .form-group {
+        margin-bottom: 0;
+    }
+}
+
+::ng-deep .view-customer {
+    .card-body {
+        .kt-portlet-grid {
+            .kt-portlet__form {
+                padding: 0 !important;
+            }
+        }
+    }
+    .grid-content.grid-popup {
+        overflow-y: auto;
+        max-height: 700px !important;
+        thead tr th {
+            position: sticky !important;
+        }
+    }
+}

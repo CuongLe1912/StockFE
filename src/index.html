@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <title>Meey Admin [Version 3]</title>
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+  <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async defer src="https://apis.google.com/js/api.js"></script>
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend:wght@300,400,500,600,700" async defer>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6wfkDfDG90mh7xpd6JcZTsajI5Du_HHE" async defer></script>
+</head>
+
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--fixed kt-aside--minimize">
+  <script>
+    var KTAppOptions = {
+      "colors": {
+        "state": {
+          "brand": "#5d78ff",
+          "dark": "#282a3c",
+          "light": "#ffffff",
+          "primary": "#5867dd",
+          "success": "#34bfa3",
+          "info": "#36a3f7",
+          "warning": "#ffb822",
+          "danger": "#fd3995"
+        },
+        "base": {
+          "label": [
+            "#c5cbe3",
+            "#a1a8c3",
+            "#3d4465",
+            "#3e4466"
+          ],
+          "shape": [
+            "#f0f3ff",
+            "#d9dffa",
+            "#afb4d4",
+            "#646c9a"
+          ]
+        }
+      }
+    };
+  </script>
+  <meey-root>
+    <div class="content">
+      <style>
+        .loadwrapper {
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          z-index: 1000;
+          position: fixed;
+          align-items: center;
+          justify-content: center;
+          background-color: #171f30;
+        }
+
+        .spinningCircle {
+          width: 140px;
+          height: 140px;
+          display: flex;
+          position: relative;
+          border-radius: 50%;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .spinningCircle::before {
+          top: 0;
+          left: 0;
+          content: '';
+          width: 140px;
+          height: 140px;
+          position: absolute;
+          border-radius: 50%;
+          border: 2px solid #DAB868;
+          border-top-color: 2px solid #fff;
+          border-right-color: 2px solid #fff;
+          animation: single 2s infinite linear;
+        }
+
+        @keyframes single {
+          0% {
+            transform: rotate(0deg);
+            border-top-color: #fff;
+            border-right-color: #fff;
+          }
+
+          50% {
+            border-top-color: #DAB868;
+            border-right-color: #DAB868;
+          }
+
+          100% {
+            transform: rotate(720deg);
+            border-top-color: #fff;
+            border-right-color: #fff;
+          }
+        }
+      </style>
+      <div class="loadwrapper">
+        <div class="spinningCircle">
+          <img src="assets/media/logos/logo.png" alt="Meey Admin V3" />
+        </div>
+      </div>
+    </div>
+  </meey-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

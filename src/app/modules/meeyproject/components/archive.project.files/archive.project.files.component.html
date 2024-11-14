@@ -1,0 +1,112 @@
+<div wrapper class="archive-project-file">    
+    <div class="file-body">
+        <div class="file-header">
+            <div class="search">
+                <em class="fa fa-search"></em>
+                <input type="text" class="form-control" placeholder="Tìm kiếm theo tên ảnh..." [(ngModel)]="Search" (keyup.enter)="searchFile()">
+                <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="Search" (click)="clearSeach()">
+                    <span><i class="la la-close"></i></span>
+                </span>
+            </div>
+            <div class="actions">
+                <div class="dropdown">
+                    <a class="btn btn-primary" (click)="searchFile()">
+                        <i class="fa fa-search"></i>
+                        <span>Tìm kiếm</span>
+                    </a>
+                    <a class="btn btn-success" (click)="toggleActiveUpload()">
+                        <i class="fa fa-upload"></i>
+                        <span>Tải lên tệp</span>
+                    </a>
+                    <a class="btn btn-success" (click)="loadItem()">
+                        <i class="la la-refresh"></i>
+                        <span>Tải lại</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="file-upload" *ngIf="activeUpload">
+            <editor #uploadFiles [(object)]="item" property="Files"></editor>
+            <div class="dropdown">
+                <a class="btn btn-info" (click)="upload()">
+                    <i class="fa fa-upload"></i>
+                    <span>Tải lên</span>
+                </a>
+                <a class="btn btn-success" (click)="toggleActiveUpload()">
+                    <i class="fa fa-times"></i>
+                    <span>Đóng</span>
+                </a>
+            </div>
+        </div>
+
+        <paging [loading]="loading" [sizes]="PageSizes" [paging]="Paging" (pagingChange)="pageChanged($event)"></paging>
+
+        <div class="file-files" *ngIf="files">
+            <div class="card" *ngFor="let item of files" [ngClass]="{'active': selectedFile && item.active}">
+                <div class="card-header border-0">
+                    <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline" (clickOutside)="item.showAction = false">
+                            <a class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" (click)="item.showAction = !item.showAction">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" [ngClass]="{'show':item.showAction}">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link" (click)="selectFile(item)">
+                                            <i class="fa fa-check"></i>
+                                            <span class="kt-nav__link-text">Chọn file</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link" (click)="copyLink(item)">
+                                            <i class="fa fa-copy"></i>
+                                            <span class="kt-nav__link-text">Sao chép</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link" (click)="downloadFile(item)">
+                                            <i class="fa fa-download"></i>
+                                            <span class="kt-nav__link-text">Tải tệp</span>
+                                        </a>
+                                    </li>                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" (click)="selectFile(item)">
+                    <div class="d-flex align-items-center">
+                        <ng-container [ngSwitch]="item.extension">
+                            <ng-container *ngSwitchCase="'pdf'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/pdf.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'doc'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/doc.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'docx'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/doc.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'xls'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/csv.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'xlsx'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/csv.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'zip'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/zip.svg" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'rar'">
+                                <img [alt]="item.title" src="../../../../assets/media/svg/files/zip.svg" />
+                            </ng-container>
+                        </ng-container>
+                        <a class="text-dark-75 mt-15" [title]="item.title">
+                            {{ item.title }}
+                            <p>({{ item.extension + ', ' }} {{ (item.size / 1024 / 1024).toFixed(2) + ' MB' }})</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <loading *ngIf="loading"></loading>
+</div>

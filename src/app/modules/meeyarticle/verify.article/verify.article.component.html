@@ -1,0 +1,9 @@
+<div class="row verify-article" *ngIf="items">
+    <div class="col-sm-12">
+        <label>Tổng số tin cần xác minh: {{ ids.length }}</label>
+        <ml-list-article [articles]="items" (removed)="removedItems($event)" (selected)="closePopup()"></ml-list-article>
+    </div>
+    <div class="col-sm-12" style="margin-top: 20px;">
+        <label>Có phải bạn muốn xác minh {{ ids.length }} tin này không?</label>
+    </div>
+</div>

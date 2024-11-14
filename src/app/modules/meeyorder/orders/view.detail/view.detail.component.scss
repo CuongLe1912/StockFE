@@ -1,0 +1,16 @@
+.link-tabs-right {
+    position: absolute;
+    right: 30px;
+}
+
+.d-flex {
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    .col-form-label {
+        margin-right: 5px;
+        &:last-of-type {
+            font-weight: bold;
+        }
+    }
+}

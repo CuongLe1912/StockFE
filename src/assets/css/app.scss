@@ -1,0 +1,45 @@
+.kt-portlet-edit-form {
+    box-shadow: none;
+
+    .kt-portlet {
+        margin-bottom: 20px !important;
+    }
+
+    >.kt-portlet__body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: #ecedf3;
+        height: calc(100vh - 175px);
+    }
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    .kt-login__fluid {
+        background-color: #fff;
+
+        .kt-grid--ver {
+            display: none !important;
+        }
+
+        .kt-login__body {
+            margin: 0 !important;
+        }
+
+        .kt-login__head {
+            margin: -15px 0 15px 0;
+        }
+    }
+
+    .btn i {
+        padding: 0 !important;
+    }
+}

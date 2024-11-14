@@ -1,0 +1,181 @@
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile kt-login__fluid">
+    <div class="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside" style="background-image: url(assets/media/bg/bg-4.jpg);">
+        <div class="kt-grid__item">
+            <a class="kt-login__logo">
+                <img src="../../../assets/media/logos/logo-light.png">
+            </a>
+        </div>
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver stepper stepper-pills stepper-column stepper-multistep">
+            <div class="kt-grid__item kt-grid__item--middle">
+                <h3 class="kt-login__title">Chào mừng đến với Meey Admin!</h3>
+                <h4 class="kt-login__subtitle">Hệ thống quản trị dữ liệu tập trung Meey Group</h4>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h5>Sản phẩm</h5>
+                        <div class="d-flex flex-row-fluid p-10">
+                            <!--begin::Nav-->
+                            <div class="stepper-nav">
+                                <!--begin::Step 1-->
+                                <div class="stepper-item" data-kt-stepper-element="nav" *ngFor="let item of products; let i = index;">
+                                    <!--begin::Wrapper-->
+                                    <div class="stepper-wrapper">
+                                        <!--begin::Icon-->
+                                        <div class="stepper-icon rounded-3">
+                                            <i class="stepper-check fas fa-check"></i>
+                                            <span class="stepper-number">{{ i + 1 }}</span>
+                                        </div>
+                                        <!--end::Icon-->
+
+                                        <!--begin::Label-->
+                                        <div class="stepper-label">
+                                            <h3 class="stepper-title fs-2">
+                                                {{ item }}
+                                            </h3>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Wrapper-->
+
+                                    <!--begin::Line-->
+                                    <div class="stepper-line h-10px" *ngIf="i < products.length - 1">
+                                    </div>
+                                    <!--end::Line-->
+                                </div>
+                                <!--end::Step 1-->
+                            </div>
+                            <!--end::Nav-->
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <h5>Dịch vụ</h5>
+                        <div class="d-flex flex-row-fluid p-10">
+                            <!--begin::Nav-->
+                            <div class="stepper-nav">
+                                <!--begin::Step 1-->
+                                <div class="stepper-item" data-kt-stepper-element="nav" *ngFor="let item of services; let i = index;">
+                                    <!--begin::Wrapper-->
+                                    <div class="stepper-wrapper">
+                                        <!--begin::Icon-->
+                                        <div class="stepper-icon rounded-3">
+                                            <i class="stepper-check fas fa-check"></i>
+                                            <span class="stepper-number">{{ i + 1 }}</span>
+                                        </div>
+                                        <!--end::Icon-->
+
+                                        <!--begin::Label-->
+                                        <div class="stepper-label">
+                                            <h3 class="stepper-title fs-2">
+                                                {{ item }}
+                                            </h3>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Wrapper-->
+
+                                    <!--begin::Line-->
+                                    <div class="stepper-line h-10px" *ngIf="i < services.length - 1">
+                                    </div>
+                                    <!--end::Line-->
+                                </div>
+                                <!--end::Step 1-->
+                            </div>
+                            <!--end::Nav-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-grid__item kt-grid--ver">
+            <div class="kt-login__info">
+                <div class="kt-login__copyright">
+                    2021&nbsp;&copy;&nbsp;Meey Admin
+                </div>
+                <div class="kt-login__menu">
+                    <a class="kt-link" (click)="tutorial()">Hướng dẫn</a>
+                    <a class="kt-link" (click)="contact()">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper">
+
+        <!--end::Head-->
+
+        <!--begin::Body-->
+        <div class="kt-login__body">
+
+            <!--begin::Signin-->
+            <div class="kt-login__form">
+                <div class="kt-login__title">
+                    <h3>{{ formOtp ? 'Nhập mã OTP' : 'Đăng nhập' }}</h3>
+                    <h5>(Màn hình khóa)</h5>
+                </div>
+
+                <!--begin::Form-->
+                <form class="kt-form" action="" novalidate="novalidate" id="kt_login_form">
+                    <div class="form-group">
+                        <editor [(object)]="item" property="UserName" [decorator]="{ label : '', readonly: true}"></editor>
+                    </div>
+                    <div class="form-group">
+                        <editor [(object)]="item" property="Password" [decorator]="{ label : ''}"></editor>
+                    </div>
+
+                    <!--begin::Action-->
+                    <div class="kt-login__actions">
+                        <p>
+                            Không phải {{ item.UserName }} <a class="kt-link kt-login__link-forgot" (click)="signOut()"> Đăng xuất</a>
+                        </p>
+                        <editor-button label="Đăng nhập" [(process)]="processing" (click)="signin()"></editor-button>
+                    </div>
+
+                    <!--end::Action-->
+                </form>
+
+                <form class="kt-form" action="" novalidate="novalidate" id="kt_otp_form" style="display: none; text-align: center;">
+                    <div class="form-group">
+                        <editor [(object)]="item" property="Otp" (keyPressEnter)="loginOtp()" [decorator]="{ label : ''}"></editor>
+                    </div>
+
+                    <!--begin::Action-->
+                    <div class="kt-login__actions loginOtp">
+                        <editor-button label="Đăng nhập" [(process)]="processing" (click)="loginOtp()"></editor-button>
+                    </div>
+
+                    <!--end::Action-->
+                </form>
+
+                <!--end::Form-->
+
+                <!--begin::Divider-->
+                <div class="kt-login__divider">
+                    <div class="kt-divider">
+                        <span></span>
+                        <span>OR</span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <!--end::Divider-->
+
+                <!--begin::Options-->
+                <div class="kt-login__options">
+                    <a class="btn btn-primary kt-btn">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a class="btn btn-info kt-btn">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a class="btn btn-danger kt-btn">
+                        <i class="fab fa-google"></i> Google
+                    </a>
+                </div>
+
+                <!--end::Options-->
+            </div>
+
+            <!--end::Signin-->
+        </div>
+
+        <!--end::Body-->
+    </div>
+</div>

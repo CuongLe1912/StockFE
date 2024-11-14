@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-12">        
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-sm-4 amount">Số tag import: {{ total }}</div>
+            <div class="col-sm-4 amount">Số tag hợp lệ: {{ valid }}</div>
+            <div class="col-sm-4 amount">Số tag không hợp lệ: {{ error }}</div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <ms-list-import-tag [items]="items"></ms-list-import-tag>
+    </div>
+</div>

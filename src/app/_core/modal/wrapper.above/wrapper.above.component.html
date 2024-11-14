@@ -1,0 +1,24 @@
+<div wrapper class="modal fade modal-above" [ngClass]="{'show':visible}">
+    <div class="modal-dialog modal-dialog-centered" [ngClass]="sizeClass">
+        <div class="modal-content" *ngIf="dialog" [id]="id">
+            <div class="modal-header">
+                <h5 class="modal-title">{{dialog.title}}</h5>
+                <button *ngIf="dialog.minimizeFunction" type="button" class="minimize" (click)="minimizeModal()">
+                    <i class="la la-minus"></i>
+                </button>
+                <button *ngIf="!dialog.restrict" type="button" class="close" (click)="closeModal()">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" *ngIf="dialog.description" [innerHTML]="dialog.description | sanitizeHtml"></p>
+                <div #container></div>
+            </div>
+            <div class="modal-footer" *ngIf="instance && !dialog.restrict">
+                <button type="button" *ngIf="dialog.cancelText" class="btn btn-secondary" (click)="closeModal()">{{ dialog.cancelText }}</button>
+                <editor-button [type]="ButtonType.Warning" *ngIf="dialog.rejectText" [label]="processingReject ? 'Đang xử lý...' : dialog.rejectText" [(process)]="processingReject" (click)="rejectModal()" [disabled]="instance.disabledReject"></editor-button>
+                <editor-button [type]="ButtonType.Success" *ngIf="dialog.resultText" [label]="processingResult ? 'Đang xử lý...' : dialog.resultText" [(process)]="processingResult" (click)="resultModal()" [disabled]="instance.disabledResult"></editor-button>
+                <editor-button *ngIf="dialog.confirmText" [label]="processing ? 'Đang xử lý...' : instance.confirmText || dialog.confirmText" [(process)]="processing" (click)="confirmModal()" [disabled]="instance.disabled"></editor-button>
+            </div>
+        </div>
+    </div>
+</div>

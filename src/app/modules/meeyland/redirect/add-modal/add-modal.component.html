@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group row">
+                <label for="type" class="col-sm-3 col-form-label required">Loại chuyển hướng</label>
+                <div class="col-sm-9">
+                    <editor id="type" [(object)]="item" property="TypeInsert" [decorator]="{ label: ''}"></editor>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label for="type" class="col-sm-3 col-form-label required">URL cũ</label>
+            <label for="type" class="col-sm-3 col-form-label">{{urlItem}}/</label>
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="OriginUrl" [decorator]="{ placeholder: 'Nhập URL', label: ''}">
+                </editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label for="type" class="col-sm-3 col-form-label required">URL mới</label>
+            <label for="type" class="col-sm-3 col-form-label">{{urlItem}}/</label>
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="RedirectUrl" [decorator]="{ placeholder: 'Nhập URL', label: ''}">
+                </editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="item.Id">
+        <div class="form-group row">
+            <label for="type" class="col-sm-3 col-form-label">Ghi chú</label>
+            <div class="col-sm-9">
+                <editor [(object)]="item" property="Note" [decorator]="{ label: ''}">
+                </editor>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="kt-portlet kt-portlet--tabs">
+          <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Chính sách chi trả hoa hồng cho Khách hàng cá nhân</h3>
+            </div>
+          </div>
+          <div class="kt-portlet__body">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table" >
+                  <thead>
+                    <tr>
+                      <th scope="col">Tạo</th>
+                      <th scope="col">Trạng thái</th>
+                      <th scope="col">Thời gian áp dụng</th>
+                      <th scope="col">Nội dung chính sách</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of items">
+                      <td>{{ item.CreatedDate | datetimex }}</td>
+                      <td> </td>
+                      <td>{{ item.ApplyDate | datetimex }}</td>
+                      <td class="policy-detail-content" [ngClass]="{'content-active': item.ShowPolicy}">
+                        <fieldset class="p-2 fs-policy">
+                          <legend class="w-auto p-2">Chính sách chi trả hoa hồng</legend>                  
+                          <div class="row">
+                            <div class="col-sm-5">
+                              <div class="row">
+                                <label class="col-sm-4 col-form-label">File chính sách:</label>
+                                <div class="col-sm-6 col-form-label"><a *ngIf="item?.File" target="_blank" [href]="item?.File">chinh-sach-hoa-hong.pdf</a></div>
+                              </div>
+                              <div class="row" style="margin-bottom: -12px;">
+                                <label class="col-sm-4 col-form-label">Chu kỳ thanh toán:</label>
+                                <div class="col-sm-6 col-form-label"><div [innerHTML]="getPaymentCycleType(item)"></div></div>
+                              </div>
+                              <div class="row">
+                                <label class="col-sm-4 col-form-label">Tài khoản nhận tiền:</label>
+                                <div class="col-sm-6 col-form-label"><div [innerHTML]="getPaymentType(item)"></div></div>
+                              </div>
+                              <div class="row">
+                                <label class="col-sm-12 col-form-label"><h5>Doanh số được tính từ:</h5></label>
+                              </div>
+                              <div class="row">
+                                <ul>
+                                  <li>Số tiền KH nạp (phải trừ {{ item?.VATDirect * 100 }}% VAT)</li>
+                                  <li>Số tiền KH thanh toán các dịch vụ qua Cổng thanh toán VNpay (phải trừ {{ item?.VATVnPay * 100 }}% VAT)</li>
+                                  <li>Số tiền KH thanh toán các dịch vụ qua TKKM1 (phải trừ {{ item?.VATPromotion1 * 100 }}% VAT)</li>
+                                </ul>
+                              </div>
+                              <div class="row" style="padding-top: 30px;" *ngIf="item?.Days <= 3">
+                                <label class="col-sm-12 col-form-label text-danger"><h6><i class="fa fa-info"></i> Sắp thay đổi chính sách, xem trong <a href="javascript:;">Xem lịch sử</a></h6></label>
+                              </div>
+                            </div>
+                            <div class="col-sm-7">
+                              <div class="kt-portlet" style="width: 96%;">
+                                <div class="kt-portlet__body" class="policy-content-table">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Cấp bậc</th>
+                                        <th scope="col">Vollumn doanh số F1 (đ)</th>
+                                        <th scope="col">Hoa hồng</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let policy of item?.PolicyDetails">
+                                        <td>{{ policy.Name }}</td>
+                                        <td>{{ policy.VolumeFrom | numberx }} - {{ policy.VolumeTo | numberx }}</td>
+                                        <td>{{ policy.Commission * 100 }}%</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <a href="javascript:;" class="show-policy" (click)="ShowPolicy(item)" *ngIf="!item.ShowPolicy"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+                              <a href="javascript:;" class="show-policy show-up" (click)="ShowPolicy(item)" *ngIf="item.ShowPolicy"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

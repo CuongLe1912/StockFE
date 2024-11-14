@@ -1,0 +1,124 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item" [ngClass]="{'kt-popup' : popup}">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <editor [(object)]="item" property="Code" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="TransactionType" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="CreateTime" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="CreateBy" [viewer]="true"></editor>
+                                </div>
+                                <div class="col-sm-4">
+                                    <editor [(object)]="item" property="Amount" [viewer]="true" [decorator]="{label:'Số tiền (đ)'}"></editor>
+                                    <editor *ngIf="item.TransactionTypeId == MPTransactionType.Transfer" [(object)]="item" property="WalletType" [viewer]="true"></editor>
+                                    <ul *ngIf="item.TransactionTypeId == MPTransactionType.Recovery" style="padding: 0;">
+                                        <li>
+                                            <editor [(object)]="item" property="MainAmount" [viewer]="true" [decorator]="{label:'- TK Chính (đ)'}"></editor>
+                                        </li>
+                                        <li>
+                                            <editor [(object)]="item" property="BonusAmount" [viewer]="true" [decorator]="{label:'- TKKM2 (đ)'}"></editor>
+                                        </li>
+                                    </ul>
+                                    <editor [(object)]="item" property="StatusName" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="ApproveDate" [viewer]="true"></editor>
+                                </div>
+                                <div class="col-sm-4" *ngIf="item.TransactionTypeId == MPTransactionType.Transfer">
+                                    <h6>Người chuyển</h6>
+                                    <ul>
+                                        <li>
+                                            <editor *ngIf="item.SendName" [(object)]="item" property="SendName" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.SendEmail" [(object)]="item" property="SendEmail" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.SendPhone" [(object)]="item" property="SendPhone" [viewer]="true"></editor>
+                                        </li>
+                                    </ul>
+                                    <h6>Người nhận</h6>
+                                    <ul>
+                                        <li>
+                                            <editor *ngIf="item.ReceiveName" [(object)]="item" property="ReceiveName" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.ReceiveEmail" [(object)]="item" property="ReceiveEmail" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.ReceivePhone" [(object)]="item" property="ReceivePhone" [viewer]="true"></editor>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4" *ngIf="item.TransactionTypeId == MPTransactionType.Recovery">
+                                    <h6>Tài khoản nhận</h6>
+                                    <ul>
+                                        <li>
+                                            <editor *ngIf="item.ReceiveName" [(object)]="item" property="ReceiveName" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.ReceiveEmail" [(object)]="item" property="ReceiveEmail" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.ReceivePhone" [(object)]="item" property="ReceivePhone" [viewer]="true"></editor>
+                                        </li>
+                                    </ul>
+                                    <h6>Tài khoản chuyển</h6>
+                                    <ul>
+                                        <li>
+                                            <editor *ngIf="item.SendName" [(object)]="item" property="SendName" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.SendEmail" [(object)]="item" property="SendEmail" [viewer]="true"></editor>
+                                        </li>
+                                        <li>
+                                            <editor *ngIf="item.SendPhone" [(object)]="item" property="SendPhone" [viewer]="true"></editor>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Cộng/trừ tiền vào ví
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;">
+                            <mp-wallet-history [params]="{items: item.WalletChangeHistories}"></mp-wallet-history>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Lịch sử giao dịch
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;">
+                            <mp-transaction-history [params]="{items: item.TransactionHistories}"></mp-transaction-history>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

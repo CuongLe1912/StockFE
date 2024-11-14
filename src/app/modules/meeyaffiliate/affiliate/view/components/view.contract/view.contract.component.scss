@@ -1,0 +1,19 @@
+::ng-deep .view-contract {
+    .image-container {
+        .image-inner {
+            .hrefImageList {
+                height: 150px !important;
+                min-width: 500px !important;
+            }
+        }
+    }
+}
+
+.btn-tabs-right {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    button {
+        margin: 0 2px;
+    }
+}

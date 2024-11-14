@@ -1,0 +1,76 @@
+<div wrapper class="edit-syntax">
+    <div *ngIf="item && !loading">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Loại cấu trúc: </label>
+            </div>
+            <div class="col-sm-9">
+                <label class="col-form-label">Auto</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Cấu trúc:</label>
+            </div>
+            <div class="col-sm-9">
+                <label class="col-form-label">{{overview}}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">ID cú pháp: {{ item.SyntaxId }}</label>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Ngày tạo: {{ item.CreatedDate | dateminutex }}</label>
+            </div>
+            <div class="col-sm-5">
+                <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedDate | dateminutex }}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label">Cú pháp:</label>
+            </div>
+            <div class="col-sm-7">
+                <ul class="overview-items" *ngIf="overviewItems && overviewItems.length > 0">
+                    <li *ngFor="let overviewItem of overviewItems; let i = index;">
+                        <div *ngIf="overviewItem.indexOf('input_') >= 0; else elseContent">
+                            <input type="text" maxlength="20" class="form-control" placeholder="" [id]="overviewItem" />
+                            <span *ngIf="i != overviewItems.length - 1">+</span>
+                        </div>
+                        <ng-template #elseContent>
+                            {{ overviewItem }}
+                            <span *ngIf="i != overviewItems.length - 1">+</span>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" [ngClass]="{'disable':!(postionItems && postionItems.length > 0)}"
+                    (click)="addText()">Thêm text</button>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="Limit"></editor>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="item" property="Status"></editor>
+            </div>
+        </div>
+        <div class="absolute" *ngIf="postionItems && postionItems.length > 0 && showCombobox">
+            <div class="inner">
+                <div class="close-item" (click)="closePosition()"><i class="la la-close"></i></div>
+                <editor [(object)]="item" property="Position" [decorator]="{ lookup: { items: postionItems } }"
+                    (valueChange)="choicePosition()"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

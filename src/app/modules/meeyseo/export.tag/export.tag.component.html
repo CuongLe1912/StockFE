@@ -1,0 +1,20 @@
+<div wrapper class="export">
+    <div>
+        <div class="row">
+            <div class="col-sm-6 col-form-label file-import d-flex align-items-center justify-content-center">
+                <editor [(object)]="item" property="ExportFrom"></editor>
+            </div>
+            <div class="col-sm-6 col-form-label file-import d-flex align-items-center justify-content-center">
+                <editor [(object)]="item" property="ExportTo"></editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex align-items-center" style="margin: 15px auto;">
+                <editor-button label="Export" [process]="processing" (click)="confirm()" className="btn btn-primary font-weight-bolder text-uppercase"></editor-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

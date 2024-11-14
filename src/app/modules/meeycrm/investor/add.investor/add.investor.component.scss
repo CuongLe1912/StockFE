@@ -1,0 +1,35 @@
+.kt-spinner {
+    zoom: 0.8;
+    width: 25px;
+    margin-left: 10px;
+}
+
+.nav-tabs {
+    &.disabled {
+        cursor: none;
+        pointer-events: none;
+    }
+}
+
+.tab-link-error {
+    color: #fd397a !important;    
+    position: relative;
+    padding-right: 4px !important;
+}
+
+.tab-link-error.active, .tab-link-error:hover {
+    border-bottom-color: #ff1764 !important;
+}
+
+.tab-link-error i {
+    color: #fd397a !important;
+    position: absolute;
+    right: -17px;
+    top: 10px;
+}
+
+.btn-tabs-right {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}

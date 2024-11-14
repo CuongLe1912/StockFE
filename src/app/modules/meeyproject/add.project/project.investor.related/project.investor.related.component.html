@@ -1,0 +1,78 @@
+<div wrapper *ngIf="item" class="edit-project-investor-related">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-10">
+                    <editor [(object)]="investor" property="InvestorId" (valueChange)="investorChange()" [decorator]="{ readonly: viewer, lookup: { selected: itemInvestor } }"></editor>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group" *ngIf="!viewer">
+                        <button class="btn btn-sm btn-success form-control" (click)="addNew()" style="margin-top: 23px;"><i class="la la-plus"></i> Tạo mới</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="investor" property="Description" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor #uploadLogo [(object)]="investor" property="Logo" [decorator]="{ readonly: true }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group mb-3 mr-2 float-right" role="group" *ngIf="!viewer">
+                <button id="btnGroupUnit" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 5px;padding-bottom: 5px;">
+                    <i class="la la-plus"></i> Thêm đơn vị liên quan
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupUnit">
+                    <a class="dropdown-item" href="javascript:;" (click)="addUnitType()"><i class="la la-plus"></i> Thêm loại đơn vị</a>
+                    <a class="dropdown-item" href="javascript:;" (click)="addUnit()"><i class="la la-plus"></i> Thêm đơn vị liên quan</a>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover dataTable no-footer" style="margin-bottom: 15px !important">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">STT</th>
+                        <th>Loại đơn vị</th>
+                        <th>Tên đơn vị liên quan</th>
+                        <th>Logo</th>
+                        <th>Mô tả</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let affiliate of investor.AffiliateUnit; let i=index;">
+                        <td class="number">
+                            <span>{{ i+1 }}</span>
+                        </td>
+                        <td class="td-input" *ngIf="!reloadUnit">
+                            <editor [(object)]="investor.AffiliateUnit[i]" (optionChange)="unitChange($event, i)" property="Unit" [decorator]="{ label: '', readonly: viewer, index: i }"></editor>
+                        </td>
+                        <td class="td-input" *ngIf="!reloadUnit">
+                            <editor [(object)]="investor.AffiliateUnit[i]" (optionChange)="relatedUnitChange($event, i)" property="Name" [decorator]="{ label: '', readonly: viewer, index: i }"></editor>
+                        </td>
+                        <td class="td-input" *ngIf="!reloadUnit">
+                            <editor [(object)]="investor.AffiliateUnit[i]" property="Logo" [decorator]="{ label: '', readonly: true, index: i }"></editor>
+                        </td>
+                        <td class="td-input" *ngIf="!reloadUnit">
+                            <editor [(object)]="investor.AffiliateUnit[i]" property="Description" [decorator]="{ label: '', readonly: viewer, index: i }"></editor>
+                        </td>
+                        <td>
+                            <div class="d-flex" *ngIf="!viewer">
+                                <button class="btn btn-sm text-danger" (click)="remove(i)" tooltip="Xóa"><i class="la la-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-sm btn-success mb-3 float-right" *ngIf="!viewer" (click)="addRow()"><i class="la la-plus"></i> Thêm dòng</button>
+        </div>
+    </div>
+</div>

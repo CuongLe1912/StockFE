@@ -1,0 +1,35 @@
+<div wrapper class="kt-input-icon" [ngClass]="{'kt-input-icon--left':decorator.icon,'kt-input-icon--right':value && decorator.allowClear,'kt-button-generate':decorator.type == StringType.AutoGenerate}" (clickOutside)="hidePanel()">
+    <input class="form-control" autocomplete="off" *ngIf="decorator.type == StringType.PhoneText" [attr.maxLength]="decorator.max" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" [placeholder]="decorator.placeholder"
+        [id]="decorator.id" [(ngModel)]="value" (input)="inputChange()" (keydown)="onPhoneKeypress($event)" (blur)="onTextBoxBlur()">
+    <input class="form-control" #input autocomplete="off" *ngIf="decorator.type != StringType.PhoneText" [attr.maxLength]="decorator.max" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [type]="type" [placeholder]="decorator.placeholder"
+        [id]="decorator.id" [(ngModel)]="value" (input)="inputChange()" (keydown)="onTextBoxKeypress($event)" (blur)="onTextBoxBlur()" (click)="openPanel()" [ngClass]="{'focus': panelOpening}">
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="value && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+    <span class="kt-maxlength" *ngIf="value && (decorator.type != StringType.Tag && decorator.type != StringType.TagEmail)">{{ value.length + '/' + decorator.max }}</span>
+    <span class="kt-maxlength" *ngIf="tags && (decorator.type == StringType.Tag || decorator.type == StringType.TagEmail)">{{ tags.length + '/' + decorator.maxTags }}</span>
+    <button *ngIf="decorator.type == StringType.AutoGenerate && !decorator.readonly" type="button" class="btn btn-success btn-generate" (click)="onGenerate()">Tạo mã</button>
+    <div class="select2-container" [ngClass]="{'select2-container--open':panelOpening}" *ngIf="decorator.type == StringType.AutoComplete">
+        <div class="select2-dropdown">
+            <div class="select2-results">
+                <ul class="select2-results__options" *ngIf="!loading && filterItems && filterItems.length > 0">
+                    <li class="select2-results__option" *ngFor="let item of filterItems" [ngClass]="{'highlighted':item.selected}" (click)="selectItem(item)">
+                        {{ item.label }}
+                    </li>
+                </ul>
+                <ul class="select2-results__options" *ngIf="!loading && (!filterItems || filterItems.length == 0)">
+                    <li class="select2-results__option">Không có dữ liệu</li>
+                </ul>
+                <ul class="select2-results__options" *ngIf="loading">
+                    <li class="select2-results__option" style="display: flex;">
+                        <span class="kt-spinner kt-spinner--v2 kt-spinner--primary"></span>
+                        <span style="margin-left: 30px;">Đang tải dữ liệu...</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

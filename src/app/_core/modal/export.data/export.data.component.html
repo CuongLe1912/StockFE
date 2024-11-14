@@ -1,0 +1,10 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="DateRange"></editor>
+        <editor [(object)]="item" property="Limit"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.Type == ExportType.Pdf">
+        <editor [(object)]="item" property="PageSize"></editor>
+        <editor [(object)]="item" property="Landscape"></editor>
+    </div>
+</div>

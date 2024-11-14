@@ -1,0 +1,65 @@
+<div *ngIf="item">
+    <div>
+        <div class="row">
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="Name" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+                <editor [(object)]="item" property="Type" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="TypeOfHouse" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+                <editor [(object)]="item" property="Customer" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="Product" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+                <editor [(object)]="item" property="Status" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="ProjectIds" [decorator]="{ readonly: viewer, index: 1, lookup: { selected: item.ProjectOptionItem } }"></editor>
+            </div>
+            <div class="col-sm-8">
+                <editor [(object)]="item" property="Link" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="StartDate" [decorator]="{ readonly: viewer, index: 1 }" (valueChange)="dateChange()"></editor>
+                <editor [(object)]="item" property="Platform" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="EndDate" [decorator]="{ readonly: viewer, index: 1 }" (valueChange)="dateChange()"></editor>
+                <editor [(object)]="item" property="Order" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+            <div class="col-sm-4">
+                <editor [(object)]="item" property="Position" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+                <editor [(object)]="item" property="Page" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Khu vực áp dụng banner</h5>
+            </div>
+            <div class="col-sm-3">
+                <editor [(object)]="item" property="CityIds" [decorator]="{ readonly: viewer, index: 1 }" (optionChange)="changePropertyOption($event, 'Tỉnh/thành phố')" (clearValue)="clearValue('Tỉnh/thành phố')"></editor>
+            </div>
+            <div class="col-sm-3">
+                <editor [(object)]="item" property="DistrictIds" [decorator]="{ readonly: viewer, index: 1 }" (optionChange)="changePropertyOption($event, 'Quận/huyện')" (clearValue)="clearValue('Quận/huyện')"></editor>
+            </div>
+            <div class="col-sm-3">
+                <editor [(object)]="item" property="WardIds" [decorator]="{ readonly: viewer, index: 1 }" (optionChange)="changePropertyOption($event, 'Phường/xã')" (clearValue)="clearValue('Phường/xã')"></editor>
+            </div>
+            <div class="col-sm-3">
+                <editor [(object)]="item" property="StreetIds" [decorator]="{ readonly: viewer, index: 1 }" (optionChange)="changePropertyOption($event, 'Đường/phố')" (clearValue)="clearValue('Đường/phố')"></editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <editor #uploadImages [(object)]="item" property="Images" [decorator]="{ readonly: viewer, index: 1 }"></editor>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

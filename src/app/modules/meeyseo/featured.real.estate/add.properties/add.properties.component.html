@@ -1,0 +1,108 @@
+<div wrapper class="add-property">
+    <div *ngIf="items && items.length > 0 && !loading">
+        <div class="row" *ngIf="item.Id">
+            <div class="col-sm-3">
+                <label class="col-form-label">ID thuộc tính: {{ item.PropertyId }}</label>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-form-label">Ngày tạo: {{ item.CreatedDate | dateminutex }}</label>
+            </div>
+            <div class="col-sm-5">
+                <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedDate | dateminutex }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="col-form-label">Loại cấu trúc: Manual</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="col-form-label">Cấu trúc: {{overview}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="btn-add-new-property" (click)="addNewItem()" *ngIf="!id" [ngClass]="{'disabled':disableAddProperties}">Thêm giá trị thuộc tính</a>
+            </div>
+        </div>
+        <div class="property" *ngFor="let item of items; let i = index;">
+            <hr />
+            <div class="number-item">{{ i + 1 }}</div>
+            <div class="row">
+                <div class="delete-item" *ngIf="i >= 1" (click)="removeItem(item)"><i class="la la-close"></i></div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('need') >= 0">
+                    <editor [(object)]="items[i]" property="Need" [decorator]="{index: i, lookup: { url: needUrl }}" (optionChange)="changeValue($event, 'Nhu cầu', i)" (valueChange)="toggleDisableAddProperties()">
+                    </editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('typeOfHouse') >= 0">
+                    <editor [(object)]="items[i]" property="TypeOfHouse" [decorator]="{index: i}" (valueChange)="typeOfHouseChange(i)"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('typeOfRealEstate') >= 0" [ngClass]="{'disabled':!isTypeOfRealEstate[i]}">
+                    <editor [(object)]="items[i]" property="TypeOfRealEstate" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('project') >= 0">
+                    <editor [(object)]="items[i]" property="Project" [decorator]="{index: i, lookup: { selected: item.ProjectOptionItems }}" (valueChange)="projectChange(i)"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('street') >= 0">
+                    <editor [(object)]="items[i]" property="Street" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('ward') >= 0">
+                    <editor [(object)]="items[i]" property="Ward" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('district') >= 0">
+                    <editor [(object)]="items[i]" property="District" [decorator]="{index: i}" (valueChange)="districtChange(i)"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('city') >= 0">
+                    <editor [(object)]="items[i]" property="City" [decorator]="{index: i}" (valueChange)="cityChange(i)"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('price') >= 0">
+                    <editor [(object)]="items[i]" property="Price" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('area') >= 0">
+                    <editor [(object)]="items[i]" property="Area" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('floor') >= 0">
+                    <editor [(object)]="items[i]" property="Floor" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('bedroom') >= 0">
+                    <editor [(object)]="items[i]" property="Bedroom" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('direction') >= 0">
+                    <editor [(object)]="items[i]" property="Direction" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('facade') >= 0">
+                    <editor [(object)]="items[i]" property="Facade" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('feature') >= 0">
+                    <editor [(object)]="items[i]" property="Feature" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('wideRoad') >= 0">
+                    <editor [(object)]="items[i]" property="WideRoad" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('legalPaper') >= 0">
+                    <editor [(object)]="items[i]" property="LegalPaper" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('havingFE') >= 0">
+                    <editor [(object)]="items[i]" property="HavingFE" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-3" *ngIf="properties.indexOf('utility') >= 0 && fields && fields[i] && fields[i].indexOf('utilities') >= 0 && options && options[i] && options[i]['utilities']">
+                    <editor [(object)]="items[i]" property="Utility" [decorator]="{index: i, lookup: { items: options && options[i] && options[i]['utilities'] }}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <editor [(object)]="items[i]" property="Limit" [decorator]="{index: i}" (valueChange)="toggleDisableAddProperties()"></editor>
+                </div>
+                <div class="col-sm-6">
+                    <editor class="status" [(object)]="items[i]" property="Status" [decorator]="{index: i}"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+        <loading></loading>
+    </div>
+</div>

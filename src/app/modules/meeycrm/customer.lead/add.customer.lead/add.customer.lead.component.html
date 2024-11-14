@@ -1,0 +1,122 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0 && !popup" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+      <div class="kt-form kt-form--label-right">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="kt-portlet">
+                      <div class="kt-portlet__body">
+                          <div class="row">
+                              <div class="col-sm-2">
+                                  <editor #uploadAvatar [(object)]="item" property="Avatar"></editor>
+                              </div>
+                              <div class="col-sm-7">
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Họ và tên</label>
+                                      <div class="col-sm-6">
+                                          <editor [(object)]="item" property="Name" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Số điện thoại *</label>
+                                      <div class="col-sm-6">
+                                          <editor [(object)]="item" property="Phone" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Email</label>
+                                      <div class="col-sm-6">
+                                          <editor [(object)]="item" property="Email" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="kt-portlet kt-portlet--tabs">
+                      <div class="kt-portlet__body">
+                          <div class="row" *ngIf="!popup">
+                              <div class="col-sm-5">
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">CMND</label>
+                                      <div class="col-sm-8">
+                                          <editor [(object)]="item" property="IdCard" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Ngày sinh</label>
+                                      <div class="col-sm-8">
+                                          <editor [(object)]="item" property="Birthday" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Giới tính</label>
+                                      <div class="col-sm-8" style="padding-top: 8px;">
+                                          <editor [(object)]="item" property="Gender" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Địa chỉ</label>
+                                      <div class="col-sm-8">
+                                          <div class="row">
+                                              <div class="col-sm-4">
+                                                  <editor [(object)]="item" property="CityId" [decorator]="{ label: '' }"></editor>
+                                              </div>
+                                              <div class="col-sm-4">
+                                                  <editor [(object)]="item" property="DistrictId" [decorator]="{ label: '' }"></editor>
+                                              </div>
+                                              <div class="col-sm-4">
+                                                  <editor [(object)]="item" property="WardId" [decorator]="{ label: '' }"></editor>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row" style="margin-top: -15px;">
+                                      <label class="col-sm-2 col-form-label">&nbsp;</label>
+                                      <div class="col-sm-8">
+                                          <editor [(object)]="item" property="Address" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-7">
+                                  <div class="row">
+                                      <label class="col-sm-2 col-form-label">Đối tượng</label>
+                                      <div class="col-sm-6">
+                                          <editor [(object)]="item" property="CustomerType" [decorator]="{ label: '' }"></editor>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                    <label class="col-sm-2 col-form-label">Mức độ tiềm năng</label>
+                                    <div class="col-sm-6">
+                                        <editor [(object)]="item" property="CustomerPotentialType" [decorator]="{ label: '' }"></editor>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  <label class="col-sm-2 col-form-label">Loại hình hoạt động</label>
+                                  <div class="col-sm-6">
+                                      <editor [(object)]="item" property="CustomerActivityType" [decorator]="{ label: '' }"></editor>
+                                  </div>
+                              </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="kt-form" *ngIf="!item">
+          {{ message }}
+      </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+      <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

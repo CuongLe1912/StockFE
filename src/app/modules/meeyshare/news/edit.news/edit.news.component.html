@@ -1,0 +1,49 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="item && !loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body" *ngIf="item && !loading">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="box-item">
+                                        <h5>Thông tin chung</h5>
+                                        <editor [(object)]="item" property="Status" [decorator]="{readonly: viewer}"></editor>
+                                        <editor [(object)]="item" property="Type" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="PublishedAt" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="CreatedAt" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="CategoryId" [decorator]="{readonly: true}"></editor>
+                                    </div>
+                                    <div class="box-item">
+                                        <h5>Thông tin ý kiến người đăng</h5>
+                                        <editor [(object)]="item" property="Comment" [decorator]="{readonly: viewer, required: item.Type != MShareNewsType.MPS_VIDEO}" (valueChange)="commentChange()"></editor>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="box-item">
+                                        <h5>Nội dung tin</h5>
+                                        <div class="form-group">
+                                            <label class="ng-star-inserted">Link liên kết</label>
+                                            <div><a [href]="item.Link" target="_blank">{{ item.Link }}</a></div>
+                                        </div>
+                                        <editor [(object)]="item" property="Title" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="Summary" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="Content" [decorator]="{readonly: true}"></editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

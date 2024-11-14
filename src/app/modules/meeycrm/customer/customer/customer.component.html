@@ -1,0 +1,68 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false">
+    </edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-light-success nav-pills" [ngClass]="{'disabled': processing}">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer')" [ngClass]="{'active':!tab || tab == 'customer'}">
+                                Khách hàng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer-expired')" [ngClass]="{'active':!tab || tab == 'customer-expired'}">
+                                Khách hàng quá hạn
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer-business')" [ngClass]="{'active':!tab || tab == 'customer-business'}">
+                                Tài khoản doanh nghiệp
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer-affiliate')" [ngClass]="{'active':!tab || tab == 'customer-affiliate'}">
+                                Khách hàng Affiliate
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer-iframe')" [ngClass]="{'active':!tab || tab == 'customer-iframe'}">
+                                Khách hàng IFrame
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="selectedTab('customer-bank')" [ngClass]="{'active':!tab || tab == 'customer-bank'}">
+                                Khách hàng Bank
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="tab-content">
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer'}">
+                        <mcrm-grid-customer *ngIf="tab=='customer'" [params]="{ type: tab }"></mcrm-grid-customer>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer-expired'}">
+                        <mcrm-grid-customer *ngIf="tab=='customer-expired'" [params]="{ type: tab }">
+                        </mcrm-grid-customer>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer-business'}">
+                        <mcrm-grid-customer-company *ngIf="tab=='customer-business'"></mcrm-grid-customer-company>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer-affiliate'}">
+                        <mcrm-grid-customer *ngIf="tab=='customer-affiliate'" [params]="{ type: tab }">
+                        </mcrm-grid-customer>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer-iframe'}">
+                        <mcrm-grid-customer *ngIf="tab=='customer-iframe'" [params]="{ type: tab }"></mcrm-grid-customer>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'customer-bank'}">
+                        <mcrm-grid-customer-bank *ngIf="tab=='customer-bank'" [params]="{ type: tab }"></mcrm-grid-customer-bank>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

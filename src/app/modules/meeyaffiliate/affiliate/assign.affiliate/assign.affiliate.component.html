@@ -1,0 +1,37 @@
+<div class="row transfer-article" *ngIf="item && items">
+    
+    <div class="col-sm-12" *ngIf="item.Tab == 'customer'">
+        <label>Chọn loại điều chuyển</label>
+        <editor [(object)]="item" property="TransferType" [decorator]="{ label: '' }"></editor>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Loại điều chuyển: Điều chuyển khách hàng ra ngoài cây hoa hồng</label>
+        </div>
+        <div class="col-sm-12" *ngIf="items" style="margin-bottom: 20px;">
+            <label>Tổng số khách hàng điều chuyển: {{ ids.length }} / {{ items.length }}</label>
+            <p class="warning text-danger" *ngIf="ids.length != items.length">Lưu ý: nếu khách hàng thuộc Sale/CSKH khác
+                thì
+                sẽ không thể điều chuyển</p>
+            <maf-customer-list [customers]="items" (removed)="removedItems($event)"
+                (selected)="closePopup()"></maf-customer-list>
+        </div>
+        <div class="col-sm-12">
+            <label><b>Điều chuyển khách hàng tới:</b></label>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="DepartmentId" (valueChange)="toggleDisableButton()"
+                [decorator]="{ lookup: { url: '/department/lookupItems/' + type } }"></editor>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="UserId" (valueChange)="userChange()"></editor>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="Amount" [decorator]="{ readonly: true }"></editor>
+        </div>
+        <div class="col-sm-12">
+            <editor [(object)]="item" property="Note"></editor>
+        </div>
+    </div>
+    
+</div>

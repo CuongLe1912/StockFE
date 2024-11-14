@@ -1,0 +1,18 @@
+.kt-spinner {
+    zoom: 0.8;
+    width: 25px;
+    margin-left: 10px;
+}
+
+.nav-tabs {
+    &.disabled {
+        cursor: none;
+        pointer-events: none;        
+    }
+}
+
+::ng-deep .edit-project-customer {
+    .form-group.label-inline > label {
+        width: 200px !important;
+    }
+}

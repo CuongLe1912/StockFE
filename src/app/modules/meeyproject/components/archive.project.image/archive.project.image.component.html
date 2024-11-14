@@ -1,0 +1,89 @@
+<div wrapper class="archive-project-image">    
+    <div class="file-body">
+        <div class="file-header">
+            <div class="search">
+                <em class="fa fa-search"></em>
+                <input type="text" class="form-control" placeholder="Tìm kiếm theo tên ảnh..." [(ngModel)]="Search" (keyup.enter)="searchImg()">
+                <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="Search" (click)="clearSeach()">
+                    <span><i class="la la-close"></i></span>
+                </span>
+            </div>
+            <div class="actions">
+                <div class="dropdown">
+                    <a class="btn btn-primary" (click)="searchImg()">
+                        <i class="fa fa-search"></i>
+                        <span>Tìm kiếm</span>
+                    </a>
+                    <a class="btn btn-success" (click)="toggleActiveUpload()">
+                        <i class="fa fa-upload"></i>
+                        <span>Tải lên tệp</span>
+                    </a>
+                    <a class="btn btn-success" (click)="loadItem()">
+                        <i class="la la-refresh"></i>
+                        <span>Tải lại</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="file-upload" *ngIf="activeUpload">
+            <editor #uploadImages [(object)]="item" property="Images"></editor>
+            <div class="dropdown">
+                <a class="btn btn-info" (click)="uploadFiles()">
+                    <i class="fa fa-upload"></i>
+                    <span>Tải lên</span>
+                </a>
+                <a class="btn btn-success" (click)="toggleActiveUpload()">
+                    <i class="fa fa-times"></i>
+                    <span>Đóng</span>
+                </a>
+            </div>
+        </div>
+
+        <paging [loading]="loading" [sizes]="PageSizes" [paging]="Paging" (pagingChange)="pageChanged($event)"></paging>
+    </div>
+    
+    <div class="archive-image">  
+        <div class="row" style="margin: 15px -10px;" *ngIf="images">
+            <div class="col-sm-2" *ngFor="let item of images">
+                <div class="images-item" [ngClass]="{'active': selectedFile && item.active}">
+                    <div class="image" [style.background-image]="'url(&quot;' + item.url + '&quot;)'">
+                        <a [href]="item.url" data-fancybox="archive">
+                            <img class="rounded" [src]="item.url" style="opacity: 0;"/>
+                        </a>
+                    </div>                
+                    <div class="item-content" (click)="selectFile(item)">
+                        <div class="content-title" *ngIf="item?.title || item?.edit">
+                            <span class="text-info" (dblclick)="changeName(item)" *ngIf="!item?.edit && !viewer" [title]="item.title">
+                                {{ getName(item.title) }}
+                            </span>
+                            <span class="text-info" *ngIf="viewer" [title]="item.title">{{ getName(item.title) }}</span>
+                            <input [id]="item._id" class="form-control" type="text" [(ngModel)]="item.title" maxlength="100" (blur)="changeName(item)" (keyup)="eventListener($event, item)" (keypress)="validInput($event)" *ngIf="item?.edit && !viewer"/>
+                        </div>                    
+                        <div class="content-text" *ngIf="item?.size">
+                            <label class="content-info">Dung lượng:</label>
+                            <label class="content-info">{{ (item.size / 1024) | numberx }} KB</label>
+                        </div>
+                        <div class="content-text" *ngIf="item?.createdBy?.data?.fullname">
+                            <label class="content-info">Người tạo:</label>
+                            <label class="content-info">{{ item.createdBy.data.fullname }}</label>
+                        </div>
+                        <div class="content-text" *ngIf="item?.createdAt">
+                            <label class="content-info">Ngày tạo:</label>
+                            <label class="content-info">{{ item.createdAt | datetimex }}</label>
+                        </div>
+                    </div>
+                    <div class="item-button" *ngIf="!viewer">
+                        <div class="group-control">
+                        <span class="control btn-danger" (click)="removeImg(item)" tooltip="Xóa ảnh"><i class="fa fa-times"></i></span>
+                        <span class="control btn-success" (click)="changeName(item)" tooltip="Sửa tên ảnh"><i class="fa fa-pen"></i></span>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" *ngIf="!images || images.length < 1">
+            <em class="text-muted input-info">{{ messageEmpty }}</em>
+            </div>
+        </div>    
+    </div>
+    <loading *ngIf="loading"></loading>
+</div>

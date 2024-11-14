@@ -1,0 +1,84 @@
+<div wrapper *ngIf="item" class="add-project" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-4 map">
+            <!-- <div class="map-project" *ngIf="!viewer">
+                <editor [(object)]="item" property="ProjectId" [decorator]="{ label: '' }" (valueChange)="projectChange()"></editor>
+            </div> -->
+            <mpo-project-map [viewer]="viewer" [coordinates]="coordinates"
+                (pointChange)="pointChange($event)"></mpo-project-map>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="Name" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="TradeName" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="CityId" [decorator]="{ readonly: viewer }"
+                [params]="{ active: !viewer }" (optionChange)="cityChange($event)"></editor>
+            <editor [(object)]="item" property="DistrictId" [decorator]="{ readonly: viewer }"
+                [params]="{ active: !viewer }" (optionChange)="districtChange($event)"></editor>
+            <editor [(object)]="item" property="WardId" [decorator]="{ readonly: viewer }"
+                [params]="{ active: !viewer }" (optionChange)="wardChange($event)"></editor>
+            <editor [(object)]="item" property="StreetId" [decorator]="{ readonly: viewer }"
+                [params]="{ active: !viewer }" (optionChange)="streetChange($event)"></editor>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="TotalArea" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="BuildingDensity" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="Ownership" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="TotalFloor" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="StartTime" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="CompletionTime" [decorator]="{ readonly: viewer }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="d-flex" style="justify-content: space-between">
+                <div style="margin-right: 4px; width: 100%;">
+                    <editor [(object)]="item" property="Lat" (blur)="latLngChange()" [decorator]="{ readonly: true }">
+                    </editor>
+                </div>
+                <div style="margin-left: 4px; width: 100%;">
+                    <editor [(object)]="item" property="Lng" (blur)="latLngChange()" [decorator]="{ readonly: true }">
+                    </editor>
+                </div>
+            </div>
+            <editor [(object)]="item" property="ProjectTypeIds" [decorator]="{ readonly: viewer }"
+                [params]="{ active: !viewer }"></editor>
+            <editor [(object)]="item" property="ProjectStatusId" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="IsPublished" [decorator]="{ readonly: viewer }" (valueChange)="changePublish()"></editor>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="Address" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="PriceM2Min" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="PriceM2Max" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="PriceMin" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="PriceMax" [decorator]="{ readonly: viewer }"></editor>
+            <div class="d-flex" style="justify-content: space-between">
+                <div style="margin-right: 4px; width: 30%;">
+                    <editor #uploadLogo [(object)]="item" property="Logo" [decorator]="{ readonly: viewer }"></editor>
+                </div>
+                <div style="margin-left: 4px; width: 100%;">
+                    <editor #uploadBanner [(object)]="item" property="Banner"
+                        [decorator]="{ readonly: viewer, popupArchive: dialogPopupBannerArchive }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <editor [(object)]="item" property="Progress" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="TotalApartment" [decorator]="{ readonly: viewer }"></editor>
+            <editor [(object)]="item" property="TotalBuilding" [decorator]="{ readonly: viewer }"></editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <editor [(object)]="item" property="Description"
+                [decorator]="{ readonly: viewer, popupImage: dialogPopupImageArchive, popupFile: dialogPopupFileArchive }">
+            </editor>
+        </div>
+        <div class="col-sm-12">
+            <editor #uploadImages [(object)]="item" property="Images"
+                [decorator]="{ readonly: viewer, totalSize: 20, popupArchive: dialogPopupImageArchive }"></editor>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading [text]="loadingText"></loading>
+    </div>
+</div>

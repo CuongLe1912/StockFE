@@ -1,0 +1,12 @@
+<div wrapper class="kt-input" [ngClass]="{'kt-input-icon kt-input-icon--left':decorator.icon,'kt-input-icon--right':value && decorator.allowClear,'kt-button-generate':decorator.type == StringType.AutoGenerate}" style="position: relative">
+    <textarea [name]="decorator.id" class="form-control" [rows]="decorator.rows" [attr.maxLength]="decorator.max" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [placeholder]="decorator.placeholder" [id]="decorator.id" [(ngModel)]="value"
+        [ngModelOptions]="{standalone: true}" (input)="inputChange()" (keydown)="onTextBoxKeypress($event)" (blur)="onTextBoxBlur()"></textarea>
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="value && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+    <span class="kt-maxlength" *ngIf="value">{{ value.length + '/' + decorator.max }}</span>
+    <button *ngIf="decorator.type == StringType.AutoGenerate" type="button" class="btn btn-success btn-generate" (click)="onGenerate()">Generate</button>
+</div>

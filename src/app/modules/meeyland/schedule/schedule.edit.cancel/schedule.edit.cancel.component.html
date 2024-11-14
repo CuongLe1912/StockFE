@@ -1,0 +1,26 @@
+<div class="row schedule-edit-cancel" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <h6>Vui lòng chọn lý do hủy lịch: </h6>
+        <div class="row">
+            <label class="col-sm-3 col-form-label">Mã đặt lịch</label>
+            <div class="col-sm-9">
+                <editor [(object)]="item" property="Code" [decorator]="{ label: '', readonly: true}"></editor>
+            </div>
+        </div>
+        <div class="row form-radio">
+            <label class="col-sm-3 col-form-label">Lý do</label>
+            <div class="col-sm-9">
+                <editor [(object)]="item" property="CancelType" [decorator]="{ label: ''}"></editor>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{'disable':item.CancelType != MLScheduleCancelType.OtherReason}">
+            <label class="col-sm-3 col-form-label">&nbsp;</label>
+            <div class="col-sm-9">
+                <editor [(object)]="item" property="CancelText" [decorator]="{ label: '' }"></editor>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="loading" style="min-height: 200px;">
+    <loading></loading>
+</div>

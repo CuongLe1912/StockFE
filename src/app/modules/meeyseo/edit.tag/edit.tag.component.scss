@@ -1,0 +1,70 @@
+.Overview {
+  padding: 9px;
+  background-color: #ebeaea;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+::ng-deep .edit-tag-seo {
+  .url-tag {
+    display: flex;
+    .label {
+      display: flex;
+      padding: 0 10px;
+      max-height: 36px;
+      width: fit-content;
+      align-items: center;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    .form-group {
+      flex-grow: 1;
+      .form-control {
+        border-left: 0;
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+
+  .template {
+    .kt-radio-selected {
+      color: #fff;
+      border-radius: 8px;
+      background-color: #dd8c43;
+      box-shadow: 0px 9px 16px 0px rgb(54 153 255 / 30%) !important;
+    }
+    .kt-radio-inline {
+      display: flex;
+      overflow: auto;
+      align-items: center;
+      justify-content: flex-start;
+      .kt-radio {
+        height: 62px;
+        display: flex;
+        margin-top: 0px;
+        overflow: hidden;
+        min-width: 150px;
+        line-height: 58px;
+        padding-left: 50px;
+        border-radius: 4px;
+        align-items: center;
+        text-overflow: ellipsis;
+        border: 1px solid #ccc;
+        justify-content: flex-start;
+        label {
+          margin: 0;
+          width: 70px;
+          overflow: hidden;
+          font-weight: bold;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        span {
+          top: 20px;
+          left: 20px;
+        }
+      }
+    }
+  }
+}

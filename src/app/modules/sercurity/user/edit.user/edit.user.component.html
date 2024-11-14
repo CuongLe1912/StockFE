@@ -1,0 +1,646 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <editor #uploadAvatar [(object)]="item" property="Avatar"></editor>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="row" *ngIf="item.Id">
+                                        <label class="col-sm-2 col-form-label">Họ và tên *</label>
+                                        <div class="col-sm-4">
+                                            <editor [(object)]="item" property="FullName" [decorator]="{ label: '', allowClear: true}"></editor>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group" style="display: flex; align-items: center;">
+                                                <label class="col-form-label">Trạng thái</label>
+                                                <div style="margin-left: 10px; white-space: nowrap;">
+                                                    <editor [(object)]="item" property="Status" [viewer]="true" [html]="true"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="!item.Id">
+                                        <label class="col-sm-2 col-form-label">Họ và tên *</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="FullName" [decorator]="{ label: '', allowClear: true}"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Email *</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Email" [decorator]="{ label: '', allowClear: id ? false : true, readonly: id ? true : false}"></editor>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Số điện thoại</label>
+                                        <div class="col-sm-6">
+                                            <editor [(object)]="item" property="Phone" [decorator]="{ label: '', allowClear: true}"></editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--tabs">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-toolbar">
+                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('information')" [ngClass]="{'active':tab == 'information'}">
+                                            <i class="la la-user"></i> Thông tin cá nhân
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('permission')" [ngClass]="{'active':tab == 'permission'}">
+                                            <i class="la la-bolt"></i> Phân quyền
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('team')" [ngClass]="{'active':tab == 'team'}">
+                                            <i class="la la-group"></i> Phân nhóm
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('location')" [ngClass]="{'active':tab == 'location'}">
+                                            <i class="la la-map-pin"></i> Khu vực quản lý
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" (click)="selectedTab('product')" [ngClass]="{'active':tab == 'product'}">
+                                            <i class="la la-group"></i> Phân sản phẩm
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="tab-content">
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'information'}">
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Quốc gia</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="CountryId" [decorator]="{ label: ''}"></editor>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Ngày sinh</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="Birthday" [decorator]="{ label: ''}"></editor>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Phòng ban</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="DepartmentId" [decorator]="{ label: ''}"></editor>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Giới tính</label>
+                                            <div class="col-sm-8" style="padding-top: 8px;">
+                                                <editor [(object)]="item" property="Gender" [decorator]="{ label: ''}">
+                                                </editor>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Chức vụ</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="PositionId" [decorator]="{ label: ''}"></editor>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Số máy lẻ</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="ExtPhoneNumber" [decorator]="{ label: '' }"></editor>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Địa chỉ</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="Address" [decorator]="{ label: '', allowClear: true}">
+                                                </editor>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 d-flex">
+                                            <label class="col-sm-2 col-form-label">Mã giới thiệu</label>
+                                            <div class="col-sm-8">
+                                                <editor [(object)]="item" property="RefCode" [decorator]="{ label: '', allowClear: true}">
+                                                </editor>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'permission'}">
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex align-content-center">
+                                            <label class="col-sm-1" style="min-width: 100px;">Website</label>
+                                            <editor [(object)]="item" property="RoleOrganizationId" [decorator]="{ label: ''}" (valueChange)="roleOrganizationChange()">
+                                            </editor>
+                                        </div>
+                                        <div class="col-sm-6 d-flex justify-content-end">
+                                            <editor-button label="Thêm quyền" icon="la la-plus" (click)="openPopupRole()" *ngIf="allowAddRole"></editor-button>
+                                            <div style="margin-left: 10px;" *ngIf="item.RoleOrganizationId && item.RoleOrganizationId.length > 0">
+                                                <editor-button label="Tải lại" className="btn btn-outline-primary" icon="la la-refresh" (click)="refreshRoles()"></editor-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div *ngIf="loadingRoleOrganization" style="min-height: 100px;">
+                                                <loading></loading>
+                                            </div>
+                                            <div class="accordion accordion-organization accordion-toggle-arrow" *ngFor="let organization of organizations; let i = index;">
+                                                <div class="card">
+                                                    <div class="card-header" (click)="toggleOrganization(organization)">
+                                                        <div class="card-title" [ngClass]="{'collapsed':!organization.Active}">
+                                                            <i class="flaticon2-layers-1"></i> {{ organization.Name }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse" [ngClass]="{'show':organization.Active}">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <div class="kt-portlet kt-portlet--height-fluid">
+                                                                        <div class="kt-portlet__head">
+                                                                            <div class="kt-portlet__head-label">
+                                                                                <h3 class="kt-portlet__head-title">
+                                                                                    Chọn quyền
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-portlet-organization kt-portlet__body" style="padding-bottom: 40px;">
+                                                                            <div class="form-group row" style="margin-bottom: 20px;">
+                                                                                <label class="col-sm-3 col-form-label">
+                                                                                    Tìm kiếm
+                                                                                </label>
+                                                                                <div class="col-sm-9">
+                                                                                    <editor-textbox (valueChange)="filterRole($event, organization)" [decorator]="{placeholder: 'Mã, tên quyền'}"></editor-textbox>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table-content">
+                                                                                <table class="table table-bordered table-hover dataTable no-footer">
+                                                                                    <thead>
+                                                                                        <tr class="heading">
+                                                                                            <th>Thông tin phân quyền</th>
+                                                                                            <th style="width:80px" class="kt-align-center">
+                                                                                                Thao tác
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody *ngIf="organization.FilterRoles && organization.FilterRoles.length > 0; else empty_content">
+                                                                                        <tr *ngFor="let item of organization.FilterRoles">
+                                                                                            <td>
+                                                                                                <p class="title">
+                                                                                                    <a (click)="openPopupRole(item.Id)">{{ item.Code }} - {{ item.Name }}</a>
+                                                                                                </p>
+                                                                                                <span class="sub" *ngIf="item.Description">
+                                                                                                    {{ item.Description }}
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td class="kt-align-center">
+                                                                                                <button type="button" class="btn btn-sm btn-outline-info btn-elevate btn-circle btn-icon" *ngIf="!item.Allow" (click)="allowRole(item)">
+                                                                                                    <i class="la la-plus"></i>
+                                                                                                </button>
+                                                                                                <button type="button" class="btn btn-sm btn-info btn-elevate btn-circle btn-icon" *ngIf="item.Allow" (click)="removeRole(item)">
+                                                                                                    <i class="la la-check"></i>
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-8 row pl-4">
+                                                                    <div class="kt-portlet kt-portlet--height-fluid">
+                                                                        <div class="kt-portlet__head">
+                                                                            <div class="kt-portlet__head-label">
+                                                                                <h3 class="kt-portlet__head-title">
+                                                                                    Danh sách quyền
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-portlet-permission kt-portlet__body row flex-row" style="padding-bottom: 40px;">
+                                                                            <div *ngIf="loadingPermission">
+                                                                                <loading></loading>
+                                                                            </div>
+                                                                            <div class="kt-portlet--tabs">
+                                                                                <div class="kt-portlet__head-toolbar">
+                                                                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link" (click)="selectedInnerTab('kt_tab_roles')" [ngClass]="{'active':innerTab == 'kt_tab_roles'}">
+                                                                                                <i class="la la-align-center"></i> Danh sách quyền
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link" (click)="selectedInnerTab('kt_tab_permissions')" [ngClass]="{'active':innerTab == 'kt_tab_permissions'}">
+                                                                                                <i class="la la-bolt"></i> Chi tiết
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="kt-portlet__body">
+                                                                                    <div class="tab-content">
+                                                                                        <div class="tab-pane" [ngClass]="{'active':innerTab == 'kt_tab_roles'}">
+                                                                                            <div class="table-content">
+                                                                                                <table class="table table-bordered table-hover dataTable no-footer">
+                                                                                                    <thead>
+                                                                                                        <tr class="heading">
+                                                                                                            <th style="width: 80px; text-align: center;">STT</th>
+                                                                                                            <th>Thông tin phân quyền</th>
+                                                                                                            <th style="width:80px" class="kt-align-center">
+                                                                                                                Thao tác
+                                                                                                            </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody *ngIf="organization.Roles && organization.Roles.length > 0; else empty_content">
+                                                                                                        <tr *ngFor="let item of organization.Roles; let i = index;">
+                                                                                                            <td style="text-align: right;">{{ (i + 1) }}</td>
+                                                                                                            <td>
+                                                                                                                <p class="title">
+                                                                                                                    <a (click)="openPopupRole(item.Id)">{{ item.Code }} - {{ item.Name }}</a>
+                                                                                                                </p>
+                                                                                                                <span class="sub" *ngIf="item.Description">
+                                                                                                                    {{ item.Description }}
+                                                                                                                </span>
+                                                                                                            </td>
+                                                                                                            <td class="kt-align-center">
+                                                                                                                <button type="button" class="btn btn-sm btn-outline-danger btn-elevate btn-circle btn-icon" (click)="removeRole(item)">
+                                                                                                                    <i class="la la-trash"></i>
+                                                                                                                </button>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="tab-pane row" [ngClass]="{'active':innerTab == 'kt_tab_permissions'}">
+                                                                                            <user-edit-role-permission *ngIf="organization.Permissions && organization.Permissions.length > 0; else empty_content" [items]="organization.Permissions" [readonly]="true"></user-edit-role-permission>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="accordion">
+                                                                        <div class="card">
+                                                                            <div class="card-header" (click)="toggleOrganizationPermission(organization)">
+                                                                                <div class="card-title">
+                                                                                    <i class="la la-eyedropper"></i> Chọn quyền trực tiếp
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="collapse" [ngClass]="{'show':organization.PermissionActive}">
+                                                                                <div class="card-body">
+                                                                                    <user-edit-role-permission *ngIf="organization.AllPermissions" [items]="organization.AllPermissions" (permissionChange)="permissionChange($event, organization)"></user-edit-role-permission>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'team'}">
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex align-content-center">
+                                            <label class="col-sm-1" style="min-width: 100px;">Website</label>
+                                            <editor [(object)]="item" property="TeamOrganizationId" [decorator]="{ label: ''}" (valueChange)="teamOrganizationChange()"></editor>
+                                        </div>
+                                        <div class="col-sm-6 d-flex justify-content-end">
+                                            <editor-button label="Thêm nhóm" (click)="openPopupTeam()" *ngIf="allowAddTeam"></editor-button>
+                                            <div style="margin-left: 10px;" *ngIf="item.TeamOrganizationId && item.TeamOrganizationId.length > 0">
+                                                <editor-button label="Tải lại" className="btn btn-outline-primary" icon="la la-refresh" (click)="refreshTeams()"></editor-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div *ngIf="loadingTeamOrganization" style="min-height: 100px;">
+                                                <loading></loading>
+                                            </div>
+                                            <div class="accordion accordion-organization accordion-toggle-arrow" *ngFor="let organization of organizationTeams; let i = index;">
+                                                <div class="card">
+                                                    <div class="card-header" (click)="toggleOrganization(organization)">
+                                                        <div class="card-title">
+                                                            <i class="flaticon2-layers-1"></i> {{ organization.Name }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse" [ngClass]="{'show':organization.Active}">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <div class="kt-portlet kt-portlet--height-fluid">
+                                                                        <div class="kt-portlet__head">
+                                                                            <div class="kt-portlet__head-label">
+                                                                                <h3 class="kt-portlet__head-title">
+                                                                                    Chọn nhóm
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-portlet-organization kt-portlet__body" style="padding-bottom: 40px;">
+                                                                            <div class="form-group row" style="margin-bottom: 20px;">
+                                                                                <label class="col-sm-3 col-form-label">
+                                                                                    Tìm kiếm
+                                                                                </label>
+                                                                                <div class="col-sm-9">
+                                                                                    <editor-textbox (valueChange)="filterTeam($event, organization)" [decorator]="{placeholder: 'Mã, tên nhóm'}"></editor-textbox>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table-content">
+                                                                                <table class="table table-bordered table-hover dataTable no-footer">
+                                                                                    <thead>
+                                                                                        <tr class="heading">
+                                                                                            <th>Thông tin nhóm</th>
+                                                                                            <th style="width:80px" class="kt-align-center">
+                                                                                                Thao tác
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody *ngIf="organization.FilterTeams && organization.FilterTeams.length > 0; else empty_content">
+                                                                                        <tr *ngFor="let item of organization.FilterTeams">
+                                                                                            <td>
+                                                                                                <p class="title">
+                                                                                                    <a (click)="openPopupTeam(item.Id)">{{ item.Code }} - {{ item.Name }}</a>
+                                                                                                </p>
+                                                                                                <span class="sub" *ngIf="item.Description">
+                                                                                                    {{ item.Description }}
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td class="kt-align-center">
+                                                                                                <button type="button" class="btn btn-sm btn-outline-info btn-elevate btn-circle btn-icon" *ngIf="!item.Allow" (click)="allowTeam(item)">
+                                                                                                    <i class="la la-plus"></i>
+                                                                                                </button>
+                                                                                                <button type="button" class="btn btn-sm btn-outline-info btn-elevate btn-circle btn-icon" *ngIf="item.Allow" (click)="removeTeam(item)">
+                                                                                                    <i class="la la-check"></i>
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-8 row pl-4">
+                                                                    <div class="kt-portlet kt-portlet--height-fluid">
+                                                                        <div class="kt-portlet__head">
+                                                                            <div class="kt-portlet__head-label">
+                                                                                <h3 class="kt-portlet__head-title">
+                                                                                    Danh sách nhóm
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-portlet-team kt-portlet__body flex-row" style="padding-bottom: 40px;">
+                                                                            <div class="table-content">
+                                                                                <table class="table table-bordered table-hover dataTable no-footer">
+                                                                                    <thead>
+                                                                                        <tr class="heading">
+                                                                                            <th style="width: 80px; text-align: center;">STT</th>
+                                                                                            <th>Thông tin nhóm</th>
+                                                                                            <th style="width:80px" class="kt-align-center">
+                                                                                                Thao tác
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody *ngIf="organization.Teams && organization.Teams.length > 0; else empty_content">
+                                                                                        <tr *ngFor="let item of organization.Teams; let i = index;">
+                                                                                            <td style="text-align: right;">{{ (i + 1) }}</td>
+                                                                                            <td>
+                                                                                                <p class="title">
+                                                                                                    <a (click)="openPopupTeam(item.Id)">{{ item.Code }} - {{ item.Name }}</a>
+                                                                                                </p>
+                                                                                                <span class="sub" *ngIf="item.Description">
+                                                                                                    {{ item.Description }}
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td class="kt-align-center">
+                                                                                                <button type="button" class="btn btn-sm btn-outline-danger btn-elevate btn-circle btn-icon" (click)="removeTeam(item)">
+                                                                                                    <i class="la la-trash"></i>
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'location'}">
+                                    <div class="card-body row">
+                                        <div class="col-sm-12">
+                                            <div *ngIf="loadingLocation" style="min-height: 100px;">
+                                                <loading></loading>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="kt-portlet kt-portlet--height-fluid">
+                                                <div class="kt-portlet__head">
+                                                    <div class="kt-portlet__head-label">
+                                                        <h3 class="kt-portlet__head-title">
+                                                            Chọn khu vực
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-portlet-organization kt-portlet__body" style="padding-bottom: 40px;">
+                                                    <div class="form-group row">
+                                                        <div id="tree-location"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 row pl-4">
+                                            <div class="kt-portlet kt-portlet--height-fluid">
+                                                <div class="kt-portlet__head">
+                                                    <div class="kt-portlet__head-label">
+                                                        <h3 class="kt-portlet__head-title">
+                                                            Danh sách khu vực
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-portlet-team kt-portlet__body flex-row" style="padding-bottom: 40px;">
+                                                    <div class="table-content">
+                                                        <table class="table table-bordered table-hover dataTable no-footer">
+                                                            <thead>
+                                                                <tr class="heading">
+                                                                    <th style="width: 80px; text-align: center;">STT</th>
+                                                                    <th>Thông tin khu vực</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody *ngIf="organizationDistricts && organizationDistricts.length > 0; else empty_content">
+                                                                <tr *ngFor=" let group of organizationDistricts; let i = index;">
+                                                                    <td style="text-align: right;">{{ (i + 1) }}</td>
+                                                                    <td>
+                                                                        <p class="title">
+                                                                            {{ group.name }}
+                                                                        </p>
+                                                                        <span class="sub" *ngFor="let item of group.items">
+                                                                            {{ item.Title }},
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" [ngClass]="{'active':tab == 'product'}">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div *ngIf="loadingProduct" style="min-height: 100px;">
+                                                <loading></loading>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="kt-portlet kt-portlet--height-fluid">
+                                                <div class="kt-portlet__head">
+                                                    <div class="kt-portlet__head-label">
+                                                        <h3 class="kt-portlet__head-title">
+                                                            Chọn sản phẩm
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-portlet-organization kt-portlet__body" style="padding-bottom: 40px;">
+                                                    <div class="form-group row" style="margin-bottom: 20px;">
+                                                        <label class="col-sm-3 col-form-label">
+                                                            Tìm kiếm
+                                                        </label>
+                                                        <div class="col-sm-9">
+                                                            <editor-textbox (valueChange)="filterProduct($event, organizationProduct)" [decorator]="{placeholder: 'Tên sản phẩm'}"></editor-textbox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-content">
+                                                        <table class="table table-bordered table-hover dataTable no-footer">
+                                                            <thead>
+                                                                <tr class="heading">
+                                                                    <th>Thông tin sản phẩm</th>
+                                                                    <th style="width:80px" class="kt-align-center">
+                                                                        Thao tác
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody *ngIf="organizationProduct && organizationProduct.FilterProducts && organizationProduct.FilterProducts.length > 0; else empty_content">
+                                                                <tr *ngFor="let item of organizationProduct.FilterProducts">
+                                                                    <td>
+                                                                        <p class="title">
+                                                                            <a (click)="openPopupProduct(item.Id)">{{ item.Name }}</a>
+                                                                        </p>
+                                                                        <span class="sub" *ngIf="item.OtherName">
+                                                                            {{ item.OtherName }}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td class="kt-align-center">
+                                                                        <button type="button" class="btn btn-sm btn-outline-info btn-elevate btn-circle btn-icon" *ngIf="!item.Allow" (click)="allowProduct(item)">
+                                                                            <i class="la la-plus"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-outline-info btn-elevate btn-circle btn-icon" *ngIf="item.Allow" (click)="removeProduct(item)">
+                                                                            <i class="la la-check"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 row pl-4">
+                                            <div class="kt-portlet kt-portlet--height-fluid">
+                                                <div class="kt-portlet__head">
+                                                    <div class="kt-portlet__head-label">
+                                                        <h3 class="kt-portlet__head-title">
+                                                            Danh sách sản phẩm
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-portlet-team kt-portlet__body flex-row" style="padding-bottom: 40px;">
+                                                    <div class="table-content">
+                                                        <table class="table table-bordered table-hover dataTable no-footer">
+                                                            <thead>
+                                                                <tr class="heading">
+                                                                    <th style="width: 80px; text-align: center;">STT</th>
+                                                                    <th>Thông tin sản phẩm</th>
+                                                                    <th style="width:80px" class="kt-align-center">
+                                                                        Thao tác
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody *ngIf="organizationProduct && organizationProduct.Products && organizationProduct.Products.length > 0; else empty_content">
+                                                                <tr *ngFor="let item of organizationProduct.Products; let i = index;">
+                                                                    <td style="text-align: right;">{{ (i + 1) }}</td>
+                                                                    <td>
+                                                                        <p class="title">
+                                                                            <a (click)="openPopupProduct(item.Id)">{{ item.Name }}</a>
+                                                                        </p>
+                                                                        <span class="sub" *ngIf="item.OtherName">
+                                                                            {{ item.OtherName }}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td class="kt-align-center">
+                                                                        <button type="button" class="btn btn-sm btn-outline-danger btn-elevate btn-circle btn-icon" (click)="removeProduct(item)">
+                                                                            <i class="la la-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

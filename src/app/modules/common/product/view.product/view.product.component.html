@@ -1,0 +1,53 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item" [ngClass]="{'kt-popup' : popup}">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Thông tin cơ bản
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Tên sản phẩm *</label>
+                                <div class="col-sm-8">
+                                    <editor [(object)]="item" property="Name" [decorator]="{ label: '', allowClear: true, readonly: true}"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Tên khác</label>
+                                <div class="col-sm-8">
+                                    <editor [(object)]="item" property="OtherName" [decorator]="{ label: '', allowClear: true, readonly: true}"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Ghi chú</label>
+                                <div class="col-sm-8">
+                                    <editor [(object)]="item" property="Description" [decorator]="{ label: '', allowClear: true, readonly: true}"></editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <view-choice-user [params]="{id: id, type: 'product', addUser: false, deleteUser: false, navigation: false}"></view-choice-user>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

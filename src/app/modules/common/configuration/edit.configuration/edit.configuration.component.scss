@@ -1,0 +1,28 @@
+.box-item {
+    padding: 2rem;
+    padding-bottom: 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    .form-group {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+::ng-deep .configuration-wrapper {
+    .no-padding {
+        margin-bottom: 12px;
+        .form-group {
+            margin-bottom: 5px;
+            .kt-checkbox {
+                margin-bottom: 0;
+            }
+        }
+        .d-flex {
+            label {
+                min-width: 200px;
+            }
+        }
+    }
+}

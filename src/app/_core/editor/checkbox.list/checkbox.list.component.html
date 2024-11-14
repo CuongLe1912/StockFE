@@ -1,0 +1,9 @@
+<div wrapper class="kt-checkbox-inline" *ngIf="items && items.length > 0">
+    <label class="kt-checkbox kt-checkbox--success" [ngClass]="{'kt-checkbox--disabled':decorator.readonly}"
+        *ngFor="let item of items; let i = index;">
+        <input type="checkbox" [id]="decorator.id + '_' + i" [checked]="item.selected"
+            [disabled]="decorator.readonly" (change)="inputChange(item)">
+        <label *ngIf="item.label" [attr.for]="decorator.id + '_' + i">{{ item.label }}</label>
+        <span></span>
+    </label>
+</div>

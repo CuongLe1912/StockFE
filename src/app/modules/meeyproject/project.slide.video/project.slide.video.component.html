@@ -1,0 +1,96 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-project-video">
+    <edit-header-view *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions"></edit-header-view>
+    <div class="kt-portlet__body">
+        <div class="kt-form kt-form--label-right">
+            <div class="kt-portlet">
+                <div class="kt-portlet__body">
+                    <div class="file-header">
+                        <div class="float-right">
+                            <button class="btn btn-success" *ngIf="allowEdit" (click)="search()">
+                                <span>Chọn video</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="file-body">
+                        <div class="project-video">
+                            <div class="outside" cdkScrollable *ngIf="videos">
+                                <div cdkDropList (cdkDropListDropped)="drop($event)">
+                                    <div *ngFor="let item of videos, let i = index" class="videoItem row" cdkDrag>
+                                        <div class="sortVideo d-flex flex-wrap col-1">{{ i+1 }}</div>
+                                        <div class="p-3 row col-10">
+                                            <div class="video" (click)="view(item)"
+                                                [style.background-image]="'url(&quot;' + item?.avatar?.url + '&quot;)'">
+                                                <a>
+                                                    <img [src]="item?.avatar?.url" style="opacity: 0;" />
+                                                </a>
+                                            </div>
+                                            <div class="item-content" (click)="selectFile(item)">
+                                                <div class="content-title" *ngIf="item?.title">
+                                                    <span class="text-info" [title]="item.title">
+                                                        {{ getName(item.title) }}
+                                                    </span>
+                                                </div>
+                                                <div class="content-text">
+                                                    <label class="content-info">Dự án:</label>
+                                                    <label class="content-info" style="max-width: 500px;">{{
+                                                        item?.project?.tradeName
+                                                        }}</label>
+                                                </div>
+                                                <div class="content-text">
+                                                    <label class="content-info">Loại video:</label>
+                                                    <label class="content-info" [ngClass]="item?.createdBy?.source ==
+                                                    'meeyId' ? 'text-primary'
+                                                    : 'admin' ? 'text-success'
+                                                    : 'video live' ? 'text-danger'
+                                                    : ''
+                                                    ">
+                                                        {{ item?.createdBy?.source ==
+                                                        'meeyId' ? 'Người dùng đóng góp'
+                                                        : 'admin' ? 'Upload từ hệ thống'
+                                                        : 'video live'? 'Video livestream'
+                                                        : ''
+                                                        }}
+                                                    </label>
+                                                </div>
+                                                <div class="content-text" *ngIf="item?.createdBy?.data?.fullname">
+                                                    <label class="content-info">Người tạo:</label>
+                                                    <label class="content-info">{{ item.createdBy.data.fullname
+                                                        }}</label>
+                                                </div>
+                                                <div class="content-text" *ngIf="item?.createdAt">
+                                                    <label class="content-info">Ngày tạo:</label>
+                                                    <label class="content-info">{{ item.createdAt | datetimex}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-button d-flex col-1">
+                                            <div class="group-control">
+                                                <button class="draghandle control btn-light" *ngIf="allowEdit" cdkDragHandle
+                                                    tooltip="Nhấn giữ và kéo để thay đổi vị trí">
+                                                    <i class="la la-unsorted"></i>
+                                                </button>
+                                                <button class="delete control btn-danger" *ngIf="allowEdit" (click)="removeFeature(item)"
+                                                    tooltip="Xóa">
+                                                    <i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="file-footer">
+                        <div class="float-right">
+                            <button class="btn btn-danger" *ngIf="allowEdit" (click)="clear()">
+                                <span>Hủy</span>
+                            </button>
+                            <button class="btn btn-info" *ngIf="allowEdit" (click)="updateFeature()">
+                                <span>Lưu</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

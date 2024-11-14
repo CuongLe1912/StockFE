@@ -1,0 +1,77 @@
+<div class="cancel-article">
+    <div class="row" *ngIf="!article && articles">
+        <div class="col-sm-12">
+            <label>Tổng số tin cần hạ: {{ ids.length }} / {{ this.articles && this.articles.length }}</label>
+            <p class="warning text-danger">Lưu ý: nếu tin thuộc CSKH khác thì sẽ không thể hạ tin</p>
+            <ml-list-article [articles]="articles" [action]="ActionType.CancelArticle" (removed)="removedItems($event)" (selected)="closePopup()"></ml-list-article>
+        </div>
+    </div>
+    <div class="row article-section" *ngIf="article">
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Mã tin</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="Code" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Loại tin</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="TypeArticle" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Nhóm tin</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="Type" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Tiêu đề</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="Title" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Thời gian bắt đầu</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="CreatedDate" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Thời gian kết thúc</label>
+                </div>
+                <div class="col-sm-8">
+                    <editor [(object)]="article" property="ExpriedDate" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row cancel-section">
+        <div class="col-sm-12">
+            <editor [(object)]="item" property="Type" [decorator]="{ label: 'Vui lòng chọn lý do hạ tin' }" (valueChange)="typeChange()"></editor>
+        </div>
+        <div class="col-sm-12" *ngIf="item.Type == MLArticleReasonType.Other">
+            <editor [(object)]="item" property="Reason" [decorator]="{ label: 'Mô tả' }" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+        <div class="col-sm-12" *ngIf="allowSendEmail">
+            <editor [(object)]="item" property="SendEmail" [decorator]="{ label: '' }"></editor>
+        </div>
+        <div class="col-sm-12">
+            <editor #uploadImage [(object)]="item" property="Images" [decorator]="{ label: 'Hình ảnh' }"></editor>
+        </div>
+    </div>
+</div>

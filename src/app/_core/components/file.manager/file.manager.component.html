@@ -1,0 +1,188 @@
+<div class="row file-manager">
+    <div class="col-sm-2">
+        <div class="leftbar">
+            <div *ngIf="loading" style="min-height: 300px;">
+                <loading></loading>
+            </div>
+            <div id="tree-folder" *ngIf="!loading"></div>
+            <div class="tree-status">
+                <h6 class="title"><em class="fa fa-hard-drive"></em><span>Lưu trữ</span></h6>
+                <div class="progress">
+                    <div class="progress-bar" [attr.data-progress]="percent" [style.width]="percent + '%'"></div>
+                </div>
+                <div class="status-info">Dung lượng: {{ (totalSize / 1024 / 1024).toFixed(2) + '/5000 MB' }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <div class="file-body">
+            <div class="file-breadcrumbs" *ngIf="breadcrumbs">
+                <div class="item" *ngFor="let item of breadcrumbs; let i = index;">
+                    <i class="fa fa-home" *ngIf="i == 0"></i>
+                    <a (click)="selectFolder(item)">{{ item.Name }}</a>
+                    <i class="fa fa-angle-right" *ngIf="i < breadcrumbs.length - 1"></i>
+                </div>
+            </div>
+            <div class="file-header">
+                <div class="search">
+                    <em class="fa fa-search"></em>
+                    <input type="text" class="form-control" placeholder="Tìm kiếm tệp, thư mục..." [(ngModel)]="search" (keyup.enter)="searchChange()">
+                </div>
+                <div class="actions">
+                    <div class="dropdown">
+                        <a class="btn btn-primary" (click)="searchChange()">
+                            <i class="fa fa-search"></i>
+                            <span>Tìm kiếm</span>
+                        </a>
+                        <a class="btn btn-info" (click)="createFolder()">
+                            <i class="fa fa-folder"></i>
+                            <span>Tạo thư mục</span>
+                        </a>
+                        <a class="btn btn-success" (click)="toggleActiveUpload()" [ngClass]="{'disabled': !this.selectedFolderId}">
+                            <i class="fa fa-upload"></i>
+                            <span>Tải lên tệp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="file-upload" *ngIf="activeUpload">
+                <editor #uploadFile [(object)]="file" property="File" [decorator]="{ url: 'File/Upload/' + selectedFolderId }"></editor>
+                <div class="dropdown">
+                    <a class="btn btn-info" (click)="uploadFiles()">
+                        <i class="fa fa-upload"></i>
+                        <span>Tải lên</span>
+                    </a>
+                    <a class="btn btn-success" (click)="toggleActiveUpload()">
+                        <i class="fa fa-times"></i>
+                        <span>Đóng</span>
+                    </a>
+                </div>
+            </div>
+            <div class="file-innerbody">
+                <div *ngIf="loadingFile || loadingFolder" style="min-height: 300px;">
+                    <loading></loading>
+                </div>
+                <div *ngIf="!(loadingFile || loadingFolder)">
+                    <h4 *ngIf="innerFolders && innerFolders.length > 0">Thư mục</h4>
+                    <div class="file-folders" *ngIf="innerFolders">
+                        <div class="card" *ngFor="let item of innerFolders" (dblclick)="selectFolder(item)">
+                            <div class="card-header border-0">
+                                <div class="card-toolbar">
+                                    <div class="dropdown dropdown-inline" (clickOutside)="item.Active = false">
+                                        <a class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" (click)="item.Active = !item.Active">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" [ngClass]="{'show':item.Active}">
+                                            <ul class="kt-nav">
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="selectFolder(item)">
+                                                        <i class="fa fa-folder-open"></i>
+                                                        <span class="kt-nav__link-text">Mở thư mục</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="renameFolder(item)">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span class="kt-nav__link-text">Đổi tên</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="deleteFolder(item)">
+                                                        <i class="fa fa-trash"></i>
+                                                        <span class="kt-nav__link-text">Xóa</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <img [alt]="item.Name" src="../../../../assets/media/svg/icons/Files/Folder.svg" />
+                                    <a class="text-dark-75 mt-15" [title]="item.Name">
+                                        {{ item.Name }}
+                                        <p>({{ item.Folders | numberx }} thư mục, {{ item.Files | numberx }} tệp)</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 *ngIf="files && files.length > 0">Tệp tài liệu</h4>
+                    <div class="file-files" *ngIf="files">
+                        <div class="card" *ngFor="let item of files" (click)="selectFile(item)" (dblclick)="dblSelectFile(item)" [ngClass]="{'active': selectedFile && item.Id == selectedFile.Id}">
+                            <div class="card-header border-0">
+                                <div class="card-toolbar">
+                                    <div class="dropdown dropdown-inline" (clickOutside)="item.Active = false">
+                                        <a class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" (click)="item.Active = !item.Active">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" [ngClass]="{'show':item.Active}">
+                                            <ul class="kt-nav">
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="copyLink(item)">
+                                                        <i class="fa fa-copy"></i>
+                                                        <span class="kt-nav__link-text">Sao chép</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="downloadFile(item)">
+                                                        <i class="fa fa-download"></i>
+                                                        <span class="kt-nav__link-text">Tải tệp</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="renameFile(item)">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span class="kt-nav__link-text">Đổi tên</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a class="kt-nav__link" (click)="deleteFile(item)">
+                                                        <i class="fa fa-trash"></i>
+                                                        <span class="kt-nav__link-text">Xóa</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <ng-container [ngSwitch]="item.Extension">
+                                        <ng-container *ngSwitchCase="'pdf'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/pdf.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'doc'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/doc.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'docx'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/doc.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'xls'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/csv.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'xlsx'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/csv.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'zip'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/zip.svg" />
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'rar'">
+                                            <img [alt]="item.Name" src="../../../../assets/media/svg/files/zip.svg" />
+                                        </ng-container>
+                                    </ng-container>
+                                    <a class="text-dark-75 mt-15" [title]="item.Name">
+                                        {{ item.Name }}
+                                        <p>({{ item.Extension + ', ' }} {{ (item.Size / 1024 / 1024).toFixed(2) + ' MB' }})</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

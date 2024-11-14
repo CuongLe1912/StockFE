@@ -1,0 +1,52 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-report-component">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body" *ngIf="item && !loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body" *ngIf="item && !loading">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="box-item">
+                                        <h5>Thông tin chung</h5>
+                                        <editor [(object)]="item" property="CreatedAt" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="User" [decorator]="{readonly: true}"></editor>
+                                        <div class="d-flex d-flex-status">
+                                            <editor [(object)]="item" property="Status" [decorator]="{readonly: true}"></editor>
+                                            <button class="btn btn-primary" (click)="popupProcess()" *ngIf="allowProcess && item.Status == MShareReportStatusType.NotYet">
+                                                Xử lý
+                                            </button>
+                                        </div>
+                                        <editor [(object)]="item" property="Note" [decorator]="{readonly: true}"></editor>
+                                        <editor [(object)]="item" property="Description" [decorator]="{readonly: true}"></editor>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8" *ngIf="item.Feed">
+                                    <div class="box-item">
+                                        <h5>Nội dung tin tức bị báo xấu</h5>
+                                        <div class="d-flex align-items-center mb-3" style="gap: 5px;">
+                                            <img class="avatar" [src]="item.Feed.publishedBy?.avatar?.url || '../../../../../assets/media/users/default.jpg'" />
+                                            <div>{{ item.Feed.publishedBy?.fullname || item.Feed.publishedBy?.name }}</div>
+                                            <div> - {{ item.Feed.publishedAt | datetimex }}</div>
+                                        </div>
+                                        <div class="title d-flex mb-4">
+                                            {{ item.Title }}
+                                        </div>
+                                        <div [innerHTML]="item.Feed.description | sanitizeHtml" class="content"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

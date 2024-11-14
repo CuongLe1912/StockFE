@@ -1,0 +1,227 @@
+<div class="row" *ngIf="item">
+  <div class="col-sm-12">
+    <div class="box-item-review">
+      <div class="title-article">
+        <div class="thumbnail-img">
+          <img [src]="item.Avata" />
+        </div>
+        <div class="text-project">
+          <p class="fz-14">
+            <strong>{{ item.NickName }}</strong> đã viết trong
+            <strong>{{ item.ProjectTitle }}</strong>
+          </p>
+          <p class="time" *ngIf="item.comment">{{ item.CountTimeSpan }} trước</p>
+        </div>
+      </div>
+      <div class="content-review mt-2">
+        <span class="whitespace-pre-line fz-14"
+          >{{item.Comment}}
+        </span>
+      </div>
+      <!-- ảnh slider -->
+      <div class="py-2 rounded-lg d-flex overflow-auto flex-wrap gap-2 w-full upload-media">
+        <editor #uploadFiles [(object)]="item" property="Media" [decorator]="{ label: '', readonly: true }"></editor>
+        <!-- <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal11111111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/SFtCgw9k2daEVHE_US-Bkx3Wo0KowKjfA_UZLk-jmVo/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExMTExMTEuMTY5Mzg4MTU5OTczOC5qcGc.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div>
+        <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal1111111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/EfvMBeBB5Y9XcUpilhVcBf5iq73Iz_a4Hs59LW37o9g/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExMTExMS4xNjkzODgxNjAwMjQ0LmpwZw.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div>
+        <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal111111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/hxTc3pVWD0ktRYZyCdnOnBuwufIaY0_ve53i3ErDRuE/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExMTExLjE2OTM4ODE1OTk3NDEuanBn.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div>
+        <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal11111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/n01Ys5EP8Q2cibQQJQBKF8w7uiq1CUTzaTRJ8QliEyk/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExMTEuMTY5Mzg4MTYwMDI2Ny5qcGc.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div>
+        <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal1111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/AzHfdme1yIOhL6fIJdpqS03uWqUjA4WCMhjk9fGeD8s/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExMS4xNjkzODgxNTk5NDE2LmpwZw.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div>
+        <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal111.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/CEgYbVECKKrRSaruZRBlIYLchJCUkIoFgq64s_wkoS0/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTExLjE2OTM4ODE1OTk4MzguanBn.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 z-10 bg-rgb-1 d-flex align-items-center justify-content-center opacity-0 rounded-md duration-300"
+          >
+            <i class="la la-eye text-white text-fs-20"></i>
+          </div>
+        </div> -->
+        <!-- <div class="relative group cursor-pointer can-preview-upload">
+          <div
+            class="w-[4.5rem] h-[4.5rem] bg-grey-200 rounded-md flex flex-col relative cursor-pointer"
+          >
+            <div class="text-fs-12 w-full h-full overflow-hidden rounded">
+              <img
+                class="object-cover w-full h-full"
+                alt="royal11.jpg"
+                width="72"
+                height="72"
+                src="https://i.meeymedia.com/p3mEE89jo7-IENmp5NIReBapIhPgkJXfSkM7GOUdT0o/rs:fill-down:72:72/g:ce/czM6Ly9tZWV5cmV2aWV3L2ltYWdlcy8yMDIzLzA5LzA1L3JveWFsMTEuMTY5Mzg4MTYwMDQwNy5qcGc.jpg"
+              />
+            </div>
+          </div>
+          <div
+            class="cursor-pointer absolute w-full h-full top-0 bg-rgba-2 d-flex align-items-center justify-content-center z-10 rounded-md duration-300 text-fs-36 font-semibold text-white"
+          >
+            +2
+          </div>
+        </div> -->
+      </div>
+      <!-- end -->
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <!-- Thời gian báo cáo -->
+    <editor
+      [(object)]="item"
+      property="CreateDate"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+  <div class="col-sm-6">
+    <!-- Thời gian xử lý -->
+    <editor
+      [(object)]="item"
+      property="TimeHandle"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+
+  <div class="col-sm-6">
+    <!-- người báo cáo -->
+    <editor
+      [(object)]="item"
+      property="CreatedByReport"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+  <div class="col-sm-6">
+    <!-- người xử lý -->
+    <editor
+      [(object)]="item"
+      property="UpdatedByReport"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+
+  <div class="col-sm-6">
+    <!-- trạng thái -->
+    <editor
+      [(object)]="item"
+      property="Status"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+
+  <div class="col-sm-6"></div>
+
+  <div class="col-sm-12">
+    <!-- nội dung báo cáo -->
+    <editor
+      [(object)]="item"
+      property="Content"
+      [decorator]="{ readonly: viewer }"
+    ></editor>
+  </div>
+  
+</div>
+<div class="d-flex justify-content-between align-items-center" *ngIf="item && item.Status == 1">
+  <button (click)="delete(2,item)" class="btn btn-secondary ng-star-inserted">Báo cáo sai</button>
+  <button (click)="delete(1,item)" class="btn btn-primary ng-star-inserted">Xoá nội dung vi phạm</button>
+</div>

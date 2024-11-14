@@ -1,0 +1,116 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                  Cấu hình giá mới mới cho các dịch vụ được chọn
+                </h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">Loại khuyến mại <span class="text-danger">*</span></label>
+                    <div class="col-sm-2" *ngIf="renderDiscountType">
+                      <editor [(object)]="item" property="DiscountType" (valueChange)="priceDiscountChange()" [decorator]="{ label: '', readonly: disableDiscountType }"></editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">Áp dụng từ ngày <span class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                      <editor [(object)]="item" property="StartDate" [decorator]="{ label: '', min: minCurent }"></editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">Upload file chính sách <span class="text-danger">*</span></label>
+                    <div class="col-sm-4">
+                      <editor #uploadFile [(object)]="item" property="UrlPolicy" [decorator]="{readonly: viewer}"></editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                  Khai báo giá cho các dịch vụ đã chọn
+                </h3>
+              </div>
+            </div>
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-bordered table-hover dataTable no-footer" style="margin-top: 15px !important">
+                    <thead>
+                      <tr>
+                        <th scope="col" rowspan="2">Tên dịch vụ</th>
+                        <th scope="col" rowspan="2">Mã dịch vụ</th>
+                        <th scope="col" colspan="3">Giá hiện tại</th>
+                        <th scope="col" colspan="3">Giá mới</th>
+                      </tr>
+                      <tr>
+                        <th scope="col">Giá gốc</th>
+                        <th scope="col" style="width: 15%">Mức KM</th>
+                        <th scope="col">Giá sau KM</th>
+                        <th scope="col">Giá gốc</th>
+                        <th scope="col" style="width: 15%">Mức KM</th>
+                        <th scope="col">Giá sau KM</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let service of listService; let i=index;">
+                        <td>{{ service.Name }}</td>
+                        <td>{{ service.Code }}</td>
+                        <td>{{ service.PriceConfig?.PriceRoot ? service.PriceConfig.PriceRoot.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '0' }}</td>
+                        <td>{{ service.PriceConfig?.Discount ? service.PriceConfig.Discount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '0' }} {{ getDiscountText(service.PriceConfig) }}</td>
+                        <td>{{ service.PriceConfig?.PriceDiscount ? service.PriceConfig.PriceDiscount.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) : '0' }}</td>
+                        <td>
+                          <editor [(object)]="listItem[i]" property="PriceRoot" (valueChange)="priceItemDiscountChange(listItem[i])" [decorator]="{ label: '', index: i }"></editor>
+                        </td>
+                        <td>
+                          <div class="row" *ngIf="renderDiscount">
+                            <div class="col-sm-9">
+                              <editor [(object)]="listItem[i]" property="Discount" (valueChange)="priceItemDiscountChange(listItem[i])" [decorator]="{ label: '', max: maxValue, index: i }"></editor>
+                            </div>
+                            <label class="col-sm-3 col-form-label">{{ discountText }}</label>
+                          </div>
+                        </td>
+                        <td *ngIf="renderDiscount">
+                          <editor [(object)]="listItem[i]" property="PriceDiscount" [decorator]="{ label: '', index: i, readonly: !discountPercent }"></editor>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kt-form" *ngIf="!item">
+      {{ message }}
+    </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

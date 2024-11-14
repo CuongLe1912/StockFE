@@ -1,0 +1,9 @@
+<div class="row" *ngIf="item && !loading">
+  <div class="col-sm-12">
+    <div></div>
+    <editor [(object)]="item" property="Name" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+  </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+  <loading></loading>
+</div>

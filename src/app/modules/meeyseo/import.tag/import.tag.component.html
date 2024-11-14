@@ -1,0 +1,44 @@
+<div wrapper class="add-project">
+    <div class="row" *ngIf="isActive">
+        <div class="d-flex align-items-center" style="margin: 15px auto;">
+            <button class="btn btn-warning font-weight-bolder text-uppercase btn-icon" (click)="changeView(1)">
+                <i class="la la-download"></i> Tải file mẫu
+            </button>
+            <button class="btn btn-primary font-weight-bolder text-uppercase btn-icon" (click)="changeView(2)">
+                <i class="la la-upload"></i>Import tag</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="isDownload">
+        <div class="d-flex align-items-center" style="margin: 15px auto;">
+            <button class="btn btn-secondary font-weight-bolder text-uppercase" (click)="changeView(0)">Quay
+                lại</button>
+            <a class="btn btn-warning font-weight-bolder text-uppercase" href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/Import_tag_manual.xlsx">File
+                mẫu Manual</a>
+            <a class="btn btn-primary font-weight-bolder text-uppercase" href="https://s3-ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/Import_tag_auto.xlsx">File
+                mẫu Auto</a>
+        </div>
+    </div>
+
+    <div *ngIf="isImport">
+        <div class="row">
+            <div class="col-sm-6 col-form-label file-import d-flex align-items-center justify-content-center" [ngClass]="{'disable':item.FileAuto}">
+                <editor #importManual [(object)]="item" property="FileMaunal" [decorator]="{ label: 'Import Manual' }">
+                </editor>
+            </div>
+            <div class="col-sm-6 col-form-label file-import d-flex align-items-center justify-content-center" [ngClass]="{'disable':item.FileMaunal}">
+                <editor #importAuto [(object)]="item" property="FileAuto" [decorator]="{ label: 'Import Auto' }">
+                </editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex align-items-center" style="margin: 15px auto;">
+                <button class="btn btn-secondary font-weight-bolder text-uppercase" (click)="changeView(0)">Quay
+                    lại</button>
+                <editor-button label="Import file" [process]="processing" (click)="confirm()" className="btn btn-primary font-weight-bolder text-uppercase"></editor-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

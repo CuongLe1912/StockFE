@@ -1,0 +1,40 @@
+<div class="row" *ngIf="item && assignItem && !loading">
+    <div class="col-sm-12" style="margin-bottom: -20px;" *ngIf="customerIds && customerIds.length > 0">
+        <editor [(object)]="item" property="IsAutoTransferCustomer"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.IsAutoTransferCustomer">
+        <div class="row" style="border: 1px solid #ddd; border-radius: 4px; margin: 0 0 20px 0;">
+            <div class="col-sm-12" style="margin: 10px 0; ">
+                <label>Tổng số khách hàng điều chuyển: {{ customerIds.length }}</label>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="assignItem" property="DepartmentId" [decorator]="{ lookup: { url: '/department/lookupItems/' + type } }"></editor>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="assignItem" property="UserId"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" style="margin-bottom: -20px;" *ngIf="articleIds && articleIds.length > 0">
+        <editor [(object)]="item" property="IsAutoTransferArticle"></editor>
+    </div>
+    <div class="col-sm-12" *ngIf="item.IsAutoTransferArticle">
+        <div class="row" style="border: 1px solid #ddd; border-radius: 4px; margin: 0 0 20px 0;">
+            <div class="col-sm-12" style="margin: 10px 0; ">
+                <label>Tổng số tin đăng điều chuyển: {{ articleIds.length }}</label>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="assignArticleItem" property="DepartmentId" [decorator]="{ lookup: { url: '/department/lookupItems/' + type } }"></editor>
+            </div>
+            <div class="col-sm-6">
+                <editor [(object)]="assignArticleItem" property="UserId"></editor>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="!needTransfer">
+        <p>Không có khách hàng hoặc tin đăng cần điều chuyển</p>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

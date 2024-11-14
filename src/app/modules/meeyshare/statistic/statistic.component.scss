@@ -1,0 +1,172 @@
+::ng-deep .meeyshare-statistic {
+    .btn-search {
+        width: 135px;
+        margin-top: 21px;
+    }
+    .meeyshare-statistic-feed-grid {
+        .row-embed {
+            display: none;
+        }
+        table {
+            thead {
+                tr.heading {
+                    position: relative !important;
+                    th {
+                        text-align: center;
+                        &:first-of-type {
+                            span {
+                                left: 0;
+                                bottom: 0;
+                                top: -47px;
+                                width: 100%;
+                                display: block;
+                                overflow: visible;
+                                position: absolute;
+                                background: linear-gradient(to top right, #fff 0%, #fff 50%, #efefef 50%, #efefef 100%);
+                            }
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    &:last-of-type {
+                        background-color: #fff !important;
+                        td {
+                            font-weight: bold;
+                            &:first-of-type {
+                                opacity: 0;
+                                border-bottom: none;
+                                background-color: #fff !important;
+                            }
+                        }
+                    }
+                }
+            }
+            tfoot {
+                td {
+                    &:first-of-type {
+                        border-top: none;
+                        position: relative;
+                        span {
+                            top: -10px;
+                            right: 8px;
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .meeyshare-statistic-interaction-grid {
+        table {
+            thead {
+                tr.heading {
+                    position: relative !important;
+                    th {
+                        text-align: center;
+                        &:first-of-type {
+                            span {
+                                left: 0;
+                                bottom: 0;
+                                top: -47px;
+                                width: 100%;
+                                display: block;
+                                overflow: visible;
+                                position: absolute;
+                                background: linear-gradient(to top right, #fff 0%, #fff 50%, #efefef 50%, #efefef 100%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.symbol {
+    flex-shrink: 0;
+    position: relative;
+    -ms-flex-negative: 0;
+    display: inline-block;
+    border-radius: 0.42rem;
+    .symbol-label {
+        width: 100px;
+        height: 100px;
+        border-radius: 0.42rem;
+    }
+}
+
+.navi-item {
+    margin: 4px 0;
+    cursor: pointer;
+    min-width: 300px;
+    &.bottom {
+        left: 0;
+        width: 100%;
+        bottom: 0px;
+        display: flex;
+        padding: 0 5px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        .btn {
+            width: 100%;
+        }
+    }
+    .navi-link {
+        display: block;
+        color: #3f4254;
+        border-radius: 10px;
+        text-decoration: none;
+        border-radius: 0.42rem;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.15s ease;
+        svg {
+            fill: #3f4254;
+            color: #3f4254;
+            g [fill] {
+                fill: #3f4254;
+                color: #3f4254;
+            }
+        }
+        &:hover,
+        &.active {
+            color: #5867dd;
+            background-color: #f3f6f9;
+            svg {
+                fill: #5867dd;
+                color: #5867dd;
+                g [fill] {
+                    fill: #5867dd;
+                    color: #5867dd;
+                }
+            }
+        }
+    }
+    .navi-text {
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        .number {
+            width: 25px;
+            color: #fff;
+            height: 25px;
+            display: flex;
+            font-weight: bold;
+            align-items: center;
+            border-radius: 100%;
+            justify-content: center;
+            background-color: green;
+        }
+    }
+}
+
+.statistic-table {
+    thead tr {
+        background: #dadadd;
+        .colEmpty {
+            background: linear-gradient(to top right, #fff 0%, #fff 50%, #dadadd 50%, #dadadd 100%);
+        }
+    }
+}

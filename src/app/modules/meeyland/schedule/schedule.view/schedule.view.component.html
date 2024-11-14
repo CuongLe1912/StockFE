@@ -1,0 +1,100 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item" [ngClass]="{'kt-popup' : popup}">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <editor [(object)]="item" property="Code" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="Type" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="CreatedTime" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="ScheduleTime" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="Status" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="SupportCount" [viewer]="true"></editor>
+                                    <editor [(object)]="item" property="Notes" [viewer]="true"></editor>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h6>Người đặt lịch</h6>
+                                    <ul>
+                                        <li>
+                                            <div class="form-group form-group-viewer row">
+                                                <label class="col-3">Họ và tên</label>
+                                                <div class="col-9">
+                                                    <a (click)="quickViewUserEmail()"><span>{{ item.UserSheduleName }}</span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <editor [(object)]="item" property="UserShedulePhone" [viewer]="true" [decorator]="{label:'Số điện thoại'}"></editor>
+                                        </li>
+                                        <li>
+                                            <editor [(object)]="item" property="UserSheduleEmail" [viewer]="true" [decorator]="{label:'Email'}"></editor>
+                                        </li>
+                                    </ul>
+                                    <h6>Người đăng tin</h6>
+                                    <ul>
+                                        <li>
+                                            <div class="form-group form-group-viewer row">
+                                                <label class="col-3">Họ và tên</label>
+                                                <div class="col-9">
+                                                    <a (click)="quickViewUser()"><span>{{ item.UserArticleName }}</span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <editor [(object)]="item" property="UserArticlePhone" [viewer]="true" [decorator]="{label:'Số điện thoại'}"></editor>
+                                        </li>
+                                        <li>
+                                            <editor [(object)]="item" property="UserArticleEmail" [viewer]="true" [decorator]="{label:'Email'}"></editor>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-group-viewer row">
+                                        <label class="col-3"> Mã tin </label>
+                                        <div class="col-9">
+                                            <a (click)="quickViewInfo()"><span>{{ item.ArticleCode }}</span></a>
+                                            <span> - </span>
+                                            <a (click)="quickViewMap()" style="color: red;"><i class="la la-map-marker"></i>Xem bản đồ</a>
+                                        </div>
+                                    </div>
+                                    <editor [(object)]="item" property="ArticleType" [viewer]="true" [decorator]="{label:'Loại tin'}"></editor>
+                                    <div class="form-group form-group-viewer row">
+                                        <label class="col-3"> Tiêu đề tin </label>
+                                        <div class="col-9">
+                                            <a (click)="quickViewArticle()"><span>{{ item.ArticleTitle }}</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" *ngIf="item.Id && allowViewScheduleHistory">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Lịch sử hỗ trợ
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;">
+                            <mp-schedule-history [params]="{id: item.Id}" (countChange)="updateSupportCount($event)"></mp-schedule-history>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

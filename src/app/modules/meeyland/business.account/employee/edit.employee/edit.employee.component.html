@@ -1,0 +1,29 @@
+<div class="row edit-employee" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="CreateType" [decorator]="{label: ''}" (valueChange)="typeChange()"></editor>
+        <div *ngIf="item.CreateType == 1">
+            <editor [(object)]="item" property="Phone" [labelInline]="true" (valueChange)="valueChange()"></editor>
+            <editor [(object)]="item" property="Email" [labelInline]="true" (valueChange)="valueChange()"></editor>
+            <editor [(object)]="item" property="Name" [labelInline]="true" (valueChange)="valueChange()"></editor>
+        </div>
+        <div *ngIf="item.CreateType == 2">
+            <div class="input-group align-items-end">
+                <editor [(object)]="item" property="Search" [decorator]="{label:'Số điện thoại/Email', placeholder:'Nhập Số điện thoại hoặc email'}"></editor>
+                <editor-button label="Tìm kiếm" [process]="processSearch" (click)="search()" [disabled]="item.Search ? false : true"></editor-button>
+            </div>
+            <div style="min-height: 104px;">
+                <div class="employee-info" *ngIf="itemSearch">
+                    <editor *ngIf="itemSearch.Name" [(object)]="itemSearch" property="Name" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="itemSearch.Phone" [(object)]="itemSearch" property="Phone" [viewer]="true" [labelInline]="true"></editor>
+                    <editor *ngIf="itemSearch.Email" [(object)]="itemSearch" property="Email" [viewer]="true" [labelInline]="true"></editor>
+                </div>
+                <div class="error" *ngIf="message">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

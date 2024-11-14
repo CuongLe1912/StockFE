@@ -1,0 +1,258 @@
+<div class="row view-contract">
+    <div class="col-sm-12">
+        <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Thông tin hợp đồng</h3>
+                    <div class="btn-tabs-right" style="z-index: 9999;">
+                        <button class="btn btn-sm btn-primary" (click)="editContract()" *ngIf="allowEditContract">
+                            <i class="la la-pencil"></i>
+                            Chỉnh sửa
+                        </button>
+                        <button class="btn btn-sm btn-success" (click)="approveContract()" *ngIf="!isApprove && !isReject && allowApproveContract">
+                            <i class="la la-check"></i>
+                            Kiểm duyệt
+                        </button>
+                    </div>
+                </div>
+                <div class="info-label" style="width: 86%;">
+                    <div class="col-sm-12" *ngIf="!isBusinesses">
+                        <p style="margin: 0; padding: 0;">
+                            <span class="text-success" *ngIf="isSignStatus"> Đã ký online (Không bắt buộc)</span>
+                            <span class="text-danger" *ngIf="!isSignStatus"> Chưa ký hợp đồng online (Không bắt buộc)</span>
+                            <span class="ml-5" *ngIf="isSignStatus && item?.DateOfSign">vào lúc: {{ item.DateOfSign | datetimex }},</span>
+                            <span class="ml-5" *ngIf="item?.File">
+                                Hợp đồng:
+                                <a class="ml-5" [href]="item.File" target="_blank"> {{ getFileName(item.File) }}</a>
+                            </span>
+                        </p>
+                        <p style="margin: 0; padding: 0;" *ngIf="isApprove">
+                            <span class="text-success">Đã duyệt hợp đồng</span>
+                            <span class="ml-5">vào lúc: {{ item.DateOfApprove | datetimex }}</span>
+                            <span class="ml-5">do: {{ item.SaleOrSupport }}</span>
+                        </p>
+                    </div>
+                    <div class="col-sm-12" *ngIf="isBusinesses">
+                        <span class="text-success ml-5" *ngIf="isApprove"> Đã duyệt hợp đồng</span>
+                        <span class="text-danger ml-5" *ngIf="!isApprove"> Chưa duyệt hợp đồng</span>
+                        <span class="ml-5" *ngIf="isApprove && item?.DateOfApprove">vào lúc: {{ item.DateOfApprove | datetimex }},</span>
+                        <span class="ml-5" *ngIf="isApprove && item?.SaleOrSupport && !isBusinesses">do: {{ item.SaleOrSupport }} duyệt</span>
+                        <span class="ml-5" *ngIf="item?.File && isBusinesses">
+                            Hợp đồng:
+                            <a class="ml-5" [href]="item.File" target="_blank"> {{ getFileName(item.File) }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Loại hợp đồng:</label>
+                            <div class="col-sm-5 col-form-label">
+                                <editor [(object)]="item" [viewer]="true" property="Type" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="!isBusinesses">
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Họ và tên:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="Name" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Địa chỉ thường trú:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="Address" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Số điện thoại:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="Phone" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Email:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="Email" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="isBusinesses">
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Tên doanh nghiệp:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="BusinessName" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Địa chỉ ĐKKD:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="Address" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Số điện thoại:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="BusinessPhone" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Mã số thuế kinh doanh:</label>
+                                <div class="col-sm-5 col-form-label">
+                                    <editor [(object)]="item" [viewer]="true" property="TaxCode" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="!isBusinesses">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Thông tin xác thực</h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Mã số thuế cá nhân:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" [viewer]="true" property="TaxCode" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Số CCCD:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" [viewer]="true" property="IdCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Ngày cấp:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" [viewer]="true" property="DateOfIssue" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Nơi cấp: <span class="text-danger" *ngIf="!isView">*</span></label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" property="PlaceOfIssue" [viewer]="true" [decorator]="{ label: ''}"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">CCCD mặt trước:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor #uploadFontCard [(object)]="item" [viewer]="true" property="FontCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">CCCD mặt sau:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor #uploadBackCard [(object)]="item" [viewer]="true" property="BackCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isBusinesses">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Người đại diện</h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Họ và tên:</label>
+                            <div class="col-sm-5 col-form-label">
+                                <editor [(object)]="item" [viewer]="true" property="Name" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Số điện thoại:</label>
+                            <div class="col-sm-5 col-form-label">
+                                <editor [(object)]="item" [viewer]="true" property="Phone" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Email:</label>
+                            <div class="col-sm-5 col-form-label">
+                                <editor [(object)]="item" [viewer]="true" property="Email" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label">Chức vụ nắm giữ:</label>
+                            <div class="col-sm-5 col-form-label">
+                                <editor [(object)]="item" [viewer]="true" property="Position" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Chứng từ tùy thân người đại diện</h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Số CCCD:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" [viewer]="true" property="IdCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Ngày cấp:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" [viewer]="true" property="DateOfIssue" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">CCCD mặt trước:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor #uploadFontCard [(object)]="item" [viewer]="true" property="FontCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">CCCD mặt sau:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor #uploadBackCard [(object)]="item" [viewer]="true" property="BackCard" [decorator]="{ label: '' }"></editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Giấy phép kinh doanh</h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Ngày ký: <span class="text-danger" *ngIf="!isView">*</span></label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" property="DateOfSign" [viewer]="true" [decorator]="{ label: ''}"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Giấy ủy quyền số:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <editor [(object)]="item" property="AuthorizationNumber" [viewer]="true" [decorator]="{ label: ''}"></editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Giấy ĐKKD:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <a [href]="item.CertificateLetter" target="_blank">{{ item.CertificateLetter }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 col-form-label">Giấy ủy quyền:</label>
+                        <div class="col-sm-5 col-form-label">
+                            <a [href]="item.AuthorizationLetter" target="_blank">{{ item.AuthorizationLetter }}</a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

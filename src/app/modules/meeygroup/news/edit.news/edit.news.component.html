@@ -1,0 +1,82 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row" *ngIf="item && !loading">   
+                                <div class="col-sm-4">
+                                    <editor #uploadImage [(object)]="item" property="Image" [decorator]="{readonly: viewer}"></editor>
+                                </div>
+                                <div class="col-sm-8">
+                                    <editor [(object)]="item" property="CategoryId" [decorator]="{readonly: viewer}"></editor>
+                                    <editor [(object)]="item" property="PublishDate" [decorator]="{readonly: viewer}"></editor>
+                                </div>  
+                                <div class="col-sm-12">
+                                    <ul class="nav nav-tabs  nav-tabs-line">
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTab('vn')" [ngClass]="{'active':tab == 'vn'}">Tiếng Việt</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTab('en')" [ngClass]="{'active':tab == 'en'}">Tiếng Anh</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="vn" [ngClass]="{'active':tab == 'vn'}">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TitleVn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TagVn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="item" property="SummaryVn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="item" property="ContentVn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="en" [ngClass]="{'active':tab == 'en'}">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TitleEn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TagEn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="item" property="SummaryEn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="item" property="ContentEn" [decorator]="{readonly: viewer}"></editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

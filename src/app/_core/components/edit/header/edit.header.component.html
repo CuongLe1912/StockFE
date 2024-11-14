@@ -1,0 +1,51 @@
+<div wrapper>
+    <div class="kt-portlet__head kt-portlet__head--lg" [ngClass]="{'fixed': fixed}">
+        <div class="page-bar">
+            <ul class="page-breadcrumb" *ngIf="breadcrumbs && breadcrumbs.length > 0">
+                <li *ngFor="let item of breadcrumbs; let i = index;">
+                    <a [routerLink]="item.Link" *ngIf="item.Link">{{ item.Name }}</a>
+                    <span *ngIf="!item.Link">{{ item.Name }}</span>
+                    <i class="fa fa-angle-right" *ngIf="i < breadcrumbs.length - 1"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <span *ngFor="let action of actions">
+                <button class="kt-margin-l-10" [ngClass]="action.className" (click)="action.click(item)" *ngIf="!action.processButton && !action.processSecondButton && (!action.hidden || !action.hidden())">
+                    <i [ngClass]="action.icon"></i>
+                    <span class="kt-hidden-mobile">{{ action.name }}</span>
+                </button>
+            </span>
+            <ng-container [ngSwitch]="checkMoreActions()">
+                <ng-container *ngSwitchCase="true">
+                    <ng-container *ngFor="let item of moreActions">
+                        <span class="kt-margin-l-10" *ngIf="item && item.Actions && item.Actions.length > 0">
+                            <dropdown [items]="item.Actions" [text]="item.Name" [icon]="item.Icon" cssClass="btn-default"></dropdown>
+                        </span>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="false">
+                    <span class="kt-margin-l-10" *ngIf="moreActions && moreActions.Actions && moreActions.Actions.length > 0">
+                        <dropdown [items]="moreActions.Actions" [text]="moreActions.Name" [icon]="moreActions.Icon" cssClass="btn-default"></dropdown>
+                    </span>
+                </ng-container>
+            </ng-container>
+            <span *ngIf="buttonSecond && (!buttonSecond.hidden || !buttonSecond.hidden())" class="kt-margin-l-10">
+                <editor-button [label]="buttonSecond.name" [icon]="buttonSecond.icon" [className]="buttonSecond.className" (click)="buttonSecondClick()" [process]="processingSecond"></editor-button>
+            </span>
+            <span *ngIf="button && (!button.hidden || !button.hidden())" class="kt-margin-l-10">
+                <editor-button [label]="button.name" [icon]="button.icon" [className]="button.className" (click)="buttonClick()" [process]="processing"></editor-button>
+            </span>
+        </div>
+    </div>
+    <div class="kt-message" *ngIf="showErrors && errors && errors.length > 0">
+        <div class="alert alert-light alert-dismissible fade show" role="alert">
+            <div>
+                <p class="text-danger" *ngFor="let item of errors"><i class="la la-exclamation" aria-hidden="true"></i>{{ item }}</p>
+            </div>
+            <button type="button" class="close" (click)="hideMessage()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>

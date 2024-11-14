@@ -1,0 +1,29 @@
+
+<div wrapper *ngIf="item" class="edit-project-image">
+  <div class="row" *ngIf="!viewer">
+    <div class="col-sm-12">
+      <editor #uploadImages [(object)]="item" property="Images"></editor>
+    </div>
+  </div>  
+  <div class="row-search">
+    <div class="input-group-search">
+      <div class="input-group align-items-end input-search">
+        <editor [(object)]="item" property="SearchImage" (keyPressEnter)="searchImg()" (valueChange)="clear()" [decorator]="{ label:'' }"></editor>
+        <editor-button [icon]="'la la-search'" label="Tìm" [process]="processSearch" (click)="searchImg()"></editor-button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!isRenderImages">
+    <div *ngIf="images && images.length > 0">
+      <paging [loading]="loading" [sizes]="PageSizes" [paging]="Paging" (pagingChange)="pageChanged($event)"></paging>
+      <mpo-gallery-project-image [params]="{ viewer: viewer, images: images, search: Search }" (remove)="removeImg($event)" (update)="updateImg($event)" (search)="searchImg($event)" [loading]="loading"></mpo-gallery-project-image>
+    </div>    
+  </div>
+  <div class="row" *ngIf="!images || images.length < 1">
+    <div class="col-sm-12">
+      <em>{{ messageEmpty }}</em>
+    </div>
+  </div>
+  <loading *ngIf="loading"></loading>
+</div>

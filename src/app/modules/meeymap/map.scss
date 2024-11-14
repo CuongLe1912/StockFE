@@ -1,0 +1,286 @@
+a {
+    cursor: pointer;
+}
+
+.legend {
+    width: 38px;
+    border-right: 28px solid transparent;
+    transform: scaleX(-1) rotate(-90deg);
+    border-bottom: 50px solid transparent;
+}
+
+.legend-info {
+    font-size: 16px;
+    font-weight: 400;
+    color: #40403f;
+}
+
+.feature-item {
+    width: 100%;
+    margin-top: 10px;
+    &.form-group-item-title {
+        font-weight: bold;
+    }
+    .rectangle {
+        width: 80px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 4px;
+        display: inline-block;
+        border: 1px solid rgba($color: #444, $alpha: 0.15);
+    }
+}
+
+.feature-other {
+    margin-top: 10px;
+}
+
+.map-container {
+    width: 100%;
+    height: 75vh;
+    overflow: hidden;
+    padding-left: 15px;
+    border: 1px solid #dee1e5;
+    #article-map,
+    #lookup-view-map,
+    #lookup-quickview-map {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.form-group-info {
+    padding: 10px;
+    margin-top: 10px;
+    position: relative;
+    border-top: 4px solid;
+    .overlay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.15;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #444;
+    }
+}
+
+::ng-deep .map-popup {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    &:before {
+        display: none !important;
+    }
+    .icon-wrapper {
+        line-height: 1;
+        font-size: 38px;
+        position: relative;
+        color: #0b6ead !important;
+        transition: all 0.3s ease-in-out 0s;
+        &.animation:before {
+            animation: scale_icon_map 1.5s ease-in-out 0s infinite alternate;
+            animation: scale_icon_map 1.5s ease-in-out 0s infinite normal;
+        }
+        &:before {
+            left: 0;
+            top: 100%;
+            opacity: 1;
+            content: "";
+            width: 100%;
+            height: 35px;
+            display: block;
+            margin-top: -20px;
+            position: absolute;
+            border-radius: 50%;
+            border-radius: 50%;
+            background-color: #0b6ead;
+            transform: rotateX(-60deg) scale(0);
+        }
+        &:not(.has-img):after {
+            content: "\f13d";
+            font-family: "Flaticon";
+        }
+        &:hover,
+        &:focus {
+            color: #0b6ead;
+        }
+        &:hover:before,
+        &:focus:before {
+            animation: scale_icon_map 1.5s ease-in-out 0s infinite alternate;
+            animation: scale_icon_map 1.5s ease-in-out 0s infinite normal;
+        }
+    }
+    &.map-popup-selected .icon-wrapper:before {
+        animation: scale_icon_map 1.5s ease-in-out 0s infinite normal;
+        animation: scale_icon_map 1.5s ease-in-out 0s infinite normal;
+    }
+}
+
+::ng-deep .leaflet-popup {
+    margin: 0;
+    padding: 0;
+    .map-popup-item {
+        margin: 0;
+        max-width: 300px;
+        position: relative;
+        &.map-popup-feature {
+            margin-left: 15px;
+        }
+        .header {
+            color: #444;
+            padding: 10px;
+            font-weight: bold;
+            background-color: #efefef;
+            border-bottom: 1px solid #ccc;
+        }
+        .body {
+            color: #444;
+            padding: 10px 10px 5px 10px;
+            p {
+                margin: 0;
+                word-break: break-word;
+                .title {
+                    width: 80px;
+                    display: inline-block;
+                }
+            }
+        }
+        .footer {
+            padding: 0 10px 10px 10px;
+            background-color: transparent;
+            p {
+                margin: 0;
+            }
+        }
+    }
+    .leaflet-popup-tip {
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    }
+    .leaflet-popup-content-wrapper {
+        margin: 0;
+        padding: 0;
+        color: unset;
+        border-radius: unset;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
+        .leaflet-popup-content {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+@keyframes scale_icon_map {
+    from {
+        opacity: 1;
+        transform: rotateX(-60deg) scale(0);
+    }
+    to {
+        opacity: 0;
+        transform: rotateX(-60deg) scale(1.2);
+    }
+}
+
+::ng-deep .map-popup-small {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    .icon-wrapper-small {
+        width: 15px;
+        height: 15px;
+        display: flex;
+        font-size: 10px;
+        line-height: 11px;
+        position: relative;
+        border-radius: 50%;
+        text-align: center;
+        border-radius: 100%;
+        align-items: center;
+        pointer-events: auto;
+        background: #0b6ead;
+        justify-content: center;
+        border: 2px solid #fff;
+        color: #fff !important;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+        &.university {
+            width: 20px;
+            height: 20px;
+            background: #0b6ead;
+            color: #fff !important;
+        }
+        &.supermarket {
+            width: 20px;
+            height: 20px;
+            background: yellow;
+            color: #0b6ead !important;
+        }
+        &.hospital {
+            width: 20px;
+            height: 20px;
+            background: wheat;
+            color: red !important;
+        }
+        &.station {
+            width: 20px;
+            height: 20px;
+            background: #3e6990;
+            color: yellowgreen !important;
+        }
+        &.bank {
+            width: 20px;
+            height: 20px;
+            background: #621946;
+            color: #fff !important;
+        }
+        &.cho-thue {
+            background-color: red;
+            &:hover {
+                background-color: #0b6ead !important;
+            }
+        }
+        &.icon-wrapper-count {
+            width: 18px;
+            height: 18px;
+        }
+        &:hover {
+            background-color: red;
+            box-shadow: 0 2px 2px rgba(252, 1, 1, 0.8);
+        }
+    }
+}
+
+::ng-deep .leaflet-div-icon {
+    border: none !important;
+    background: transparent !important;
+}
+
+::ng-deep .leaflet-marker-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::ng-deep .leaflet-container a.leaflet-popup-close-button {
+    top: -12px;
+    right: -12px;
+    display: flex;
+    padding: 12px;
+    color: #c3c3c3;
+    align-items: center;
+    border-radius: 100%;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: rgba($color: #fff, $alpha: 1);
+    &:hover {
+        color: #43c3c3;
+        background-color: rgba($color: #fff, $alpha: 1);
+    }
+}

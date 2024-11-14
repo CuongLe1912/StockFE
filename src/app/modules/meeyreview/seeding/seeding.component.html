@@ -1,0 +1,73 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [processingSecond]="processingSecond" [showErrors]="false"></edit-header>
+    <div class="kt-portlet__body">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x" [ngClass]="{'disabled': processing || processingSecond}">
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTab('review')" [ngClass]="{'active':!tab || tab == 'review'}">
+                                                <i class="la la-pencil mr-2"></i>Viêt Review
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="selectedTab('question')" [ngClass]="{'active':tab == 'question'}">
+                                                <i class="la la-question mr-2"></i>Đặt câu hỏi
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content group-image">
+                                        <div class="tab-pane" [ngClass]="{'active':!tab || tab == 'review'}">
+                                            <div class="row mb-4">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="projectReview" property="ProjectId" [decorator]="{ index: 1 }" [readonly]="replyReviewState"></editor>
+                                                </div>
+                                            </div>
+                                            <div *ngFor="let item of arrayReviews; let i = index;" class="box-item">
+                                                <div class="index">Review {{ i + 1 }}</div>
+                                                <mrv-edit-review #editorReview [id]="id" [index]="item.index" [projectId]="projectReview.ProjectId"></mrv-edit-review>
+                                                <button class="btn btn-danger" *ngIf="item.allowDelete" (click)="removeMoreReview(i)"><i class="la la-times"></i></button>
+                                            </div>
+                                            <div class="row" *ngIf="arrayReviews.length < 10 && !replyReviewState">
+                                                <div class="col-sm-12 d-flex">
+                                                    <button class="btn btn-success" (click)="addMoreReview()">
+                                                        <i class="la la-plus mr-2"></i>
+                                                        Thêm Review
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" [ngClass]="{'active':tab == 'question'}">
+                                            <div class="row mb-4">
+                                                <div class="col-sm-12">
+                                                    <editor [(object)]="projectQuestion" property="ProjectId" [decorator]="{ index: 2 }" [readonly]="replyQuestionState"></editor>
+                                                </div>
+                                            </div>
+                                            <div *ngFor="let item of arrayQuestions; let i = index;" class="box-item">
+                                                <div class="index">Câu hỏi {{ i + 1 }}</div>
+                                                <mrv-edit-question #editorQuestion [id]="id" [index]="item.index" [projectId]="projectQuestion.ProjectId"></mrv-edit-question>
+                                                <button class="btn btn-danger" *ngIf="i > 0" (click)="removeMoreQuestion(i)"><i class="la la-times"></i></button>
+                                            </div>
+                                            <div class="row" *ngIf="arrayQuestions.length < 10 && !replyQuestionState">
+                                                <div class="col-sm-12 d-flex">
+                                                    <button class="btn btn-success" (click)="addMoreQuestion()">
+                                                        <i class="la la-plus mr-2"></i>
+                                                        Thêm Câu hỏi
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

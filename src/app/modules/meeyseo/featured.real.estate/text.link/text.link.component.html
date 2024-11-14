@@ -1,0 +1,52 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile">
+    <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false">
+    </edit-header>
+    <div>
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="col-sm-4">
+                                                <!-- <a class="kt-nav__link" >
+                                                    
+                                                    <span class="kt-nav__link-text">Số text link tối đa hiển thị trên trang <i class="fa fa-edit" (click)="renameFile(item)"></i></span>
+                                                </a> -->
+                                                <!-- <span> </span> -->
+                                                <span>Số text link tối đa hiển thị trên trang: {{maxTextLink}}
+                                                    <button class="btn btn-sm btn-warning" tooltip="Sửa" (click)="editconfig()" *ngIf="allowEdit">
+                                                        <i class="la la-pencil" style="width: 18px;height: 18px;margin-right: 0px;"></i></button></span>
+                                            </div>
+                                            <div class=" col-sm-4">
+                                                <span>Giới hạn hiển thị link Manual (Max): {{limitTextLinkManual}}</span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span>Giới hạn hiển thị link Auto (Max): {{limitTextLinkAuto}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body kt-portlet-text-link">
+                                            <div class="row">
+                                                <div class="col-sm-3 kt-structure">
+                                                    <h5>CẤU TRÚC</h5>
+                                                    <ms-structure-component #gridStructure (loaded)="loadProperties($event)"></ms-structure-component>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <h5>{{title}}</h5>
+                                                    <ms-properties-component #gridProperties (loaded)="loadStructures($event)"></ms-properties-component>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

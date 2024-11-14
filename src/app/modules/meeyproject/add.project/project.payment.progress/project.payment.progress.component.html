@@ -1,0 +1,14 @@
+<div wrapper *ngIf="item" class="edit-project-payment-progress" [ngClass]="{'readonly': isProduct}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <editor [(object)]="payment" className="non-readonly" property="PaymentProgress" [decorator]="{ readonly: viewer, popupFile: dialogPopupFileArchive }"></editor>
+                </div>
+                <div class="col-sm-12">
+                    <editor #uploadImages [(object)]="payment" property="Images" [decorator]="{ readonly: viewer, totalSize: 20, popupArchive: dialogPopupImageArchive }"></editor>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

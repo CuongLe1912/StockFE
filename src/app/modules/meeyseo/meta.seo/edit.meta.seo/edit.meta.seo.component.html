@@ -1,0 +1,93 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-meta-seo" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions"
+        [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">SỬA META SEO</h3>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="row information">
+                                                <div class="col-sm-2">
+                                                    <label class="col-form-label">ID: {{ subId }}</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label class="col-form-label">Loại: {{ typeName }}</label>
+                                                </div>
+                                                <div class="col-sm-2" *ngIf="!isShowCategory">
+                                                    <label class="col-form-label">Danh mục: {{ item.Category }}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Ngày tạo: {{ item.CreatedDate |
+                                                        datetimex }}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedDate |
+                                                        datetimex }}</label>
+                                                </div>
+                                            </div>
+                                            <div class="row information">
+                                                <div class="col-sm-6">
+                                                    <label class="col-form-label">URL: {{ item.Url }}</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Name"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaTitle"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaKeyword"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaDescription"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="CanonicalUrl"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row template">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Body content</label>
+                                                    <editor [(object)]="item" property="Template"
+                                                        [decorator]="{label: '', readonly: viewer, lookup: { emptyItem: templateDefault }}"
+                                                        (valueChange)="templateChange()"></editor>
+                                                    <editor [(object)]="item" property="Content"
+                                                        [decorator]="{ label: '',readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

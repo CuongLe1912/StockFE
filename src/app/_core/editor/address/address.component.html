@@ -1,0 +1,13 @@
+<div class="kt-input-icon" wrapper [ngClass]="{'kt-input-icon--left':decorator.icon,'kt-input-icon--right':value && decorator.allowClear}">
+    <input class="form-control"[attr.maxLength]="decorator.max" [readonly]="decorator.readonly" [ngClass]="{'is-invalid':decorator.error}" [placeholder]="decorator.placeholder" [id]="decorator.id">
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="value && decorator.allowClear && !decorator.readonly" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+    <span class="kt-maxlength" *ngIf="address">{{ address.length + '/' + decorator.max  }}</span>
+    <div class="latlng" *ngIf="lat || lng" [ngClass]="{'readonly':decorator.readonly}">
+        {{ lat + '/' + lng }}
+    </div>
+</div>

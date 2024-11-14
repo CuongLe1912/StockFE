@@ -1,0 +1,259 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile edit-tag-seo" *ngIf="item">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions"
+        [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">SỬA TAG TIN ĐĂNG</h3>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <label class="col-form-label">ID tag: {{ item.TagId }}</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label class="col-form-label">Loại tag: {{ item.TagType }}</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label class="col-form-label">Tổng tin: {{ item.Total }}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Ngày tạo: {{ item.CreatedAt |
+                                                        datetimex }}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Ngày cập nhật: {{ item.UpdatedAt |
+                                                        datetimex }}</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="TagName"
+                                                        [decorator]="{ readonly: viewer }" (blur)="tagNameBlur()"
+                                                        (valueChange)="tagNameChange()"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="Title"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaTitle"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaKeyword"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <editor [(object)]="item" property="MetaDescription"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                                <div class="col-sm-6" style="padding-top: 22px;">
+                                                    <editor [(object)]="item" property="Prioritized"
+                                                        [decorator]="{ readonly: viewer }"></editor>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Url Tag</label>
+                                                    <div class="url-tag">
+                                                        <div class="label">https://meeyland.com/tags/</div>
+                                                        <editor [(object)]="item" property="Url"
+                                                            [decorator]="{ readonly: true, label: '' }"></editor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">TAG ĐƯỢC HIỂN THỊ Ở NHỮNG TIÊU CHÍ
+                                                    LỌC SAU</h3>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Demand"
+                                                        (optionChange)="changePropertyOption($event, 'Nhu cầu', 1)"
+                                                        (clearValue)="clearValue('Nhu cầu')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="TypeOfHouse"
+                                                        (optionChange)="changePropertyOption($event, 'Loại nhà đất', 2)"
+                                                        (valueChange)="typeOfHouseChange()"
+                                                        (clearValue)="clearValue('Loại nhà đất')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Price"
+                                                        (optionChange)="changePropertyOption($event, 'Giá', 3)"
+                                                        (clearValue)="clearValue('Giá')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Area"
+                                                        (optionChange)="changePropertyOption($event, 'Diện tích', 4)"
+                                                        (clearValue)="clearValue('Diện tích')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="City"
+                                                        (optionChange)="changePropertyOption($event, 'Tỉnh/thành phố', 5)"
+                                                        (clearValue)="clearValue('Tỉnh/thành phố')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="District"
+                                                        (optionChange)="changePropertyOption($event, 'Quận/huyện', 6)"
+                                                        (clearValue)="clearValue('Quận/huyện')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Ward"
+                                                        (optionChange)="changePropertyOption($event, 'Phường/xã', 7)"
+                                                        (clearValue)="clearValue('Phường/xã')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Street"
+                                                        (optionChange)="changePropertyOption($event, 'Đường, phố', 8)"
+                                                        (clearValue)="clearValue('Đường, phố')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="LegalPaper"
+                                                        (optionChange)="changePropertyOption($event, 'Giấy tờ pháp lý', 9)"
+                                                        (clearValue)="clearValue('Giấy tờ pháp lý')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="WideRoad"
+                                                        (optionChange)="changePropertyOption($event, 'Đường rộng', 10)"
+                                                        (clearValue)="clearValue('Đường rộng')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Direction"
+                                                        (optionChange)="changePropertyOption($event, 'Hướng nhà/đất', 11)"
+                                                        (clearValue)="clearValue('Hướng nhà/đất')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Facade"
+                                                        (optionChange)="changePropertyOption($event, 'Mặt tiền', 12)"
+                                                        (clearValue)="clearValue('Mặt tiền')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Advantage"
+                                                        (optionChange)="changePropertyOption($event, 'Ưu điểm BĐS', 13)"
+                                                        (clearValue)="clearValue('Ưu điểm BĐS')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Floor"
+                                                        (optionChange)="changePropertyOption($event, 'Số tầng', 14)"
+                                                        (clearValue)="clearValue('Số tầng')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Bedroom"
+                                                        (optionChange)="changePropertyOption($event, 'Số phòng ngủ', 15)"
+                                                        (clearValue)="clearValue('Số phòng ngủ')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3" *ngIf="isTypeOfRealEstate">
+                                                    <editor [(object)]="item" property="TypeOfRealEstate"
+                                                        (optionChange)="changePropertyOption($event, 'Loại hình BĐS', 16)"
+                                                        (clearValue)="clearValue('Loại hình BĐS')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <editor [(object)]="item" property="Furniture"
+                                                        (optionChange)="changePropertyOption($event, 'Nội thất, thiết bị', 17)"
+                                                        (clearValue)="clearValue('Nội thất, thiết bị')"
+                                                        [decorator]="{ readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                                <div class="col-sm-3"
+                                                    *ngIf="fields && fields.indexOf('utilities') >= 0 && options && options['utilities']">
+                                                    <editor [(object)]="item" property="Utility"
+                                                        [decorator]="{ lookup: { items: options && options['utilities'] } }"
+                                                        (optionChange)="changePropertyOption($event, 'Tiện ích', 18)"
+                                                        (clearValue)="clearValue('Tiện ích')">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="overview" style="margin-bottom: 2rem;">
+                                                <div class="col-sm-12">
+                                                    <div class="Overview">
+                                                        <h6>Tổng quan</h6>
+                                                        <div>{{overview}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row template">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Body content</label>
+                                                    <editor [(object)]="item" property="Template"
+                                                        [decorator]="{label: '', readonly: viewer, lookup: { emptyItem: templateDefault }}"
+                                                        (valueChange)="templateChange()"></editor>
+                                                    <editor [(object)]="item" property="Content"
+                                                        [decorator]="{ label: '', readonly: viewer }">
+                                                    </editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

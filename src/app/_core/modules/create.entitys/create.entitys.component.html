@@ -1,0 +1,223 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+      <div class="kt-form kt-form--label-right">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="kt-portlet kt-portlet--tabs">
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Thông tin cơ bản
+                        </h3>
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <label class="col-sm-2 col-form-label">Đường dẫn dự án <span class="text-danger">*</span></label>
+                          <div class="col-sm-6">
+                            <editor [(object)]="item" property="FolderPath" [decorator]="{ label: '' }"></editor>                                
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <label class="col-sm-4 col-form-label">src/app/modules/</label>
+                            <div class="col-sm-6">
+                              <editor [(object)]="item" property="GroupName" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                              <label class="kt-checkbox kt-checkbox--success">
+                                <input id="checkSave" type="checkbox" [(ngModel)]="saveFolderPath">
+                                <label for="checkSave">Lưu lại đường dẫn</label>
+                                <span></span>
+                              </label>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label">Tên Module <span class="text-danger">*</span></label>
+                            <div class="col-sm-6">
+                              <editor [(object)]="item" property="ModuleName" [decorator]="{ label: '' }"></editor>                                
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                              <editor [(object)]="item" property="BaseEntity" [decorator]="{ label: '' }"></editor>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <em class="text-muted input-info">Lưu ý: Dấu cách (' ') sẽ tự chuyển đổi, Ví dụ: Module Name -> Component: 'ModuleNameComponent', import file: 'module.name.component'</em>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="kt-portlet kt-portlet--tabs">
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                      <li class="nav-item">
+                        <a class="nav-link" (click)="selectedTabInput('input')" [ngClass]="{'active':tabInput == 'input'}">
+                            <i class="la la-file-text-o"></i> Thông tin Entity
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" (click)="selectedTabInput('import')" [ngClass]="{'active':tabInput == 'import'}">
+                              <i class="la la-download"></i> Import nhanh
+                          </a>
+                      </li>
+                    </ul>                    
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <div class="tab-content">
+                  <div class="tab-pane" [ngClass]="{'active':tabInput == 'input'}">
+                    <div class="btn-tabs-right">
+                      <button class="btn btn-success" (click)="addTableEntity()">
+                        <i class="la la-plus"></i>
+                        Thêm dòng Entity
+                      </button>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="showTable">
+                        <table class="table table-bordered table-hover dataTable no-footer">
+                          <thead>
+                            <tr>
+                              <th scope="col">Property</th>
+                              <th scope="col">Label</th>
+                              <th scope="col">Type</th>
+                              <th scope="col" style="width: 10%;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let d of decorator; let i=index;">
+                              <td><editor [(object)]="decorator[i]" property="Name" [decorator]="{ label: '', index: i }"></editor></td>
+                              <td><editor [(object)]="decorator[i]" property="Label" [decorator]="{ label: '', index: i }"></editor></td>
+                              <td><editor [(object)]="decorator[i]" property="Type" [decorator]="{ label: '', index: i }"></editor></td>
+                              <td style="text-align: center;">
+                                <button class="btn btn-sm btn-danger" (click)="deleteRowEntity(d)" *ngIf="i > 0">
+                                  <i class="la la-trash"></i> Xóa
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" [ngClass]="{'active':tabInput == 'import'}">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <em class="text-muted input-info">
+                          Sao chép Entity từ C# vào để lấy thông tin, Ví dụ : public string Name {{ '{ get; set; }' }}
+                        </em>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="tabInput == 'import'">
+                        <a class="btn btn-sm btn-icon btn-icon-md btn-light code-copies" (click)="importCode()" tooltip="Import Entity">
+                          <i class="la la-download"></i>
+                        </a>
+                        <ngx-codemirror #codeImportEntity [(ngModel)]="contentImportEntity" [options]="optionsAsp"></ngx-codemirror>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
+        </div>
+        <div class="row" #preview>
+          <div class="col-sm-12">
+            <div class="kt-portlet kt-portlet--tabs">
+              <div class="kt-portlet__head">
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-success nav-tabs-line-2x">
+                      <li class="nav-item">
+                        <a class="nav-link" (click)="selectedTab('entity')" [ngClass]="{'active':tab == 'entity'}">
+                            <i class="la la-file-text-o"></i> Entity File
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" (click)="selectedTab('module')" [ngClass]="{'active':tab == 'module'}">
+                              <i class="la la-th-list"></i> Module File
+                          </a>
+                      </li>                                    
+                      <li class="nav-item">
+                        <a class="nav-link" (click)="selectedTab('component')" [ngClass]="{'active':tab == 'component'}">
+                            <i class="la la-file-code-o"></i> Component File
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+              <div class="kt-portlet__body">
+                <div class="tab-content">
+                  <div class="tab-pane" [ngClass]="{'active':tab == 'entity'}">
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="tab == 'entity'">
+                        <a class="btn btn-sm btn-icon btn-icon-md btn-light code-copies" (click)="copyCode()" tooltip="Sao chép">
+                          <i class="la la-clone"></i>
+                        </a>
+                        <ngx-codemirror #codeEditorEntity [(ngModel)]="contentEntity" [options]="options" [disabled]="true"></ngx-codemirror>                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" [ngClass]="{'active':tab == 'module'}">
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="tab == 'module'">
+                        <a class="btn btn-sm btn-icon btn-icon-md btn-light code-copies" (click)="copyModule()" tooltip="Sao chép">
+                          <i class="la la-clone"></i>
+                        </a>
+                        <ngx-codemirror #codeEditorModule [(ngModel)]="contentModule" [options]="options" [disabled]="true"></ngx-codemirror>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" [ngClass]="{'active':tab == 'component'}">
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="tab == 'component'">
+                        <a class="btn btn-sm btn-icon btn-icon-md btn-light code-copies" (click)="copyComponent()" tooltip="Sao chép">
+                          <i class="la la-clone"></i>
+                        </a>
+                        <ngx-codemirror #codeEditorComponent [(ngModel)]="contentComponent" [options]="options" [disabled]="true"></ngx-codemirror>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      <div class="kt-form" *ngIf="!item">
+          {{ message }}
+      </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

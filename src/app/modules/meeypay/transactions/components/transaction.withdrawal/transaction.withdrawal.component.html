@@ -1,0 +1,82 @@
+<div class="row" *ngIf="item">
+  <div class="col-sm-12" style="margin-bottom: 15px;">
+    <div class="row">
+      <label class="col-sm-2 col-form-label" style="margin-top: -3px;">Kiểm duyệt</label>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="actionRadio" id="approve" [(ngModel)]="action"
+                (ngModelChange)="actionChange()" value="approve">
+              <label class="form-check-label" for="approve">
+                <h5 style="padding-top: 6px;cursor: pointer;">Duyệt</h5>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="actionRadio" id="reject" [(ngModel)]="action"
+                (ngModelChange)="actionChange()" value="reject">
+              <label class="form-check-label" for="reject">
+                <h5 style="padding-top: 6px;cursor: pointer;">Từ chối</h5>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container
+    *ngIf="item?.Transaction?.PaymentMethodId == MPPaymentMethodType.BankTransfer && action == 'approve' && browsingStatus == 2">
+    <div class="col-sm-12">
+      <div class="row">
+        <label class="col-sm-10 col-form-label">Nhập mã tham chiếu tại Bank để duyệt giao dịch</label>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row">
+        <label class="col-sm-2 col-form-label">Mã tham chiếu <span class="text-danger">*</span></label>
+        <div class="col-sm-8">
+          <editor [(object)]="item" property="RevenueCode" [decorator]="{ label: '' }"></editor>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row">
+        <label class="col-sm-2 col-form-label">Số tiền thực tế chuyển vào TK <span class="text-danger">*</span></label>
+        <div class="col-sm-8">
+          <editor [(object)]="item" property="ActualPaidAmount"
+            [decorator]="{ label: '', placeholder: 'Số tiền thực tế chuyển vào TK' }" (valueChange)="changeAmount()"></editor>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="col-sm-12">
+    <div class="row"
+      *ngIf="action == 'reject' && item?.Transaction?.PaymentMethodId != MPPaymentMethodType.MeeyPayAccount">
+      <label class="col-sm-2 col-form-label">Lý do từ chối <span class="text-danger">*</span></label>
+      <div class="col-sm-8">
+        <editor [(object)]="item" property="MeeyResponseCode" [decorator]="{ label: '' }" (valueChange)="valueChange()"></editor>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-2 col-form-label">Ghi chú <span class="text-danger" *ngIf="showRequired">*</span></label>
+      <div class="col-sm-8">
+        <editor [(object)]="item" property="StaffNote" [decorator]="{ label: '', placeholder: 'Nội dung' }" (valueChange)="valueChange()"></editor>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="browsingStatus == 2">
+    <div class="row">
+      <label class="col-sm-2 col-form-label">Tệp đính kèm </label>
+      <div class="col-sm-8">
+        <editor #uploadFile [(object)]="item" property="UrlFile" [decorator]="{ label: '', readonly: viewer }"></editor>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 error" *ngIf="errorMessage">
+    <em class="text-danger"><i class="la la-exclamation" aria-hidden="true"></i> {{ errorMessage }}</em>
+  </div>
+</div>

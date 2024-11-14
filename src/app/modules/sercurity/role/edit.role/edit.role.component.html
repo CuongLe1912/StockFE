@@ -1,0 +1,74 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile" style="box-shadow: none;" *ngIf="item" [ngClass]="{'kt-popup' : popup}">
+    <edit-header  *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-form kt-form--label-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Thông tin cơ bản
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body row flex-row">
+                            <div class="col-sm-3">
+                                <editor [(object)]="item" property="Code"></editor>
+                            </div>
+                            <div class="col-sm-3">
+                                <editor [(object)]="item" property="Name"></editor>
+                            </div>
+                            <div class="col-sm-3">
+                                <editor [(object)]="item" property="OrganizationId" (valueChange)="organizationChange()"></editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="loadingPermission">
+                <loading></loading>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Phân quyền
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;" *ngIf="permissions && permissions.length > 0; else empty_content">
+                            <edit-role-permission *ngIf="items && items.length > 0; else empty_content" [items]="items" (permissionChange)="permissionChange($event)"></edit-role-permission>
+                        </div>
+                    </div>
+                </div>                
+                <div class="col-sm-7">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Danh sách nhân viên
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding-bottom: 40px;">
+                            <view-choice-user #viewChoiceUser [params]="{id: id, type: 'role', addUser: true, deleteUser: true, navigation: false, groupUser: true}"></view-choice-user>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form" *ngIf="!item">
+            {{ message }}
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>
+
+<ng-template #empty_content>
+    <p style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</p>
+</ng-template>

@@ -1,0 +1,10 @@
+<div class="loadingWapper" [ngClass]="{'overlay':overlay}">
+    <div class="blockui blockMsg blockPage">
+        <div class="blockui">
+            <span [innerHTML]="text | sanitizeHtml"></span>
+            <span>
+                <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+            </span>
+        </div>
+    </div>
+</div>

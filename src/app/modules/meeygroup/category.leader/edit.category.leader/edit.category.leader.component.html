@@ -1,0 +1,34 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="LeaderType" [decorator]="{readonly: viewer}"></editor>
+    </div>
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs  nav-tabs-line">
+            <li class="nav-item">
+                <a class="nav-link" (click)="selectedTab('vn')" [ngClass]="{'active':tab == 'vn'}">Tiếng Việt</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="selectedTab('en')" [ngClass]="{'active':tab == 'en'}">Tiếng Anh</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" id="vn" [ngClass]="{'active':tab == 'vn'}">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <editor [(object)]="item" property="NameVn" [decorator]="{readonly: viewer}"></editor>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="en" [ngClass]="{'active':tab == 'en'}">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <editor [(object)]="item" property="NameEn" [decorator]="{readonly: viewer}"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

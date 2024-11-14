@@ -1,0 +1,22 @@
+<div wrapper class="kt-portlet__head kt-portlet__head--lg" [ngClass]="{'fixed': fixed}">
+    <div class="page-bar">
+        <ul class="page-breadcrumb" *ngIf="breadcrumbs && breadcrumbs.length > 0">
+            <li *ngFor="let item of breadcrumbs; let i = index;">
+                <a [routerLink]="item.Link" *ngIf="item.Link">{{ item.Name }}</a>
+                <span *ngIf="!item.Link">{{ item.Name }}</span>
+                <i class="fa fa-angle-right" *ngIf="i < breadcrumbs.length - 1"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="kt-portlet__head-toolbar">
+        <span *ngFor="let action of actions">
+            <button class="kt-margin-l-10" [ngClass]="action.className" (click)="action.click(item)" *ngIf="!action.hidden || !action.hidden()">
+                <i [ngClass]="action.icon"></i>
+                <span class="kt-hidden-mobile">{{ action.name }}</span>
+            </button>
+        </span>
+        <span class="kt-margin-l-10" *ngIf="moreActions && moreActions.Actions && moreActions.Actions.length > 0">
+            <dropdown [items]="moreActions.Actions" [text]="moreActions.Name" [icon]="moreActions.Icon" cssClass="btn-default"></dropdown>
+        </span>
+    </div>
+</div>

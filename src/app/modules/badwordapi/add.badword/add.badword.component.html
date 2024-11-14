@@ -1,0 +1,6 @@
+<div wrapper *ngIf="item">
+    <editor [(object)]="item" property="Text"></editor>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

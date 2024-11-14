@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-12">        
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-sm-4 amount">Số tag thành công: {{ success }}</div>
+            <div class="col-sm-4 amount">Số tag không thành công: {{ error }}</div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <ms-list-alert-import-tag [items]="items"></ms-list-alert-import-tag>
+    </div>
+</div>

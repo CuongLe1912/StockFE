@@ -1,0 +1,26 @@
+<h6 class="text-center">
+  Hãy cung cấp Số điện thoại bạn dùng đăng ký MeeyId, để gắn khách hàng này vào cây hoa hồng của bạn
+</h6>
+<div class="row">
+  <label class="col-sm-3"></label>
+  <div class="col-sm-8">
+    <div class="input-group align-items-end search-user">
+      <editor [(object)]="item" property="SearchUser" (keyPressEnter)="searchUser()" (valueChange)="clearUser()" [decorator]="{ label:'' }"></editor>
+      <editor-button label="Kiểm tra" [process]="processSearch" (click)="searchUser()" [disabled]="item.SearchUser ? false : true"></editor-button>
+      <em class="text-muted input-info">(Hệ thống tự động lưu lại và sử dụng cho những lần sau)</em>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="user && user.refCode">
+  <div class="col-sm-12">
+    <label class="col-sm-3"></label>
+    <label class="col-sm-2">Họ tên:</label>
+    <label class="col-sm-6">{{ user.name }}</label>
+  </div>
+  <div class="col-sm-12">
+    <label class="col-sm-3"></label>
+    <label class="col-sm-2">Mã Ref:</label>
+    <label class="col-sm-6"><a [href]="'/admin/mafaffiliate/view?id=' + user.refCode" target="_blank">{{ user.refCode }}</a></label>
+  </div>  
+</div>
+    

@@ -1,0 +1,38 @@
+table tbody tr td {
+    vertical-align: top;
+}
+
+fieldset.fs-policy {
+    background: #f9f7f7;
+    padding-left: 15px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 5px;
+}
+
+.policy-detail-content {
+    width: 70%;
+    fieldset {
+        max-height: 208px;
+        overflow: hidden;
+    }
+    .show-policy {
+        position: absolute;
+        top: 125px;
+        right: 14px;
+        font-size: 22px;
+    }
+    .show-up {
+        top: 325px;
+    }
+}
+
+.policy-detail-content.content-active {
+    fieldset {
+        max-height: 100%;
+        overflow: unset;
+    }
+    .policy-content-table {
+        max-height: 350px; 
+        overflow: scroll;
+    }
+}

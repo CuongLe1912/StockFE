@@ -1,0 +1,12 @@
+.box-item {
+    padding: 10px;
+    padding-bottom: 0;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    .form-group {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}

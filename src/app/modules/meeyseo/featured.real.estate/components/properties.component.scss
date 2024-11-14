@@ -1,0 +1,29 @@
+::ng-deep .grid-properties {
+    .grid-content.grid-popup {
+        max-height: calc(100vh - 400px);
+        table tbody tr td {
+            &.actions {
+                width: 120px;
+                min-width: unset;
+            }
+        }
+    }
+}
+
+::ng-deep .edit-syntax {
+    .modal-body {
+        overflow: visible;
+        .absolute {
+            top: -57px;
+            left: -1px;
+            display: flex;
+            position: absolute;
+            border-radius: 4px;
+            align-items: center;
+            width: calc(100% + 2px);
+            justify-content: center;
+            height: calc(100% + 125px);
+            background-color: rgba(0, 0, 0, 0.35);
+        }
+    }
+}

@@ -1,0 +1,272 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile add-transaction" *ngIf="item">
+  <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+  <div class="kt-portlet__body" *ngIf="!loading">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body" style="padding-top: 30px;">
+              <div class="row form-viewer form-center">
+                <label class="col-sm-1 col-form-label">Khách hàng<span class="text-danger"> *</span></label>
+                <div class="col-sm-5 header-search">
+                  <editor [(object)]="item" property="SearchCustom" (keyPressEnter)="searchCustomer()" (valueChange)="clearCustomer()" [decorator]="{ label:'' }"></editor>
+                  <editor-button label="Tìm kiếm" [process]="processSearch" (click)="searchCustomer()" [disabled]="item.SearchCustom ? false : true"></editor-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 form-center" *ngIf="loadingUserInfo">
+        <div class="row">
+          <label class="col-sm-1 col-form-label"></label>
+          <div class="col-sm-8 col-form-label">
+            <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="userInfo">
+        <div class="col-sm-12">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="box-item">
+                    <h5>Thông tin khách hàng</h5>
+                    <div class="row">
+                      <div class="col-sm-12 d-flex form-margin">
+                        <label class="col-sm-3 col-form-label">Meey Pay ID</label>
+                        <label class="col-sm-9 col-form-label">{{ userInfo.id }}</label>
+                      </div>
+                      <div class="col-sm-12 d-flex form-margin">
+                        <label class="col-sm-3 col-form-label">MeeyId</label>
+                        <label class="col-sm-9 col-form-label">
+                          <a (click)="viewUser(userInfo.meeyId )" tooltip="Xem chi tiết"> {{ userInfo.meeyId }}</a>
+                        </label>
+                      </div>
+                      <div class="col-sm-12 d-flex form-margin">
+                        <label class="col-sm-3 col-form-label">Họ và tên</label>
+                        <label class="col-sm-9 col-form-label">{{ userInfo.firstName }}</label>
+                      </div>
+                      <div class="col-sm-12 d-flex form-margin">
+                        <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                        <label class="col-sm-9 col-form-label">{{ userInfo.phoneNumber }}</label>
+                      </div>
+                      <div class="col-sm-12 d-flex form-margin">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <label class="col-sm-9 col-form-label">{{ userInfo.email }}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="box-item">
+                    <h5>Thông tin ví</h5>
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="walletInfo">
+                        <mp-balance-component [params]="{items: walletInfo}" [code]="{items: code}" [viewer]="true" (selected)="selectedItem($event)"></mp-balance-component>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="box-item">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <h5>Thông tin giao dịch chung</h5>
+                        <div class="row mb-3 mr-2">
+                          <label class="col-sm-3 col-form-label">Nạp tiền</label>
+                          <div class="col-sm-9 d-flex align-items-center">
+                            <editor [(object)]="item" property="WalletypeId" [decorator]="{ label: '' }" (valueChange)="walletTypeChange()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 1 || walletType === 10">
+                          <label class="col-sm-3 col-form-label">Nguồn tiền<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="Funds" [decorator]="{ label: '', readonly: code ? true : false }" (valueChange)="changeFunds(item.Funds)"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 1 || walletType === 10">
+                          <label class="col-sm-3 col-form-label">Mã tiền thu<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9 header-search">
+                            <editor [(object)]="item" property="SearchPaymentCode" (keyPressEnter)="checkPaymentCode()" (valueChange)="changePaymentCode(item.SearchPaymentCode)" [decorator]="{ label: '', readonly: code ? true : false }">
+                            </editor>
+                            <editor-button label="Kiểm tra" [process]="processSearchPaymentCode" (click)="checkPaymentCode()" [disabled]="item.SearchPaymentCode ? false : true">
+                            </editor-button>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 1 || walletType === 10">
+                          <label class="col-sm-3 col-form-label">Nội dung<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="ContentOption" [decorator]="{ label: '' }" (valueChange)="changeContentOption(item.ContentOption)"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 1 || walletType === 10">
+                          <label class="col-sm-3 col-form-label">Ghi chú<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="StaffNote" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 3">
+                          <label class="col-sm-3 col-form-label">Nội dung<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="Description" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="walletType === 3">
+                          <label class="col-sm-3 col-form-label">Ghi chú<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="StaffNote" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <h5>&nbsp;</h5>
+                        <div class="row mb-3 ml-2">
+                          <label class="col-sm-3 col-form-label">Hóa đơn</label>
+                          <div class="col-sm-9 d-flex align-items-center">
+                            <editor [(object)]="item" property="HaveInvoice" [decorator]="{ label: '' }" (valueChange)="haveInvoiceChange()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.HaveInvoice">
+                          <label class="col-sm-3 col-form-label">Tên khách hàng<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="CustomerName" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.HaveInvoice">
+                          <label class="col-sm-3 col-form-label">Mã số thuế</label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="TaxCode" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.HaveInvoice">
+                          <label class="col-sm-3 col-form-label">Email<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="CustomerEmail" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.HaveInvoice">
+                          <label class="col-sm-3 col-form-label">Nội dung xuất HĐ<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="ContentVAT" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.HaveInvoice" style="margin-top: -15px;">
+                          <label class="col-sm-3 col-form-label">&nbsp;</label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="SaveVAT" [decorator]="{ label: '' }"></editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="box-item">
+                    <h5>Thông tin dịch vụ</h5>
+                    <div class="row">
+                      <div class="col-sm-6" *ngIf="item.WalletypeId == 1 || item.WalletypeId == 3">
+                        <div class="row mb-3 mr-2">
+                          <div class="col-sm-12">
+                            <editor [(object)]="item" property="MeeyPay" [decorator]="{ label: '' }" [decorator]="{ label: ''}"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="item.MeeyPay">
+                          <label class="col-sm-3 col-form-label">Số tiền nạp<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="Amount" [decorator]="{ label: '' }" (valueChange)="changeAmount()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 mr-2" *ngIf="item.MeeyPay">
+                          <div class="col-sm-12">
+                            <div class="row form-viewer">
+                              <label class="col-sm-3 col-form-label"></label>
+                              <div class="col-sm-9 col-form-label">
+                                <editor [(object)]="item" property="HavePromotion" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12" *ngIf="item.HavePromotion">
+                            <div class="row form-viewer">
+                              <label class="col-sm-3 col-form-label"></label>
+                              <div class="col-sm-9 d-flex form-margin">
+                                <div class="col-sm-6">
+                                  <editor [(object)]="item" property="AmountKM2" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label class="col-form-label"><em>(vnđ) Cộng TKKM 2<em *ngIf="promotionPercentage != 0" style="color: red;"> ({{ promotionPercentage }} %)</em></em></label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row mb-3">
+                          <div class="col-sm-12">
+                            <editor [(object)]="item" property="ServiceAds" [decorator]="{ label: '' }" [readonly]="item.WalletypeId == 10"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.ServiceAds">
+                          <label class="col-sm-3 col-form-label">Số tiền Ads<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="AmountAds" [decorator]="{ label: '' }" (valueChange)="changeAmountAds()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.ServiceAds">
+                          <label class="col-sm-3 col-form-label">Phí dịch vụ</label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="AmountFee" [decorator]="{ label: '' }" (valueChange)="changeAmountFee()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.ServiceAds">
+                          <label class="col-sm-3 col-form-label">Số tiền cần nạp<span class="text-danger"> *</span></label>
+                          <div class="col-sm-9">
+                            <editor [(object)]="item" property="NeedAmount" [decorator]="{ label: '' }" (valueChange)="changeNeedAmount()"></editor>
+                          </div>
+                        </div>
+                        <div class="row mb-3 ml-2" *ngIf="item.ServiceAds">
+                          <div class="col-sm-12">
+                            <div class="row form-viewer">
+                              <label class="col-sm-3 col-form-label"></label>
+                              <div class="col-sm-9 col-form-label">
+                                <editor [(object)]="item" property="HaveVAT" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12" *ngIf="item.HaveVAT">
+                            <div class="row form-viewer">
+                              <label class="col-sm-3 col-form-label">&nbsp;</label>
+                              <div class="col-sm-9">
+                                <editor [(object)]="item" property="AmountVAT" [decorator]="{ label: '' }"></editor>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kt-form" *ngIf="!item">
+      {{ message }}
+    </div>
+  </div>
+  <div class="kt-portlet__body" *ngIf="loading">
+    <loading></loading>
+  </div>
+</div>
+
+<ng-template #empty_content>
+  <td colspan="2" style="margin: 20px;">Hiện tại không có dữ liệu nào phù hợp</td>
+</ng-template>

@@ -1,0 +1,4 @@
+<button wrapper [disabled]="disabled" [ngClass]="process ? className + ' kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light disabled' : className" (click)="buttonClick()">
+    <i *ngIf="icon" [ngClass]="icon"></i>
+    <span>{{ label }}</span>
+</button>

@@ -1,0 +1,69 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile configuration-wrapper">
+    <edit-header *ngIf="breadcrumbs && actions && actions.length > 0" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing"></edit-header>
+    <div class="kt-portlet__body" *ngIf="!loading">
+        <div class="kt-portlet">
+            <div class="kt-portlet__body" *ngIf="item">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="box-item">
+                            <editor [(object)]="item" property="SyncMeeyMap"></editor>
+                            <div class="no-padding">
+                                <editor [(object)]="item" property="SyncMeeyUser"></editor>
+                                <div class="d-flex">
+                                    <label>Số lượng bản ghi</label>
+                                    <editor [(object)]="item" property="AmountMeeyUser" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div class="d-flex">
+                                    <label>Bản ghi đồng bộ</label>
+                                    <editor [(object)]="item" property="LastIdMeeyUser" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="no-padding">
+                                <editor [(object)]="item" property="SyncMeeyCrm"></editor>
+                                <div class="d-flex">
+                                    <label>Số lượng bản ghi</label>
+                                    <editor [(object)]="item" property="AmountMeeyCrm" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div class="d-flex">
+                                    <label>Bản ghi đồng bộ</label>
+                                    <editor [(object)]="item" property="LastIdMeeyCrm" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="no-padding">
+                                <editor [(object)]="item" property="SyncMeeyArticle"></editor>
+                                <div class="d-flex">
+                                    <label>Số lượng bản ghi</label>
+                                    <editor [(object)]="item" property="AmountMeeyArticle" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                                <div class="d-flex">
+                                    <label>Bản ghi đồng bộ</label>
+                                    <editor [(object)]="item" property="LastIdMeeyArticle" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                            <div class="no-padding">
+                                <editor [(object)]="item" property="SyncMeeyBank"></editor>
+                                <div class="d-flex">
+                                    <label>Bản ghi đồng bộ</label>
+                                    <editor [(object)]="item" property="LastIdMeeyBank" [viewer]="true" [decorator]="{ label: '' }"></editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="box-item">
+                            <editor [(object)]="item" property="VfoneApi"></editor>
+                            <editor [(object)]="item" property="VfoneApiKeyAccess"></editor>
+                        </div>
+                        <div class="box-item mt-3">
+                            <editor [(object)]="item" property="ZaloMiniPartnerKey"></editor>
+                            <editor [(object)]="item" property="ZaloMiniSaleEmail"></editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="loading">
+        <loading></loading>
+    </div>
+</div>

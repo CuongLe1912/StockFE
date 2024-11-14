@@ -1,0 +1,28 @@
+<div class="row reference-article" *ngIf="item">
+    <div class="col-sm-12">
+        <div class="top-header">
+            <img *ngIf="item.image" [src]="item.image" />
+            <div>
+                <p>{{ item.title }}</p>
+                <p style="font-weight: bold;">{{ item.price }}</p>
+                <p class="code">Mã tin: {{ item.code }}</p>
+            </div>
+        </div>
+        <div class="content">
+            <p>Đã đăng {{ item.references.length }} website</p>
+            <table>
+                <thead>
+                    <th>TIN ĐĂNG</th>
+                    <th>LINK</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let itm of item.references">
+                        <td>{{ itm.Domain }}</td>
+                        <td *ngIf="itm.Url"><a [href]="itm.Url" target="_blank">Link</a></td>
+                        <td *ngIf="!itm.Url">N/A</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

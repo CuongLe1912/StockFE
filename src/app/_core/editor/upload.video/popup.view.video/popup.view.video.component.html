@@ -1,0 +1,47 @@
+<div class="popup-view-video" *ngIf="items">
+  <div id="mainVideoCarousel" class="carousel mb-4 w-10/12 max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of items; let i = index;">
+      <div class="panzoom">
+        <video *ngIf="i == 0" [src]="(item.Data || item.Path) | sanitizeUrl" controls autoplay>
+          Your browser does not support the video tag.
+        </video>
+        <video *ngIf="i > 0" [src]="(item.Data || item.Path) | sanitizeUrl" controls>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div id="thumbVideoCarousel" class="carousel max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of items">
+      <video [src]="(item.Data || item.Path) | sanitizeUrl">
+        Your browser does not support the video tag.
+      </video>
+      <p>{{ item.Name }}</p>
+    </div>
+  </div>
+</div>
+<div class="popup-view-video" *ngIf="videos">
+  <div id="mainVideoCarousel" class="carousel mb-4 w-10/12 max-w-xl mx-auto">
+    <div class="carousel__slide" *ngFor="let item of videos; let i = index;">
+      <div class="panzoom" *ngIf="!youtube">
+        <video *ngIf="i == 0" [src]="item | sanitizeUrl" controls autoplay>
+          Your browser does not support the video tag.
+        </video>
+        <video *ngIf="i > 0" [src]="item | sanitizeUrl" controls>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="panzoom" *ngIf="youtube">
+        <iframe [id]="'youtube_player_' + i" width="900" height="600" [src]="item | sanitizeUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <div id="thumbVideoCarousel" class="carousel max-w-xl mx-auto" *ngIf="!youtube">
+    <div class="carousel__slide" *ngFor="let item of videos">
+      <video [src]="item | sanitizeUrl">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>

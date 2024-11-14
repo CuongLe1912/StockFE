@@ -1,0 +1,9 @@
+<div class="row" *ngIf="item && !loading">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="ProcessStatus"></editor>
+        <editor [(object)]="item" property="ProcessNote"></editor>
+    </div>
+</div>
+<div class="row row-loading" *ngIf="loading">
+    <loading></loading>
+</div>

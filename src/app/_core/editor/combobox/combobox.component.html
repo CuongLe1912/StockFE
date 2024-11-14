@@ -1,0 +1,54 @@
+<div wrapper class="kt-input" *ngIf="decorator.type == DropdownType.Normal" [ngClass]="{'kt-input-icon kt-input-icon--left':decorator.icon, 'is-invalid':decorator.error, 'kt-not-value': !value, 'loading': loading, 'readonly': decorator.readonly, 'kt-select-all': decorator.selectAll}">
+    <select class="form-control kt-select2" [id]="decorator.id"></select>
+    <span class="kt-input-icon__icon kt-input-icon__icon--left" *ngIf="decorator.icon">
+        <span><i [ngClass]="decorator.icon"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--close" *ngIf="value && decorator.allowClear && decorator.multiple && !decorator.readonly && !decorator.error" (click)="clear()">
+        <span><i class="la la-close"></i></span>
+    </span>
+    <span class="kt-input-icon__icon kt-input-icon__icon--right kt-input-loading" *ngIf="loading">
+        <span>
+            <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+        </span>
+    </span>
+    <button class="btn btn-success" *ngIf="decorator.selectAll" (click)="selectAll()">Tất cả</button>
+</div>
+<div wrapper class="kt-input" *ngIf="decorator.type != DropdownType.Normal" [ngClass]="{'kt-input-icon kt-input-icon--left':decorator.icon, 'is-invalid':decorator.error, 'kt-not-value': !value, 'loading': loading, 'readonly': decorator.readonly}" (clickOutside)="panelOpening = false">
+    <input class="form-control kt-input-text" autocomplete="off" readonly="readonly" [ngClass]="{'is-invalid':decorator.error, 'focus': panelOpening}" [placeholder]="decorator.placeholder" (click)="panelOpening = !panelOpening" [value]="valueText" />
+    <span class="select2-container" [ngClass]="{'select2-container--open':panelOpening}">
+        <span class="select2-dropdown">
+            <span class="select2-search">
+                <div class="kt-number" [ngClass]="'kt-number-between-' + decorator.id">
+                    <input class="form-control" [maxlength]="20" style="margin-right: 5px;" [id]="'from-' + decorator.id" placeholder="Từ" [(ngModel)]="valueFrom" [ngModelOptions]="{standalone: true}" (input)="inputChange('from')" (keydown)="onNumberKeypress($event)" (blur)="inputBlur('from')">
+                    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="valueFrom && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clearFrom()">
+                        <span><i class="la la-close"></i></span>
+    </span>
+</div>
+<div class="kt-number" [ngClass]="'kt-number-between-' + decorator.id">
+    <input class="form-control" [maxlength]="20" style="margin-left: 5px;" [id]="'to-' + decorator.id" placeholder="Đến" [(ngModel)]="valueTo" [ngModelOptions]="{standalone: true}" (input)="inputChange('to')" (keydown)="onNumberKeypress($event)" (blur)="inputBlur('to')">
+    <span class="kt-input-icon__icon kt-input-icon__icon--right" *ngIf="valueTo && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clearTo()">
+                        <span><i class="la la-close"></i></span>
+    </span>
+</div>
+</span>
+<span class="select2-results">
+                <ul class="select2-results__options" *ngIf="items">
+                    <li class="select2-results__option" *ngFor="let item of items" [ngClass]="{'highlighted':selectedItem && item.selected}" (click)="selectItem(item)">
+                        {{ item.label }}
+                    </li>
+                </ul>
+            </span>
+</span>
+</span>
+<span class="kt-input-icon__icon kt-input-icon__icon--close" *ngIf="value && decorator.allowClear && !decorator.readonly && !decorator.error" (click)="clearFromTo()">
+        <span><i class="la la-close"></i></span>
+</span>
+<span class="kt-input-icon__icon kt-input-icon__icon--angle" *ngIf="!decorator.readonly && !decorator.error">
+        <span><i class="la" [ngClass]="panelOpening ? 'la-angle-up' : 'la-angle-down'"></i></span>
+</span>
+<span class="kt-input-icon__icon kt-input-icon__icon--right kt-input-loading" *ngIf="loading">
+        <span>
+            <div class="kt-spinner kt-spinner--v2 kt-spinner--primary"></div>
+        </span>
+</span>
+</div>

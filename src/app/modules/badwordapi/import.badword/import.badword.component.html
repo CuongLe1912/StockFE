@@ -1,0 +1,9 @@
+
+<div wrapper *ngIf="item">
+    <a class="la la-download font-weight-bolder" href="https://s3.ap-southeast-1.amazonaws.com/admin.meeyland/meeygroup/ImportBadwordTemplate.xlsx" style="float: right;">Tải file mẫu</a> 
+    <editor #importBadword [(object)]="item" property="FileImport" [decorator]="{ label: 'Thả tệp vào đây hoặc tải lên. Định dạng hỗ trợ xls, xlsx, csv, dung lượng tối đa 2mb' }">
+    </editor>
+</div>
+<div class="kt-portlet__body" *ngIf="loading" style="height: 300px;">
+    <loading></loading>
+</div>

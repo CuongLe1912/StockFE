@@ -1,0 +1,80 @@
+<div wrapper class="customer-project-video" *ngIf="item">
+  <div class="file-body">
+    <div class="file-header">
+
+    </div>
+    <paging [loading]="loading" [sizes]="PageSizes" [paging]="Paging" (pagingChange)="pageChanged($event)"></paging>
+  </div>
+  <div class="project-video">
+    <div class="row" style="margin: 15px -10px;" *ngIf="videos">
+      <div class="col-sm-2" *ngFor="let item of videos; let i = index;">
+        <div class="video-item">
+          <div class="video" (click)="edit(item)"
+            [style.background-image]="'url(&quot;' + item?.avatar?.url + '&quot;)'">
+            <a>
+              <img class="rounded" [src]="item?.avatar?.url" style="opacity: 0;" />
+            </a>
+          </div>
+          <div class="item-content" style="padding-bottom: 5px;">
+            <div class="content-title" *ngIf="item?.title" (click)="edit(item)">
+              <span class="text-info" [title]="item.title">{{ getName(item.title) }}</span>
+            </div>
+            <div class="content-text" *ngIf="item?.project">
+              <label class="content-info" style="min-width: 90px;">Dự án:</label>
+              <label class="content-info">{{ item?.project?.tradeName ? item.project.tradeName : '--' }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Loại video:</label>
+              <label class="content-info" [ngClass]="item.typeUploadColor">{{ item?.typeUploadLabel ?
+                item.typeUploadLabel : '--' }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Dung lượng:</label>
+              <label class="content-info">{{ item?.size ? ((item.size / 1024) | numberx) + ' KB' : '--'
+                }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Người tạo:</label>
+              <label class="content-info">{{ item?.createdBy?.data?.fullname ? item.createdBy.data.fullname :
+                '--' }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Ngày tạo:</label>
+              <label class="content-info">{{ item.createdAt ? (item.createdAt | datetimex) : '--' }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">AI kiểm tra:</label>
+              <label class="content-info" [ngClass]="item.censoredColor?item.censoredColor:'text-info'">{{
+                item.censoredLabel ? item.censoredLabel : 'AI đang kiểm tra' }}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Kiểm duyệt:</label>
+              <label class="content-info" [ngClass]="item.censoredTypeColor">{{
+                item.censoredTypeLabel ? item.censoredTypeLabel : '--'}}</label>
+            </div>
+            <div class="content-text">
+              <label class="content-info">Trạng thái:</label>
+              <editor [(object)]="videos[i]" className="btn-toggle" property="isPublished" [decorator]="{ index: i }"
+                (valueChange)="item.isPublished ? publish($event, item) : unpublish(item)"
+                *ngIf="item.censoredType !== 2; else elseContent"></editor>
+              <ng-template #elseContent>
+                <label class="content-info">--</label>
+              </ng-template>
+            </div>
+          </div>
+          <div class="item-button">
+            <div class="group-control">
+              <span class="control btn-danger" (click)="remove(item)" tooltip="Xóa video"><i
+                  class="fa fa-trash"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!videos || videos.length < 1">
+      <div class="col-sm-12">
+        <em>{{ messageEmpty }}</em>
+      </div>
+    </div>
+  </div>
+</div>

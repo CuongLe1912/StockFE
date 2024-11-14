@@ -1,0 +1,82 @@
+<div class="kt-portlet kt-portlet-edit-form kt-portlet--mobile meeyshare-statistic">
+  <edit-header *ngIf="breadcrumbs" [breadcrumbs]="breadcrumbs" [actions]="actions" [processing]="processing" [showErrors]="false"></edit-header>
+  <div class="kt-portlet__body">
+    <div class="kt-form kt-form--label-right">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="kt-portlet kt-portlet--tabs">
+            <div class="kt-portlet__body" style="min-height: calc(100vh - 230px); position: relative;">
+              <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
+                <div class="navi-item" (click)="choiceReportType(MShareStatisticType.Feed)">
+                  <a class="navi-link" [ngClass]="{'active':reportType == MShareStatisticType.Feed}">
+                    <span class="navi-text font-size-lg">
+                      <span class="number">1</span> Báo cáo hoạt động đăng bài
+                    </span>
+                  </a>
+                </div>
+                <div class="navi-item" (click)="choiceReportType(MShareStatisticType.Interaction)">
+                  <a class="navi-link" [ngClass]="{'active':reportType == MShareStatisticType.Interaction}">
+                    <span class="navi-text font-size-lg">
+                      <span class="number">2</span> Báo cáo hoạt động tương tác
+                    </span>
+                  </a>
+                </div>
+                <div class="navi-item bottom" (click)="openPopupExport()">
+                  <button class="btn btn-primary">Xuất dữ liệu thô</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="kt-portlet kt-portlet--tabs" *ngIf="reportType == MShareStatisticType.Feed">
+            <div class="kt-portlet__body" style="min-height: calc(100vh - 230px);">
+              <div class="row">
+                <div class="col-sm-4">
+                  <editor [(object)]="item" property="ReportDate"></editor>
+                </div>
+                <div class="col-sm-6">
+                  <editor-button className="btn btn-primary btn-search" label="Xem báo cáo" [process]="loading" (click)="viewReport(MShareStatisticType.Feed)"></editor-button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3 class="text-center">Báo cáo số liệu hoạt động đăng bài Meey Share</h3>
+                  <p class="text-center" *ngIf="reportDate">{{ reportDate }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <grid-statistic-feed #gridFeed></grid-statistic-feed>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="kt-portlet kt-portlet--tabs" *ngIf="reportType == MShareStatisticType.Interaction">
+            <div class="kt-portlet__body" style="min-height: calc(100vh - 230px);">
+              <div class="row">
+                <div class="col-sm-4">
+                  <editor [(object)]="item" property="ReportDate"></editor>
+                </div>
+                <div class="col-sm-6">
+                  <editor-button className="btn btn-primary btn-search" label="Xem báo cáo" [process]="loading" (click)="viewReport(MShareStatisticType.Interaction)"></editor-button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3 class="text-center">Báo cáo số liệu hoạt động tương tác Meey Share</h3>
+                  <p class="text-center" *ngIf="reportDate">{{ reportDate }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <grid-statistic-interaction #gridInteraction></grid-statistic-interaction>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12">
+        <editor [(object)]="item" property="Title" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="Description" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+        <editor #uploadImage [(object)]="item" property="Image" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="TourType" [labelInline]="true" [decorator]="{readonly: true}"></editor>
+        <editor [(object)]="item" property="CategoryId" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+        <!-- <editor [(object)]="item" property="Ground" [labelInline]="true" [decorator]="{readonly: viewer}"></editor> -->
+        <div *ngIf="item.Id">
+            <editor [(object)]="item" property="Phone" [labelInline]="true" [decorator]="{readonly: true}"></editor>
+        </div>
+        <editor [(object)]="item" property="LinkTour" [labelInline]="true" [decorator]="{readonly: viewer}"></editor>
+        <editor [(object)]="item" property="Status" [labelInline]="true" [decorator]="{readonly: true}"></editor>
+        <div *ngIf="viewer != true; else notView">
+            <div class="row">
+                <div class="col-sm-10"><editor [(object)]="item" property="CreatedBy" [labelInline]="true" [decorator]="{ label: 'Người tạo', readonly: true}"></editor></div>
+                <div class="col-sm-2"><button class="btn btn-outline-primary" (click)="changeCreatedAt()">Thay đổi</button></div>
+            </div>       
+            <div class="row search-createdby form-group" *ngIf="isShowChangeCreatedAt">
+                <div class="col-sm-2 first-info" ></div>
+                <div class="col-sm-8 middle-info"><input type="text" class="form-control" placeholder="Nhập số điện thoại để tìm kiếm" [(ngModel)]="phoneSearch"></div>
+                <div class="col-sm-2">
+                    <button class="btn btn-outline-primary" (click)="findCreatedAt()" *ngIf="!loadingSearchUser">Tìm kiếm</button>
+                    <div class="spinner-border" role="status" *ngIf="loadingSearchUser"></div>
+                </div>
+            </div> 
+            <div class="row search-createdby form-group" *ngIf="isShowUserCreatedAt">
+                <div class="col-sm-2 first-info"></div>
+                <div class="col-sm-8 middle-info">
+                    <p>Họ tên: {{user.Name}}</p>
+                    <p>SĐT: {{user.Phone}}</p>
+                    <p>Email: {{user.Email}}</p>
+                </div>
+                <div class="col-sm-2"><button class="btn btn-outline-primary" (click)="confirmCreatedAt()">Xác nhận</button></div>
+            </div> 
+        </div>   
+        <ng-template #notView>
+            <editor [(object)]="item" property="CreatedBy" [labelInline]="true" [decorator]="{ label: 'Người tạo', readonly: true}"></editor>
+        </ng-template>     
+        <editor [(object)]="item" property="Censorship" [labelInline]="true" (valueChange)="changeCensorship()" [decorator]="{readonly: disabledCensorship || viewer}"></editor>
+        <div *ngIf="enableRejectReason">
+            <editor [(object)]="item" property="RejectReason" [labelInline]="true"></editor>
+        </div>        
+        
+    </div>
+</div>

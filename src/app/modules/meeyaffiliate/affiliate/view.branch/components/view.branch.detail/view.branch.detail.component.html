@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <label class="col-sm-5 col-form-label">Chu kỳ trả:</label>
+                    <label class="col-sm-7 col-form-label">Tháng {{ item.Month }}</label>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">{{ typeBranch }}:</label>
+                    <label class="col-sm-9 col-form-label">{{ branchName }}</label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <label class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <button *ngIf="allowExport" (click)="ExportExcel()" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light disabled' : processExport}" class="btn btn-success btn-sm">
+              Xuất excel
+            </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <label class="col-sm-5 col-form-label">Tổng User:</label>
+                    <label class="col-sm-7 col-form-label">{{ item.UserCommissionCount }}</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <label class="col-sm-5 col-form-label">Tổng doanh số:</label>
+                    <label class="col-sm-7 col-form-label">{{ item.F1Amount }}</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <label class="col-sm-7 col-form-label">Tổng hoa hồng thực nhận:</label>
+                    <label class="col-sm-5 col-form-label">{{ item.PayAmount }}</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <label class="col-sm-5 col-form-label">Trạng thái:</label>
+                    <label class="col-sm-7 col-form-label"><div [innerHTML]="item.Status"></div></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <maf-view-branch-detail-list *ngIf="urlGetList" [url]="urlGetList"></maf-view-branch-detail-list>
+    </div>
+</div>

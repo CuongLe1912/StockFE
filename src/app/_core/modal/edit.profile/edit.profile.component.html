@@ -1,0 +1,20 @@
+<div class="row" *ngIf="item">
+    <div class="col-sm-12 row" *ngIf="!loading">
+        <div class="col-sm-3">
+            <div style="width: 120px; margin: 0 auto;">
+                <editor #uploadAvatar [(object)]="item" property="Avatar" [decorator]="{label: ''}"></editor>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <editor [(object)]="item" property="Email" [labelInline]="true" [decorator]="{readonly: true}"></editor>
+            <editor [(object)]="item" property="FullName" [labelInline]="true"></editor>
+            <editor [(object)]="item" property="Birthday" [labelInline]="true"></editor>
+            <editor [(object)]="item" property="Phone" [labelInline]="true"></editor>
+            <editor [(object)]="item" property="ExtPhoneNumber" [labelInline]="true"></editor>
+            <editor [(object)]="item" property="RefCode" [labelInline]="true"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="loading" style="height: 200px;">
+        <loading></loading>
+    </div>
+</div>

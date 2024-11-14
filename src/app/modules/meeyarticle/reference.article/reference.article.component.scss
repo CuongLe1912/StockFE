@@ -1,0 +1,43 @@
+.reference-article {
+    .top-header {
+        gap: 15px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        p {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            word-wrap: normal;
+            text-overflow: ellipsis;
+
+            &.code {
+                opacity: 0.8;
+            }
+        }
+
+        img {
+            width: 100px;
+            max-height: 100px;
+        }
+    }
+
+    .content {
+        table {
+            width: 100%;
+            border: 1px solid #eee;
+
+            th {
+                padding: 10px;
+                background-color: #eee;
+                border: 1px solid #eee;
+            }
+
+            td {
+                padding: 10px;
+                border: 1px solid #eee;
+            }
+        }
+    }
+}

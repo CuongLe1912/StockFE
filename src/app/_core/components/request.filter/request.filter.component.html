@@ -1,0 +1,8 @@
+<div *ngIf="item">
+    <div class="row">
+        <div class="col-sm-12">
+            <editor [(object)]="item" property="Name" (valueChange)="toggleDisableButton()"></editor>
+        </div>
+    </div>
+    <div class="col-sm-12 text-danger" *ngIf="errorMessage" [innerHtml]="errorMessage"></div>
+</div>
